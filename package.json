@@ -1,0 +1,35 @@
+{
+  "name": "dankLand",
+  "version": "0.1.0",
+  "description": "DANK LAND",
+  "scripts": {
+    "dev": "next",
+    "start": "next start",
+    "build": "next build && next export",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@types/color": "^3.0.1",
+    "@zeit/next-sass": "^1.0.1",
+    "color": "^3.1.2",
+    "color-interpolate": "^1.0.5",
+    "immutable": "^4.0.0-rc.12",
+    "next": "^9.2.1",
+    "next-offline": "^5.0.0",
+    "node-sass": "^4.13.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-helmet": "^5.2.1",
+    "rebound": "^0.1.0",
+    "styled-components": "^5.0.1",
+    "three": "^0.113.2"
+  },
+  "devDependencies": {
+    "@types/node": "^13.7.1",
+    "@types/react": "^16.9.19",
+    "@types/react-helmet": "^5.0.15",
+    "@types/styled-components": "^4.4.3",
+    "jest": "^25.1.0",
+    "typescript": "^3.7.5"
+  }
+}

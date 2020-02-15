@@ -1,0 +1,1 @@
+{"ast":null,"code":"import styled from \"styled-components\";\n/**\n * Component to display for a fraction of a second\n * while the page is getting ready.\n */\n\nconst FlashScreen = styled.div`\n  background-color: white;\n  position: fixed;\n  width: 100%;\n  height: 100%;\n`;\nexport default FlashScreen;","map":null,"metadata":{},"sourceType":"module"}

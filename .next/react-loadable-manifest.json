@@ -1,0 +1,34 @@
+{
+  "../../webassembly/fluid/pkg": [
+    {
+      "id": "/tOb",
+      "name": "./webassembly/fluid/pkg/fluid.js",
+      "file": "static/chunks/26.b66af0c7a56d17819330.js",
+      "publicPath": "static/chunks/26.b66af0c7a56d17819330.js"
+    },
+    {
+      "id": "7tlc",
+      "name": "./node_modules/node-libs-browser/node_modules/util/util.js",
+      "file": "static/chunks/26.b66af0c7a56d17819330.js",
+      "publicPath": "static/chunks/26.b66af0c7a56d17819330.js"
+    },
+    {
+      "id": "FfBw",
+      "name": "./node_modules/node-libs-browser/node_modules/inherits/inherits_browser.js",
+      "file": "static/chunks/26.b66af0c7a56d17819330.js",
+      "publicPath": "static/chunks/26.b66af0c7a56d17819330.js"
+    },
+    {
+      "id": "MhiM",
+      "name": "./webassembly/fluid/pkg/fluid_bg.wasm",
+      "file": "static/chunks/26.b66af0c7a56d17819330.js",
+      "publicPath": "static/chunks/26.b66af0c7a56d17819330.js"
+    },
+    {
+      "id": "j/1Z",
+      "name": "./node_modules/node-libs-browser/node_modules/util/support/isBufferBrowser.js",
+      "file": "static/chunks/26.b66af0c7a56d17819330.js",
+      "publicPath": "static/chunks/26.b66af0c7a56d17819330.js"
+    }
+  ]
+}

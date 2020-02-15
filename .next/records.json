@@ -1,0 +1,131 @@
+{
+  "mini-css-extract-plugin node_modules/@zeit/next-css/node_modules/css-loader/index.js??ref--5-1!node_modules/sass-loader/lib/loader.js??ref--5-2!src/View/Styles/global.scss": [
+    {
+      "modules": {
+        "byIdentifier": {},
+        "usedIds": {}
+      },
+      "chunks": {
+        "byName": {
+          "mini-css-extract-plugin": 0
+        },
+        "bySource": {},
+        "usedIds": [
+          0
+        ]
+      }
+    }
+  ],
+  "mini-css-extract-plugin node_modules/@zeit/next-css/node_modules/css-loader/index.js??ref--5-1!node_modules/sass-loader/lib/loader.js??ref--5-2!src/View/Styles/TextBox.scss": [
+    {
+      "modules": {
+        "byIdentifier": {},
+        "usedIds": {}
+      },
+      "chunks": {
+        "byName": {
+          "mini-css-extract-plugin": 0
+        },
+        "bySource": {},
+        "usedIds": [
+          0
+        ]
+      }
+    }
+  ],
+  "mini-css-extract-plugin node_modules/@zeit/next-css/node_modules/css-loader/index.js??ref--5-1!node_modules/sass-loader/lib/loader.js??ref--5-2!src/View/Styles/MenuButton.scss": [
+    {
+      "modules": {
+        "byIdentifier": {},
+        "usedIds": {}
+      },
+      "chunks": {
+        "byName": {
+          "mini-css-extract-plugin": 0
+        },
+        "bySource": {},
+        "usedIds": [
+          0
+        ]
+      }
+    }
+  ],
+  "modules": {
+    "byIdentifier": {
+      "css node_modules/@zeit/next-css/node_modules/css-loader/index.js??ref--5-1!node_modules/sass-loader/lib/loader.js??ref--5-2!src/View/Styles/global.scss 0": 0,
+      "multi node_modules/next-offline/register-sw-compiled.js ./node_modules/next/dist/client/next.js": 1,
+      "css node_modules/@zeit/next-css/node_modules/css-loader/index.js??ref--5-1!node_modules/sass-loader/lib/loader.js??ref--5-2!src/View/Styles/MenuButton.scss 0": 2,
+      "css node_modules/@zeit/next-css/node_modules/css-loader/index.js??ref--5-1!node_modules/sass-loader/lib/loader.js??ref--5-2!src/View/Styles/TextBox.scss 0": 3,
+      "multi next-client-pages-loader?page=%2F_app&absolutePagePath=next%2Fdist%2Fpages%2F_app! node_modules/next/dist/client/router.js": 4
+    },
+    "usedIds": {
+      "0": 0,
+      "1": 1,
+      "2": 2,
+      "3": 3,
+      "4": 4
+    }
+  },
+  "chunks": {
+    "byName": {
+      "static/runtime/webpack.js": 0,
+      "commons": 1,
+      "framework": 2,
+      "063455039807a80182099db985951cb23c5287f5": 3,
+      "220bd07b0f03be0bb78ec99b88537e9f7bd5b58f": 4,
+      "c2515ade790a60a34d022c5d537a1501e5dd493e": 5,
+      "0bbcd0bbc27ed00ecf8e6102cf176b907db10929": 6,
+      "30230a9087b46b74590a97d65c3b54c6fae50314": 7,
+      "3a7fbfe13aa192865d28ed0de59353801c10c633": 8,
+      "8e0eeae15b615f8f37816aa01d75d4a0dd1043be": 9,
+      "styles": 10,
+      "fb7d5399": 11,
+      "static/1A4E2KcmMxwCv992qovxk/pages/404.js": 12,
+      "static/1A4E2KcmMxwCv992qovxk/pages/_app.js": 13,
+      "static/1A4E2KcmMxwCv992qovxk/pages/_error.js": 14,
+      "static/1A4E2KcmMxwCv992qovxk/pages/about.js": 15,
+      "static/1A4E2KcmMxwCv992qovxk/pages/again.js": 16,
+      "static/1A4E2KcmMxwCv992qovxk/pages/fluidExperiment.js": 17,
+      "static/1A4E2KcmMxwCv992qovxk/pages/hallway.js": 18,
+      "static/1A4E2KcmMxwCv992qovxk/pages/index.js": 19,
+      "static/1A4E2KcmMxwCv992qovxk/pages/justSomeThought.js": 20,
+      "static/1A4E2KcmMxwCv992qovxk/pages/lavaLampExperiment.js": 21,
+      "static/1A4E2KcmMxwCv992qovxk/pages/metaSphere.js": 22,
+      "static/1A4E2KcmMxwCv992qovxk/pages/perspective.js": 23,
+      "static/runtime/main.js": 24,
+      "static/runtime/polyfills.js": 25
+    },
+    "bySource": {
+      "0 node_modules/next/dist/build/webpack/loaders/next-babel-loader.js??ref--4!src/pages/about.tsx ../../webassembly/fluid/pkg": 26
+    },
+    "usedIds": [
+      0,
+      1,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      2,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
+  }
+}

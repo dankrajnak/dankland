@@ -1,0 +1,1 @@
+{"ast":null,"code":"var __jsx = React.createElement;\nimport * as React from \"react\";\nimport \"../Styles/global.scss\";\n\nconst Layout = props => __jsx(\"div\", null, props.children);\n\nexport default Layout;","map":null,"metadata":{},"sourceType":"module"}
