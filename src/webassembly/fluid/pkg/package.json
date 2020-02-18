@@ -1,0 +1,15 @@
+{
+  "name": "fluid",
+  "collaborators": [
+    "danielkrajnak <dan.krajnak@gmail.com>"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "fluid_bg.wasm",
+    "fluid.js",
+    "fluid.d.ts"
+  ],
+  "module": "fluid.js",
+  "types": "fluid.d.ts",
+  "sideEffects": false
+}
