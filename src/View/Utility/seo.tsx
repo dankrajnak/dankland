@@ -17,7 +17,10 @@ interface Props {
 }
 
 const SEO = (props: Props) => {
-  console.log(props);
+  if (!props) {
+    console.log("SOMETHING ELSE");
+    console.log("NOTHING");
+  }
   return null;
   // return (
   //   <Helmet

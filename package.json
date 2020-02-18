@@ -2,6 +2,7 @@
   "name": "dankLand",
   "version": "0.1.0",
   "description": "DANK LAND",
+  "license": "MIT",
   "scripts": {
     "dev": "next",
     "start": "next start",
@@ -25,11 +26,19 @@
     "three": "^0.113.2"
   },
   "devDependencies": {
+    "@types/enzyme": "^3.10.5",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@types/jest": "^25.1.2",
     "@types/node": "^13.7.1",
     "@types/react": "^16.9.19",
     "@types/react-helmet": "^5.0.15",
     "@types/styled-components": "^4.4.3",
+    "babel-jest": "^25.1.0",
+    "babel-preset-next": "^1.2.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
     "jest": "^25.1.0",
+    "ts-jest": "^25.2.0",
     "typescript": "^3.7.5"
   }
 }
