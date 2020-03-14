@@ -15,6 +15,8 @@
     "@zeit/next-sass": "^1.0.1",
     "color": "^3.1.2",
     "color-interpolate": "^1.0.5",
+    "git-branch-is": "^3.1.0",
+    "husky": "^4.2.3",
     "immutable": "^4.0.0-rc.12",
     "next": "^9.3.0",
     "next-offline": "^5.0.0",
@@ -41,5 +43,10 @@
     "jest": "^25.1.0",
     "ts-jest": "^25.2.1",
     "typescript": "^3.8.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "if yarn git-branch-is master; then yarn run type-check && yarn test; fi"
+    }
   }
 }
