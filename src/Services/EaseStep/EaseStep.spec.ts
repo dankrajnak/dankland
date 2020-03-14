@@ -12,10 +12,6 @@ test("0 period moves items together", () => {
   }
 });
 
-test("Intentionally fail", () => {
-  expect(true).toBe(false);
-});
-
 test("1 period moves one after the other", () => {
   const numSteps = 4;
   const period = 1;
