@@ -1,5 +1,5 @@
 {
-  "name": "dankLand",
+  "name": "dank-land",
   "version": "0.1.0",
   "description": "DANK LAND",
   "license": "MIT",
@@ -7,6 +7,7 @@
     "dev": "next",
     "start": "next start",
     "build": "next build && next export",
+    "now-build": "yarn test",
     "test": "jest"
   },
   "dependencies": {
