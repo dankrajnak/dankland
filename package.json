@@ -7,7 +7,6 @@
     "dev": "next",
     "start": "next start",
     "build": "next build && next export",
-    "now-build": "yarn test && yarn build",
     "test": "jest"
   },
   "dependencies": {
