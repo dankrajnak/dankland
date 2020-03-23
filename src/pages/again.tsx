@@ -62,7 +62,7 @@ const IndexPage = (): React.ReactNode => {
   );
   return (
     <MenuLayout color={currentPage === 0 ? "white" : "black"}>
-      <SEO title="Home" keywords={["daniel", "krajnak", "portfolio"]} />
+      <SEO title="Home" />
       {currentPage === 0 && (
         <Fader visible={currentPage === 0}>
           <TitleHolder>

@@ -29,7 +29,6 @@ const About = () => {
       })
       .catch(console.error);
   }, []);
-  console.log(greet);
   return (
     <MenuLayout color="black">
       <SEO title="About" />

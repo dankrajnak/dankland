@@ -1,12 +1,17 @@
-/**
- * SEO component that queries for data with
- *  Gatsby's useStaticQuery React hook
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
-
 import * as React from "react";
 import { Helmet } from "react-helmet";
+
+const siteTitle = "Dank Land";
+const metaDescription = "Where this one guy puts stuff he codes";
+const defaultKeywords = [
+  "art",
+  "dank",
+  "land",
+  "design",
+  "portfolio",
+  "Daniel",
+  "Krajnak",
+];
 
 interface Props {
   description?: string;
@@ -16,64 +21,61 @@ interface Props {
   title: string;
 }
 
-const SEO = (props: Props) => {
-  if (!props) {
-    console.log("SOMETHING ELSE");
-    console.log("NOTHING");
-  }
-  return null;
-  // return (
-  //   <Helmet
-  //     htmlAttributes={{
-  //       lang,
-  //     }}
-  //     title={title}
-  //     titleTemplate={`%s | ${site.siteMetadata.title}`}
-  //     meta={[
-  //       {
-  //         name: `description`,
-  //         content: metaDescription,
-  //       },
-  //       {
-  //         property: `og:title`,
-  //         content: title,
-  //       },
-  //       {
-  //         property: `og:description`,
-  //         content: metaDescription,
-  //       },
-  //       {
-  //         property: `og:type`,
-  //         content: `website`,
-  //       },
-  //       {
-  //         name: `twitter:card`,
-  //         content: `summary`,
-  //       },
-  //       {
-  //         name: `twitter:creator`,
-  //         content: site.siteMetadata.author,
-  //       },
-  //       {
-  //         name: `twitter:title`,
-  //         content: title,
-  //       },
-  //       {
-  //         name: `twitter:description`,
-  //         content: metaDescription,
-  //       },
-  //     ]
-  //       .concat(
-  //         keywords.length > 0
-  //           ? {
-  //               name: `keywords`,
-  //               content: keywords.join(`, `),
-  //             }
-  //           : []
-  //       )
-  //       .concat(meta)}
-  //   />
-  // );
+const SEO = ({
+  description = metaDescription,
+  lang = "en",
+  meta = [],
+  keywords = defaultKeywords,
+  title,
+}: Props) => {
+  return (
+    <Helmet
+      htmlAttributes={{
+        lang,
+      }}
+      title={title}
+      titleTemplate={`%s | ${siteTitle}`}
+      meta={[
+        {
+          name: `description`,
+          content: metaDescription,
+        },
+        {
+          property: `og:title`,
+          content: title,
+        },
+        {
+          property: `og:description`,
+          content: description,
+        },
+        {
+          property: `og:type`,
+          content: `website`,
+        },
+        {
+          name: `twitter:card`,
+          content: `summary`,
+        },
+        {
+          name: `twitter:title`,
+          content: title,
+        },
+        {
+          name: `twitter:description`,
+          content: metaDescription,
+        },
+      ]
+        .concat(
+          keywords.length > 0
+            ? {
+                name: `keywords`,
+                content: keywords.join(`, `),
+              }
+            : []
+        )
+        .concat(meta)}
+    />
+  );
 };
 
 export default SEO;
