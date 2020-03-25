@@ -21,6 +21,11 @@ interface Props {
   title: string;
 }
 
+// Even though nextJS has its own head component.  It has some drawbacks.
+// Namely, you can't specify a language attribute on the html element
+// and it seems like there may be problems with the upcoming concurrent mode.
+// I'm going to keep this in react-helmet for now.
+
 const SEO = ({
   description = metaDescription,
   lang = "en",
