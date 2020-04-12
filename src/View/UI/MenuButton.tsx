@@ -1,8 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
 import Link from "next/link";
-import useSafeLocation from "../Hooks/useSafeLocation";
-import "../Styles/MenuButton.scss";
 
 const MenuContainer = styled.div<{ show: boolean; color: string }>`
   position: fixed;
@@ -25,11 +23,7 @@ interface ButtonProps {
 
 const Button = ({ color = "white", fade = false }: ButtonProps) => {
   const [showing, setShowing] = React.useState(true);
-  const [safeLocation] = useSafeLocation();
-  let prevPath = null;
-  if (safeLocation) {
-    prevPath = safeLocation.pathname;
-  }
+
   React.useEffect(() => {
     if (fade) {
       const timeout = setTimeout(() => setShowing(false), 2000);

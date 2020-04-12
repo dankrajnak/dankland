@@ -1,7 +1,6 @@
 import * as React from "react";
 import MenuButton, { PossibleMenuColors } from "../UI/MenuButton";
 import Layout from "./Layout";
-import "../Styles/global.scss";
 
 interface Props {
   color?: PossibleMenuColors;

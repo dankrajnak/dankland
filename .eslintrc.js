@@ -21,6 +21,7 @@ module.exports = {
     "typescript/no-unused-expression": 0,
     "@typescript-eslint/ban-ts-ignore": 0,
     "@typescript-eslint/no-empty-function": 0,
-    "@typescript-eslint/no-explicit-any": 0
+    "@typescript-eslint/no-explicit-any": 0,
+    "jsx-a11y/anchor-is-valid": 0
   }
 }

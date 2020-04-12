@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Vector2d from "../../../Domain/Vector/Vector2d";
-import "../../Styles/TextBox.scss";
 
 const TypeBoxContainer = styled.div<{
   pos: Vector2d;

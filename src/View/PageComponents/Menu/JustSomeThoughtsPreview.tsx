@@ -1,7 +1,6 @@
 import * as React from "react";
 import useTypeWriter from "../../Hooks/useTypeWriter/useTypeWriter";
 import styled from "styled-components";
-import "../../Styles/TextBox.scss";
 
 const Container = styled.div`
   color: black;

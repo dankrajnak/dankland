@@ -1,7 +1,7 @@
 // next.config.js
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const withOffline = require("next-offline");
-const withSass = require("@zeit/next-sass");
 
 const nextConfig = {};
 
-module.exports = withOffline(withSass(nextConfig));
+module.exports = withOffline(nextConfig);
