@@ -4,7 +4,6 @@ import Vector2d from "../Domain/Vector/Vector2d";
 import useFullScreen from "../View/Hooks/useFullScreen";
 import Action from "../Domain/Action/Action";
 import TypeBox from "../View/PageComponents/JustSomeThought/TypeBox";
-import LongText from "../View/PageComponents/JustSomeThought/LongText";
 import SEO from "../View/Utility/seo";
 
 const TheThoughts: string[] = [
@@ -62,7 +61,7 @@ const reducer = (
       ) {
         return state;
       }
-      if (state.elements.find(elm => elm.key === action.payload.key)) {
+      if (state.elements.find((elm) => elm.key === action.payload.key)) {
         throw new Error(`Element with key ${action.payload.key} already added`);
       }
       return {
@@ -73,7 +72,7 @@ const reducer = (
     case "REMOVE_ELEMENT":
       return {
         ...state,
-        elements: state.elements.filter(elm => elm.key !== action.payload),
+        elements: state.elements.filter((elm) => elm.key !== action.payload),
       };
     case "SET_TIMEOUT":
       if (action.payload < 0) {
@@ -86,7 +85,6 @@ const reducer = (
         timeOut: action.payload,
       };
     case "NUDGE_MAX_ELEMENTS":
-      console.log("New max elements", state.maxElements + action.payload);
       return {
         ...state,
         maxElements: Math.max(0, state.maxElements + action.payload),
@@ -104,7 +102,6 @@ const JustSomeThoughts = () => {
     nextKey: 0,
     timeOut: 2000,
   });
-  const [showLongText, setShowLongText] = React.useState(false);
   const [width, height, flash] = useFullScreen();
   const maxElementsTimeout = React.useRef(20);
 
@@ -170,15 +167,6 @@ const JustSomeThoughts = () => {
     width,
   ]);
 
-  React.useEffect(() => {
-    const timeout = setTimeout(() => {
-      setShowLongText(true);
-    }, 25000);
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, []);
-
   if (flash) {
     return flash;
   }
@@ -189,8 +177,7 @@ const JustSomeThoughts = () => {
         title="Just Some Thought"
         keywords={["poetry", "new media", "thought"]}
       />
-      {showLongText && <LongText />}
-      {state.elements.map(elm => elm.component)}
+      {state.elements.map((elm) => elm.component)}
     </MenuLayout>
   );
 };
