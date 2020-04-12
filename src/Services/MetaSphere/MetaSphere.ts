@@ -65,7 +65,7 @@ export default class MetaSphere {
     ctx.fillRect(0, 0, this._width, this._height);
 
     // Draw each of the dots.
-    this._dots.forEach(dot => {
+    this._dots.forEach((dot) => {
       // Figure out the color of the dot.
       const color = Color.hsl(
         Math.sqrt(

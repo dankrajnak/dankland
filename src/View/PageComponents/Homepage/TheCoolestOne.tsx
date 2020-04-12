@@ -19,7 +19,7 @@ const renderPendulums = (
   info: CanvasInfo
 ) => {
   ctx.clearRect(0, 0, info.width, info.height);
-  pendulums = pendulums.map(p => ({
+  pendulums = pendulums.map((p) => ({
     ...p,
     x1: p.x1 + info.width / 2,
     y1: p.y1 + info.height / 2,
@@ -27,7 +27,7 @@ const renderPendulums = (
     y2: p.y2 + info.height / 2,
   }));
 
-  pendulums.forEach(p => {
+  pendulums.forEach((p) => {
     ctx.beginPath();
     ctx.strokeStyle = "#AAA";
     ctx.ellipse(p.x2, p.y2, 1, 1, 0, 0, Math.PI * 2);

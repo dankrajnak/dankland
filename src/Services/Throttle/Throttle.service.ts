@@ -7,7 +7,7 @@
  */
 export default function thottle(func: Function, time: number) {
   let cooledDown = true;
-  return function(...args: []) {
+  return function (...args: []) {
     if (cooledDown) {
       func(...args);
       cooledDown = false;

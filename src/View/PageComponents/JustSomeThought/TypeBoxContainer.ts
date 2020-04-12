@@ -9,10 +9,10 @@ const TypeBoxContainer = styled.div<{
 }>`
   font-size: 1rem;
   position: absolute;
-  width: ${props => props.width}px;
-  top: ${props => props.pos.y}px;
-  left: ${props => props.pos.x}px;
-  color: ${props => props.color || "black"};
+  width: ${(props) => props.width}px;
+  top: ${(props) => props.pos.y}px;
+  left: ${(props) => props.pos.x}px;
+  color: ${(props) => props.color || "black"};
 `;
 
 export default TypeBoxContainer;

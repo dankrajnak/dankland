@@ -12,4 +12,7 @@ out
 yarn-debug.log*
 yarn-error.log*
 
+# eslint cache
+.eslintcache
+
 .DS_Store

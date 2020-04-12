@@ -33,7 +33,7 @@ type StepEaserType = (
 const stepEaser: StepEaserType = (
   numStages,
   period = 1,
-  easeFunction = x => x
+  easeFunction = (x) => x
 ) => {
   // Figure out when the last stage will go and add one to it.
   const length = (numStages - 1) * period + 1;

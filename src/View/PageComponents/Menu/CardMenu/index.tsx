@@ -6,7 +6,7 @@ import useFullScreen from "../../../Hooks/useFullScreen";
 import useScrollAmount from "../../../Hooks/useScrollAmount";
 import CardDeck from "./CardDeck/CardDeck";
 
-const ScrollMessage = styled.div.attrs<{ opacity: number }>(props => ({
+const ScrollMessage = styled.div.attrs<{ opacity: number }>((props) => ({
   style: { opacity: props.opacity },
 }))`
   position: fixed;
@@ -43,7 +43,7 @@ const CardMenu: Menu = ({ routeProps, cards }) => {
 
   const cardsWithDimensions = React.useMemo(
     () =>
-      cards.map(card => ({
+      cards.map((card) => ({
         ...card,
         background: <card.background width={cardWidth} height={cardHeight} />,
       })),
@@ -56,7 +56,7 @@ const CardMenu: Menu = ({ routeProps, cards }) => {
       routeProps.location.state.prevPath
     ) {
       const prevLocation = routeProps.location.state.prevPath;
-      const index = cards.findIndex(card => card.link === prevLocation);
+      const index = cards.findIndex((card) => card.link === prevLocation);
       return index === -1 ? null : index;
     }
     return null;

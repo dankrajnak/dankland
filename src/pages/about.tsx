@@ -23,7 +23,7 @@ const About = () => {
 
   React.useEffect(() => {
     import(`../webassembly/fluid/pkg`)
-      .then(module => {
+      .then((module) => {
         console.log("LOADED MODULE");
         greet.current = module.greet;
       })

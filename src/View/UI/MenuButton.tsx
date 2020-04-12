@@ -9,7 +9,7 @@ const MenuContainer = styled.div<{ show: boolean; color: string }>`
   top: 20px;
   right: 20px;
   z-index: 500;
-  opacity: ${props => (props.show ? 1 : 0.05)};
+  opacity: ${(props) => (props.show ? 1 : 0.05)};
   transition: opacity 0.75s ease-in-out;
   &:hover {
     opacity: 1 !important;

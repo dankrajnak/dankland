@@ -37,10 +37,10 @@ const IndexPage = (): React.ReactNode => {
   const [width, height] = useFullScreen();
   const [currentPage, setCurrentPage] = React.useState(0);
   const incrementPage = () =>
-    setCurrentPage(page => Math.min(page + 1, NUM_PAGES - 1));
-  const decrementPage = () => setCurrentPage(page => Math.max(page - 1, 0));
+    setCurrentPage((page) => Math.min(page + 1, NUM_PAGES - 1));
+  const decrementPage = () => setCurrentPage((page) => Math.max(page - 1, 0));
 
-  useScrollThreshold(val => {
+  useScrollThreshold((val) => {
     if (val > 0) {
       incrementPage();
     } else {

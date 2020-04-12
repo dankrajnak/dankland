@@ -18,7 +18,7 @@ class SpatialHashMap<T> {
   }
 
   clear() {
-    this.grid.forEach(cell => {
+    this.grid.forEach((cell) => {
       cell.splice(0);
     });
   }

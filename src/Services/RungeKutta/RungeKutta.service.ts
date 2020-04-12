@@ -16,12 +16,12 @@ export type RungeKuttaType<K> = (
 ) => (x: Vector<K>, h: number) => Vector<K>;
 
 const multV = (vector: Vector<any>, n: number): Vector<any> =>
-  vector.map(value => value * n);
+  vector.map((value) => value * n);
 
 const vplusV = (vector: Vector<any>, vectorb: Vector<any>): Vector<any> =>
   vector.map((x, i) => x + (vectorb.get(i) || 0));
 
-export const RungeKutta: RungeKuttaType<any> = f => (x, h) => {
+export const RungeKutta: RungeKuttaType<any> = (f) => (x, h) => {
   const a: Vector<any> = f(x);
   const b: Vector<any> = f(vplusV(x, multV(a, h / 2)));
   const c: Vector<any> = f(vplusV(x, multV(b, h / 2)));

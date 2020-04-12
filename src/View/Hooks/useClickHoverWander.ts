@@ -71,7 +71,7 @@ const useClickHoverWander = (
     };
 
     xSpring.current.addListener({
-      onSpringUpdate: spring => {
+      onSpringUpdate: (spring) => {
         if (!ySpring.current) {
           return;
         }
@@ -89,7 +89,7 @@ const useClickHoverWander = (
       },
     });
     ySpring.current.addListener({
-      onSpringUpdate: spring => {
+      onSpringUpdate: (spring) => {
         if (!xSpring.current) {
           return;
         }

@@ -10,7 +10,7 @@ const useMousePosition = (
   domElement: {
     current: EventTarget | undefined | null;
   },
-  absolute: boolean = false
+  absolute = false
 ): (() => [number, number]) => {
   const mousePosition = useRef<[number, number]>([0, 0]);
   useEffect(() => {

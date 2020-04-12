@@ -4,7 +4,7 @@ const useDynamicLoad = (importPromise: Promise<any>) => {
   const [loaded, setLoaded] = useState(false);
   const [module, setModule] = useState(null);
   useEffect(() => {
-    importPromise.then(mod => {
+    importPromise.then((mod) => {
       setModule(mod);
       setLoaded(true);
     });

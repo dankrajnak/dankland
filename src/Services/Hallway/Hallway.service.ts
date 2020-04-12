@@ -12,7 +12,7 @@ function render(
   camera: THREE.Camera
 ) {
   let time = performance.now() * 0.001;
-  pointLights.forEach(light => {
+  pointLights.forEach((light) => {
     light.position.x = Math.sin(time * 0.6) * 9;
     light.position.y = Math.sin(time * 0.7) * 9 + 8;
     light.position.z = light.position.z * 1.002 - 0.01;
@@ -21,17 +21,19 @@ function render(
     time += 100;
   });
   if (pointLights[0] && pointLights[0].position.z < -1000) {
-    //@ts-ignore
-    scene.remove(pointLights.shift());
+    const removedPointLight = pointLights.shift();
+    if (removedPointLight) {
+      scene.remove(removedPointLight);
+    }
   }
   renderer.render(scene, camera);
 }
 
 const generateTexture = () => {
-  let c = document.createElement("canvas");
+  const c = document.createElement("canvas");
   c.width = 2;
   c.height = 2;
-  var context = c.getContext("2d");
+  const context = c.getContext("2d");
   if (context) {
     context.fillStyle = "white";
     context.fillRect(0, 1, 2, 1);
@@ -90,12 +92,10 @@ const createLight = (color: number): THREE.PointLight => {
   pointLight.add(sphere);
   // custom distance material
 
-  var distanceMaterial = new THREE.MeshDistanceMaterial({
-    // @ts-ignore
+  const distanceMaterial = new THREE.MeshDistanceMaterial({
     alphaMap: wrapperMaterial.alphaMap,
     alphaTest: wrapperMaterial.alphaTest,
   });
-  // @ts-ignore
   sphere.customDistanceMaterial = distanceMaterial;
   return pointLight;
 };
@@ -112,20 +112,20 @@ export function start(container: HTMLDivElement) {
   scene.add(new THREE.AmbientLight(0x111122));
 
   const pointLights: THREE.PointLight[] = [];
-  [0xee6666, 0x333388].forEach(color => {
+  [0xee6666, 0x333388].forEach((color) => {
     const newLight = createLight(color);
     pointLights.push(newLight);
     scene.add(newLight);
   });
 
-  var geometry = new THREE.BoxBufferGeometry(30, 30, 1000);
-  var material = new THREE.MeshPhongMaterial({
+  const geometry = new THREE.BoxBufferGeometry(30, 30, 1000);
+  const material = new THREE.MeshPhongMaterial({
     color: 0xa0adaf,
     shininess: 10,
     specular: 0x111111,
     side: THREE.BackSide,
   });
-  var mesh = new THREE.Mesh(geometry, material);
+  const mesh = new THREE.Mesh(geometry, material);
   mesh.position.y = 10;
   mesh.receiveShadow = true;
   scene.add(mesh);
@@ -144,7 +144,7 @@ export function start(container: HTMLDivElement) {
     pointLights.push(newLight);
     scene.add(newLight);
   });
-  window.addEventListener("mousemove", event => {
+  window.addEventListener("mousemove", (event) => {
     camera.position.x = (1 - event.clientX / window.innerWidth) * 20 - 10;
     camera.position.y = (event.clientY / window.innerHeight) * 20;
     camera.lookAt(0, 10, -30);

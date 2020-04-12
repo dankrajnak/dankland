@@ -9,7 +9,7 @@ import {
 import React from "react";
 import { mount } from "enzyme";
 
-const createState = (text: string = ""): State => ({
+const createState = (text = ""): State => ({
   isWaiting: false,
   sequence: [],
   currentValue: text,
@@ -34,7 +34,7 @@ test("Reducer deletes all characters with DELETE_ALL action", () => {
 
   expect(sequenceAfterDelete.length).toBe(testText.length);
 
-  expect(sequenceAfterDelete.map(node => node.text)).toStrictEqual([
+  expect(sequenceAfterDelete.map((node) => node.text)).toStrictEqual([
     "Tes",
     "Te",
     "T",

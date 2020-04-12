@@ -184,7 +184,7 @@ export const reducer = (
         // I.E. "123" -> ["12", "1", ""]
         .reduce((sum, char) => [sum[0] + char].concat(sum), [""])
         // Deletes take 10 miliseconds (this value is not configurable yet.)
-        .map(text => ({ text, delay: 10 }));
+        .map((text) => ({ text, delay: 10 }));
       return {
         ...state,
         sequence: newSequence,
@@ -240,7 +240,7 @@ type useTypeWriterReturn = [
  * @param initialText - the value of text will start with this value
  * @returns [currentValueOfText, setText, isIdle]
  */
-const useTypeWriter = (initialText: string = ""): useTypeWriterReturn => {
+const useTypeWriter = (initialText = ""): useTypeWriterReturn => {
   const [state, dispatch] = React.useReducer(reducer, {
     currentValue: initialText,
     sequence: [],

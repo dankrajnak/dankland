@@ -21,12 +21,12 @@ interface Props {
   scrollToCard?: number | null;
 }
 const CardDeckHolder = styled.div<{ height: number }>`
-  height: ${props => props.height}px;
+  height: ${(props) => props.height}px;
   width: 100%;
 `;
 
 const CardHolder = styled.div.attrs<{ dx: number; dy: number; order: number }>(
-  props => ({
+  (props) => ({
     style: {
       transform: `translate(${props.dx}px, ${props.dy}px)`,
       zIndex: 2000 - props.order,
@@ -71,11 +71,12 @@ const CardDeck = (props: Props) => {
   // Memoize stepEaser to only generate range and getPosition when the cards length changes.
   const [getPosition, getEaseStart] = React.useMemo(
     () =>
-      mappedStepEaser(0, scrollLength, cardPositionStart, cardPositionEnd)(
-        props.cards.length - 1,
-        PERIOD,
-        EASING_FUNCTION
-      ),
+      mappedStepEaser(
+        0,
+        scrollLength,
+        cardPositionStart,
+        cardPositionEnd
+      )(props.cards.length - 1, PERIOD, EASING_FUNCTION),
     [cardPositionEnd, cardPositionStart, props.cards.length, scrollLength]
   );
 

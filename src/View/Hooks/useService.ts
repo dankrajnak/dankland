@@ -82,10 +82,10 @@ const useService = <T>(
   React.useEffect(() => {
     dispatch({ type: "START_FETCH", payload: null });
     servicePromise
-      .then(data => {
+      .then((data) => {
         dispatch({ type: "GOT_DATA", payload: data });
       })
-      .catch(error => {
+      .catch((error) => {
         dispatch({ type: "ERROR", payload: getErrorMessage(error) });
       });
   }, [servicePromise]);

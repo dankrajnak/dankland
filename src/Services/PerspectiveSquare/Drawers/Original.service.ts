@@ -70,7 +70,7 @@ export default class OriginalPerspectiveSquareDrawer
     this._ctx.beginPath();
     const lastPoint = points[points.length - 1];
     this._ctx.moveTo(lastPoint.x, lastPoint.y);
-    points.forEach(point => this._ctx.lineTo(point.x, point.y));
+    points.forEach((point) => this._ctx.lineTo(point.x, point.y));
     this._ctx.stroke();
     this._ctx.closePath();
   }

@@ -60,7 +60,7 @@ export default React.memo(function DoublePendulums(props: Props) {
   let pendulums = props.pendulumsInitialState;
   const drawPendulums = (context: CanvasRenderingContext2D) => {
     props.renderPendulums(
-      pendulums.map(pendulum => getPendulumCoordinates(pendulum)),
+      pendulums.map((pendulum) => getPendulumCoordinates(pendulum)),
       context,
       { width: props.width, height: props.height }
     );

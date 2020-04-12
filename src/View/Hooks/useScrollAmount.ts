@@ -7,7 +7,7 @@ import useSafeWindow from "./useSafeWindow";
  * or horizontal direction.
  * @param {boolean} [vertical=true]
  */
-const useScrollAmount = (vertical: boolean = true): number => {
+const useScrollAmount = (vertical = true): number => {
   const [window] = useSafeWindow();
   const [scrollAmount, setScrollAmount] = React.useState(0);
   React.useEffect(() => {

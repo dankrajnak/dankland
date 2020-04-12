@@ -32,55 +32,53 @@ const SEO = ({
   meta = [],
   keywords = defaultKeywords,
   title,
-}: Props) => {
-  return (
-    <Helmet
-      htmlAttributes={{
-        lang,
-      }}
-      title={title}
-      titleTemplate={`%s | ${siteTitle}`}
-      meta={[
-        {
-          name: `description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:title`,
-          content: title,
-        },
-        {
-          property: `og:description`,
-          content: description,
-        },
-        {
-          property: `og:type`,
-          content: `website`,
-        },
-        {
-          name: `twitter:card`,
-          content: `summary`,
-        },
-        {
-          name: `twitter:title`,
-          content: title,
-        },
-        {
-          name: `twitter:description`,
-          content: metaDescription,
-        },
-      ]
-        .concat(
-          keywords.length > 0
-            ? {
-                name: `keywords`,
-                content: keywords.join(`, `),
-              }
-            : []
-        )
-        .concat(meta)}
-    />
-  );
-};
+}: Props) => (
+  <Helmet
+    htmlAttributes={{
+      lang,
+    }}
+    title={title}
+    titleTemplate={`%s | ${siteTitle}`}
+    meta={[
+      {
+        name: `description`,
+        content: metaDescription,
+      },
+      {
+        property: `og:title`,
+        content: title,
+      },
+      {
+        property: `og:description`,
+        content: description,
+      },
+      {
+        property: `og:type`,
+        content: `website`,
+      },
+      {
+        name: `twitter:card`,
+        content: `summary`,
+      },
+      {
+        name: `twitter:title`,
+        content: title,
+      },
+      {
+        name: `twitter:description`,
+        content: metaDescription,
+      },
+    ]
+      .concat(
+        keywords.length > 0
+          ? {
+              name: `keywords`,
+              content: keywords.join(`, `),
+            }
+          : []
+      )
+      .concat(meta)}
+  />
+);
 
 export default SEO;

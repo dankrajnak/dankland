@@ -14,7 +14,7 @@ export default class TypeWriterService {
         return uppercase ? character.toLowerCase() : character.toUpperCase();
       }
       //Otherwise make a big finger mistake
-      keyboard.forEach(keyRow => {
+      keyboard.forEach((keyRow) => {
         const index = keyRow.indexOf(character.toLowerCase());
         if (index !== -1) {
           switch (index) {

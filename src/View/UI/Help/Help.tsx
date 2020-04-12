@@ -19,7 +19,7 @@ const HelpWrapper = styled.div<{ opacity: number }>`
   font-weight: 200;
   font-size: 0.8rem;
   transition: opacity 1s ease;
-  opacity: ${props => props.opacity};
+  opacity: ${(props) => props.opacity};
 `;
 
 interface Props {

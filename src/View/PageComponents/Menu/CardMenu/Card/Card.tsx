@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.div<{ width: number }>`
-  width: ${props => props.width}px;
+  width: ${(props) => props.width}px;
   div:hover {
     cursor: pointer;
   }
@@ -23,7 +23,7 @@ const CardWrapper = styled.div.attrs<{ shadowAmount: number }>(
   &:hover {
     box-shadow: 0 8px 10px 0 rgba(100, 100, 100, 0.5);
   }
-  height: ${props => props.height}px;
+  height: ${(props) => props.height}px;
   overflow: hidden;
 `;
 
