@@ -36,6 +36,22 @@ const Button = ({ color = "white", fade = false }: ButtonProps) => {
       <Link href="/">
         <a className={`menu-button menu-button-${color}`}>MENU</a>
       </Link>
+      <style jsx>
+        {`
+          .menu-button {
+            font-weight: 600;
+            text-decoration: none;
+          }
+
+          .menu-button-black {
+            color: #222;
+          }
+
+          .menu-button-white {
+            color: white;
+          }
+        `}
+      </style>
     </MenuContainer>
   );
 };
