@@ -42,14 +42,33 @@ const TypeBox = ({
   }, [onFinish, setText, textToType, unType]);
 
   return text.length ? (
-    <TypeBoxContainer
-      pos={pos}
-      width={width}
-      color={color}
-      className="withTypingIndicator"
-    >
-      {text}
-    </TypeBoxContainer>
+    <>
+      <TypeBoxContainer
+        pos={pos}
+        width={width}
+        color={color}
+        className="withTypingIndicator"
+      >
+        {text}
+      </TypeBoxContainer>
+      <style jsx>
+        {`
+          .withTypingIndicator:after {
+            content: "|";
+            font-weight: 400;
+            animation: blink 500ms ease-in-out infinite alternate;
+          }
+          @keyframes blink {
+            0% {
+              opacity: 0;
+            }
+            100% {
+              opacity: 1;
+            }
+          }
+        `}
+      </style>
+    </>
   ) : (
     <div />
   );
