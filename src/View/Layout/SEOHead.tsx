@@ -34,6 +34,7 @@ const meta = [
     name: `twitter:description`,
     content: description,
   },
+  { name: `theme-color`, content: "#eee" },
 ];
 
 const SEOHead = () => (
