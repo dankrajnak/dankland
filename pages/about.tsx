@@ -22,7 +22,7 @@ const About = () => (
     <SEO title="About" />
     <Container>
       <Content>
-        <h4>This is just stuff I like making.</h4>
+        <h4>Test deploy summary</h4>
         <p>
           My name's Daniel. This is a place that I put stuff I make. If you like
           my work, feel free to reach out. My email is the first three letters
