@@ -1,15 +1,15 @@
 import * as React from "react";
 import styled from "styled-components";
-import useFullScreen from "../src/View/Hooks/useFullScreen";
-import PerspectiveSquare from "../src/Services/PerspectiveSquare/PerspectiveSquare.service";
-import Square from "../src/Domain/Square/Square";
-import Vector2d from "../src/Domain/Vector/Vector2d";
-import OriginalPerspectiveSquareDrawer from "../src/Services/PerspectiveSquare/Drawers/Original.service";
-import MenuLayout from "../src/View/Layout/MenuLayout";
-import SEO from "../src/View/Utility/seo";
-import useClickHoverWander from "../src/View/Hooks/useClickHoverWander";
-import CanvasDrawer from "../src/View/UI/CavnasDrawer/CanvasDrawer";
-import PersepctiveSquareDrawer from "../src/Services/PerspectiveSquare/Drawers/Drawer.interface";
+import useFullScreen from "../View/Hooks/useFullScreen";
+import PerspectiveSquare from "../Services/PerspectiveSquare/PerspectiveSquare.service";
+import Square from "../Domain/Square/Square";
+import Vector2d from "../Domain/Vector/Vector2d";
+import OriginalPerspectiveSquareDrawer from "../Services/PerspectiveSquare/Drawers/Original.service";
+import MenuLayout from "../View/Layout/MenuLayout";
+import SEO from "../View/Utility/seo";
+import useClickHoverWander from "../View/Hooks/useClickHoverWander";
+import CanvasDrawer from "../View/UI/CavnasDrawer/CanvasDrawer";
+import PersepctiveSquareDrawer from "../Services/PerspectiveSquare/Drawers/Drawer.interface";
 
 const SQUARE_WIDTH = 300;
 

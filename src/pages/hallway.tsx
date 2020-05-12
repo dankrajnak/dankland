@@ -1,9 +1,9 @@
 import * as React from "react";
-import useFullScreen from "../src/View/Hooks/useFullScreen";
-import ThreeContainer from "../src/View/UI/ThreeContainer";
-import { start, stop } from "../src/Services/Hallway/Hallway.service";
-import MenuLayout from "../src/View/Layout/MenuLayout";
-import SEO from "../src/View/Utility/seo";
+import useFullScreen from "../View/Hooks/useFullScreen";
+import ThreeContainer from "../View/UI/ThreeContainer";
+import { start, stop } from "../Services/Hallway/Hallway.service";
+import MenuLayout from "../View/Layout/MenuLayout";
+import SEO from "../View/Utility/seo";
 
 const Hallway = () => {
   const [width, height, flash] = useFullScreen();

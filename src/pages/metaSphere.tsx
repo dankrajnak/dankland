@@ -1,9 +1,9 @@
 import * as React from "react";
-import MenuLayout from "../src/View/Layout/MenuLayout";
-import MetaSphere from "../src/Services/MetaSphere/MetaSphere";
-import useFullScreen from "../src/View/Hooks/useFullScreen";
-import useClickHoverWander from "../src/View/Hooks/useClickHoverWander";
-import CanvasDrawer from "../src/View/UI/CavnasDrawer/CanvasDrawer";
+import MenuLayout from "../View/Layout/MenuLayout";
+import MetaSphere from "../Services/MetaSphere/MetaSphere";
+import useFullScreen from "../View/Hooks/useFullScreen";
+import useClickHoverWander from "../View/Hooks/useClickHoverWander";
+import CanvasDrawer from "../View/UI/CavnasDrawer/CanvasDrawer";
 
 const MetaSphereElm = () => {
   const metaDrawer = React.useRef<MetaSphere | null>(null);
