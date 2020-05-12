@@ -1,7 +1,7 @@
 import * as React from "react";
-import CanvasDrawer from "../View/UI/CavnasDrawer/CanvasDrawer";
+import CanvasDrawer from "../src/View/UI/CavnasDrawer/CanvasDrawer";
 import styled from "styled-components";
-import FluidService from "../Services/Fluid/Fluid.service";
+import FluidService from "../src/Services/Fluid/Fluid.service";
 
 const WIDTH = 600;
 const HEIGHT = 600;

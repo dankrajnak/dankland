@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
-import MenuLayout from "../View/Layout/MenuLayout";
-import SEO from "../View/Utility/seo";
+import MenuLayout from "../src/View/Layout/MenuLayout";
+import SEO from "../src/View/Utility/seo";
 
 const Container = styled.div`
   width: 100%;

@@ -1,13 +1,13 @@
 import * as React from "react";
 import styled from "styled-components";
-import SEO from "../View/Utility/seo";
-import useFullScreen from "../View/Hooks/useFullScreen";
-import TheCoolestOne from "../View/PageComponents/Homepage/TheCoolestOne";
-import MenuLayout from "../View/Layout/MenuLayout";
-import Lorenz from "../View/PageComponents/Homepage/Lorenz";
-import useScrollThreshold from "../View/Hooks/useScrollTreshold";
-import throttle from "../Services/Throttle/Throttle.service";
-import useWindowEvent from "../View/Hooks/useWindowEvent";
+import SEO from "../src/View/Utility/seo";
+import useFullScreen from "../src/View/Hooks/useFullScreen";
+import TheCoolestOne from "../src/View/PageComponents/Homepage/TheCoolestOne";
+import MenuLayout from "../src/View/Layout/MenuLayout";
+import Lorenz from "../src/View/PageComponents/Homepage/Lorenz";
+import useScrollThreshold from "../src/View/Hooks/useScrollTreshold";
+import throttle from "../src/Services/Throttle/Throttle.service";
+import useWindowEvent from "../src/View/Hooks/useWindowEvent";
 
 const TitleHolder = styled.div`
   position: fixed;

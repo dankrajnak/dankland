@@ -1,10 +1,10 @@
 import * as React from "react";
-import MenuLayout from "../View/Layout/MenuLayout";
-import Vector2d from "../Domain/Vector/Vector2d";
-import useFullScreen from "../View/Hooks/useFullScreen";
-import Action from "../Domain/Action/Action";
-import TypeBox from "../View/PageComponents/JustSomeThought/TypeBox";
-import SEO from "../View/Utility/seo";
+import MenuLayout from "../src/View/Layout/MenuLayout";
+import Vector2d from "../src/Domain/Vector/Vector2d";
+import useFullScreen from "../src/View/Hooks/useFullScreen";
+import Action from "../src/Domain/Action/Action";
+import TypeBox from "../src/View/PageComponents/JustSomeThought/TypeBox";
+import SEO from "../src/View/Utility/seo";
 
 const TheThoughts: string[] = [
   "It still comes back to you",

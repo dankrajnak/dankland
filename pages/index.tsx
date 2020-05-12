@@ -1,15 +1,15 @@
 import * as React from "react";
 import styled from "styled-components";
-import Layout from "../View/Layout/Layout";
-import SEO from "../View/Utility/seo";
-import Lorenz from "../View/PageComponents/Homepage/Lorenz";
-import HallwayPreview from "../View/PageComponents/Menu/HallwayPreview";
-import PerspectivePreview from "../View/PageComponents/Menu/PerspectivePreview";
-import MetaSpherePreview from "../View/PageComponents/Menu/MetaSpherePreview";
-import JustSomeThoughtsPreview from "../View/PageComponents/Menu/JustSomeThoughtsPreview";
-import Card from "../Domain/Card/Card";
-import CardMenu from "../View/PageComponents/Menu/CardMenu";
-import { MenuRouteProps } from "../Domain/Menu/Menu";
+import Layout from "../src/View/Layout/Layout";
+import SEO from "../src/View/Utility/seo";
+import Lorenz from "../src/View/PageComponents/Homepage/Lorenz";
+import HallwayPreview from "../src/View/PageComponents/Menu/HallwayPreview";
+import PerspectivePreview from "../src/View/PageComponents/Menu/PerspectivePreview";
+import MetaSpherePreview from "../src/View/PageComponents/Menu/MetaSpherePreview";
+import JustSomeThoughtsPreview from "../src/View/PageComponents/Menu/JustSomeThoughtsPreview";
+import Card from "../src/Domain/Card/Card";
+import CardMenu from "../src/View/PageComponents/Menu/CardMenu";
+import { MenuRouteProps } from "../src/Domain/Menu/Menu";
 
 const Mute = styled.em`
   font-weight: 200;
