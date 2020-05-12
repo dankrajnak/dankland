@@ -1,6 +1,5 @@
 import * as React from "react";
 import globalStyles from "../Styles/global";
-import SEOHead from "./SEOHead";
 
 interface Props {
   children: React.ReactNode;
@@ -8,7 +7,6 @@ interface Props {
 
 const Layout = (props: Props) => (
   <div>
-    <SEOHead />
     {props.children}
     <style jsx global>
       {globalStyles}
