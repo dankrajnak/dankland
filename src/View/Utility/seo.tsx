@@ -68,6 +68,7 @@ const SEO = ({
         name: `twitter:description`,
         content: metaDescription,
       },
+      { name: `theme-color`, content: "#eee" },
     ]
       .concat(
         keywords.length > 0
@@ -78,7 +79,20 @@ const SEO = ({
           : []
       )
       .concat(meta)}
-  />
+  >
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" href="/favicon-32x32.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="192x192"
+      href="android-chrome-192x192.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="512x512"
+      href="android-chrome-512x512.png"
+    />
+  </Helmet>
 );
 
 export default SEO;
