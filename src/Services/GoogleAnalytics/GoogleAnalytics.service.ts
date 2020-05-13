@@ -2,7 +2,7 @@
 import ReactGA from "react-ga";
 
 // Janky, but will get the job done for now.
-const hostNameFilter = "dank";
+const hostNameFilter = "dank.land";
 const atDankLand = (): boolean => window.location.hostname === hostNameFilter;
 
 export default class GoogleAnalyticsService {
