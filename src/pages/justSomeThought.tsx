@@ -151,6 +151,10 @@ const JustSomeThoughts = () => {
               textToType={textToType}
               width={textWidth}
               pos={position}
+              color={`rgba(0,0,0, ${Math.max(
+                0,
+                1 - state.nextKey / state.numElementsBeforeWhite
+              )})`}
               unType
               onFinish={() =>
                 dispatch({ type: "REMOVE_ELEMENT", payload: state.nextKey })
