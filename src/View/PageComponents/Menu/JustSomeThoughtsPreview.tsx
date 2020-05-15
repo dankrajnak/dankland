@@ -3,6 +3,7 @@ import useTypeWriter from "../../Hooks/useTypeWriter/useTypeWriter";
 import styled from "styled-components";
 
 const Container = styled.div`
+  background-color: white;
   color: black;
   display: flex;
   align-items: center;

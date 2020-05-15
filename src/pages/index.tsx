@@ -10,6 +10,7 @@ import JustSomeThoughtsPreview from "../View/PageComponents/Menu/JustSomeThought
 import Card from "../Domain/Card/Card";
 import CardMenu from "../View/PageComponents/Menu/CardMenu";
 import { MenuRouteProps } from "../Domain/Menu/Menu";
+import LiquorForDinnerPreview from "../View/PageComponents/Menu/LiquorForDinnerPreview";
 
 const Mute = styled.em`
   font-weight: 200;
@@ -52,6 +53,12 @@ const cards: Card[] = [
     title: "Just Some Thought",
     description: "I just, well, here you go",
     link: "/justSomeThought",
+  },
+  {
+    background: LiquorForDinnerPreview,
+    title: "Liquor For Dinner",
+    description: null,
+    link: "/liquorForDinner",
   },
 ];
 // I can't find the typescript type for props passed into pages to save my life.
