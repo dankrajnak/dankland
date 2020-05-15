@@ -1,48 +1,4 @@
 import * as React from "react";
-import styled from "styled-components";
-
-const Wrapper = styled.div<{ width: number }>`
-  width: ${(props) => props.width}px;
-  div:hover {
-    cursor: pointer;
-  }
-`;
-
-const CardWrapper = styled.div.attrs<{ shadowAmount: number }>(
-  ({ shadowAmount }) => ({
-    style: {
-      boxShadow: `0 ${shadowAmount * 8}px
-  ${shadowAmount * 10}px 0 rgba(100, 100, 100, 0.5)`,
-    },
-  })
-)<{ height: number }>`
-  position: relative;
-  border-radius: 0;
-
-  transition: box-shadow 0.2s ease-in-out;
-  &:hover {
-    box-shadow: 0 8px 10px 0 rgba(100, 100, 100, 0.5);
-  }
-  height: ${(props) => props.height}px;
-  overflow: hidden;
-`;
-
-const TitleHolder = styled.div`
-  margin-top: 20px;
-  color: #444;
-  padding: 0px 10px;
-  height: 50px;
-  background: white;
-  text-align: right;
-`;
-
-const Description = styled.div`
-  font-size: 0.8rem;
-`;
-const BackgroundHolder = styled.div`
-  height: 100%;
-  width: 100%;
-`;
 
 export interface Props {
   title: string;
@@ -60,17 +16,65 @@ const Card = (props: Props) => {
     shadow = Math.min(Math.max(0, props.shadowAmount), 1);
   }
   return (
-    <Wrapper width={props.width}>
+    <div className="wrapper">
       {/* 
       // @ts-ignore */}
-      <CardWrapper shadowAmount={shadow} height={props.height}>
-        <BackgroundHolder>{props.background}</BackgroundHolder>
-      </CardWrapper>
-      <TitleHolder>
+      <div className="cardWrapper">
+        <div className="backgroundHolder">{props.background}</div>
+      </div>
+      <div className="titleHolder">
         {props.title}
-        <Description>{props.description}</Description>
-      </TitleHolder>
-    </Wrapper>
+        <div className="description">{props.description}</div>
+      </div>
+      <style jsx>{`
+        .titleHolder {
+          margin-top: 20px;
+          color: #444;
+          padding: 0px 10px;
+          height: 50px;
+          background: white;
+          text-align: right;
+        }
+
+        .description {
+          font-size: 0.8rem;
+        }
+
+        .backgroundHolder {
+          height: 100%;
+          width: 100%;
+        }
+
+        .cardWrapper {
+          position: relative;
+          border-radius: 0;
+
+          transition: box-shadow 0.2s ease-in-out;
+
+          overflow: hidden;
+        }
+
+        .cardWrapper:hover {
+          box-shadow: 0 8px 10px 0 rgba(100, 100, 100, 0.5);
+        }
+
+        .wrapper div:hover {
+          cursor: pointer;
+        }
+      `}</style>
+      <style jsx>{`
+        .wrapper {
+          width: ${props.width}px;
+        }
+        .cardWrapper {
+          height: ${props.height}px;
+          boxShadow: 0 ${shadow * 8}px ${
+        shadow * 10
+      }px 0 rgba(100, 100, 100, 0.5),
+    }
+        }
+      `}</style>
+    </div>
   );
 };
 
