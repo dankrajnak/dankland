@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import Link from "next/link";
 
-const MenuContainer = styled.div<{ show: boolean; color: string }>`
+const MenuContainer = styled.div<{ show: boolean }>`
   position: fixed;
   top: 20px;
   right: 20px;
@@ -14,10 +14,8 @@ const MenuContainer = styled.div<{ show: boolean; color: string }>`
   }
 `;
 
-export type PossibleMenuColors = "white" | "black";
-
 interface ButtonProps {
-  color?: PossibleMenuColors;
+  color?: string;
   fade?: boolean;
 }
 
@@ -32,9 +30,9 @@ const Button = ({ color = "white", fade = false }: ButtonProps) => {
   }, [fade]);
 
   return (
-    <MenuContainer color={color} show={showing}>
+    <MenuContainer show={showing}>
       <Link href="/">
-        <a className={`menu-button menu-button-${color}`}>MENU</a>
+        <a className="menu-button">MENU</a>
       </Link>
       <style jsx>
         {`
@@ -42,13 +40,12 @@ const Button = ({ color = "white", fade = false }: ButtonProps) => {
             font-weight: 600;
             text-decoration: none;
           }
-
-          .menu-button-black {
-            color: #222;
-          }
-
-          .menu-button-white {
-            color: white;
+        `}
+      </style>
+      <style jsx>
+        {`
+          .menu-button {
+            color: ${color};
           }
         `}
       </style>

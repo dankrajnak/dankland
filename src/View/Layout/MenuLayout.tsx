@@ -1,10 +1,10 @@
 import * as React from "react";
-import MenuButton, { PossibleMenuColors } from "../UI/MenuButton";
+import MenuButton from "../UI/MenuButton";
 import Layout from "./Layout";
 import globalStyles from "../Styles/global";
 
 interface Props {
-  color?: PossibleMenuColors;
+  color?: string;
   children: React.ReactNode;
 }
 

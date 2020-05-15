@@ -102,8 +102,18 @@ const JustSomeThoughts = () => {
     nextKey: 0,
     timeOut: 2000,
   });
-  const [width, height, flash] = useFullScreen();
+  const [width, height] = useFullScreen();
   const maxElementsTimeout = React.useRef(20);
+  const [backgroundColor, setBackgroundColor] = React.useState(255);
+  const [menuColor, setMenuColor] = React.useState(1);
+
+  React.useEffect(() => {
+    // update colors
+    setTimeout(() => {
+      setBackgroundColor(backgroundColor * 0.9994);
+      setMenuColor(Math.min(menuColor * 1.002, 255));
+    }, 100);
+  }, [backgroundColor, menuColor]);
 
   React.useEffect(() => {
     //Periodically increase max elements.
@@ -140,10 +150,6 @@ const JustSomeThoughts = () => {
               key={state.nextKey}
               textToType={textToType}
               width={textWidth}
-              color={`rgba(0,0,0, ${Math.max(
-                0,
-                1 - state.nextKey / state.numElementsBeforeWhite
-              )})`}
               pos={position}
               unType
               onFinish={() =>
@@ -167,17 +173,37 @@ const JustSomeThoughts = () => {
     width,
   ]);
 
-  if (flash) {
-    return flash;
-  }
-
   return (
-    <MenuLayout color="black">
+    <MenuLayout color={`rgb(${menuColor}, ${menuColor}, ${menuColor})`}>
       <SEO
         title="Just Some Thought"
         keywords={["poetry", "new media", "thought"]}
       />
-      {state.elements.map((elm) => elm.component)}
+      <div className="container">
+        {state.elements.map((elm) => elm.component)}
+      </div>
+      <style jsx>
+        {`
+          .container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+          }
+        `}
+      </style>
+      <style jsx>
+        {`
+          .container {
+            background-color: rgb(
+              ${backgroundColor},
+              ${backgroundColor},
+              ${backgroundColor}
+            );
+          }
+        `}
+      </style>
     </MenuLayout>
   );
 };
