@@ -6,7 +6,7 @@ const LiquorForDinner = () => (
   <MenuLayout>
     <SEO title="Liquor For Dinner" />
     <div className="container">
-      <h1 className="content">Nothing's Here.</h1>
+      <h2 className="content">Nothing's Here.</h2>
     </div>
     <style jsx>
       {`
