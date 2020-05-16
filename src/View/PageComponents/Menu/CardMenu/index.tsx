@@ -52,9 +52,8 @@ const CardMenu: Menu = ({ routeProps, cards }) => {
         cardsHeight={cardHeight}
         scrollToCard={scrollToCard}
       />
-      {/* 
-        // @ts-ignore */}
-      <div className="scrollMessage">Scroll Up</div>
+
+      <div className="scrollMessage">Scroll Down</div>
       <style jsx>
         {`
           .aboutContainer {
