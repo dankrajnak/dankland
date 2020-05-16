@@ -1,25 +1,17 @@
 import * as React from "react";
-import styled from "styled-components";
 import Link from "next/link";
-
-const MenuContainer = styled.div<{ show: boolean }>`
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 500;
-  opacity: ${(props) => (props.show ? 1 : 0.05)};
-  transition: opacity 0.75s ease-in-out;
-  &:hover {
-    opacity: 1 !important;
-  }
-`;
 
 interface ButtonProps {
   color?: string;
   fade?: boolean;
+  styles?: string;
 }
 
-const Button = ({ color = "white", fade = false }: ButtonProps) => {
+const Button = ({
+  color = "white",
+  fade = false,
+  styles = "",
+}: ButtonProps) => {
   const [showing, setShowing] = React.useState(true);
 
   React.useEffect(() => {
@@ -30,7 +22,7 @@ const Button = ({ color = "white", fade = false }: ButtonProps) => {
   }, [fade]);
 
   return (
-    <MenuContainer show={showing}>
+    <div className="menu-container">
       <Link href="/">
         <a className="menu-button">MENU</a>
       </Link>
@@ -40,16 +32,30 @@ const Button = ({ color = "white", fade = false }: ButtonProps) => {
             font-weight: 600;
             text-decoration: none;
           }
+          .menu-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 500;
+            transition: opacity 0.75s ease-in-out;
+          }
+          .menu-container:hover {
+            opacity: 1 !important;
+          }
         `}
       </style>
       <style jsx>
         {`
           .menu-button {
             color: ${color};
+            ${styles}
+          }
+          .menu-button-container {
+            opacity: ${showing ? 1 : 0.05};
           }
         `}
       </style>
-    </MenuContainer>
+    </div>
   );
 };
 

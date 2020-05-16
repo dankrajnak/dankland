@@ -5,12 +5,13 @@ import globalStyles from "../Styles/global";
 
 interface Props {
   color?: string;
+  buttonStyles?: string;
   children: React.ReactNode;
 }
 
-const MenuLayout = ({ color = "white", children }: Props) => (
+const MenuLayout = ({ color = "white", buttonStyles, children }: Props) => (
   <Layout>
-    <MenuButton color={color} />
+    <MenuButton color={color} styles={buttonStyles} />
     {children}
     <style jsx global>
       {globalStyles}

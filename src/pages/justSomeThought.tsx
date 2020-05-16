@@ -104,16 +104,20 @@ const JustSomeThoughts = () => {
   });
   const [width, height] = useFullScreen();
   const maxElementsTimeout = React.useRef(20);
-  const [backgroundColor, setBackgroundColor] = React.useState(255);
-  const [menuColor, setMenuColor] = React.useState(1);
-
+  const [backgroundColor, setBackgroundColor] = React.useState("white");
+  const [menuColor, setMenuColor] = React.useState("black");
   React.useEffect(() => {
-    // update colors
-    setTimeout(() => {
-      setBackgroundColor(backgroundColor * 0.9994);
-      setMenuColor(Math.min(menuColor * 1.002, 255));
-    }, 100);
-  }, [backgroundColor, menuColor]);
+    const timeout = setTimeout(() => setMenuColor("white"), 70000);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
+  React.useEffect(() => {
+    const timeout = setTimeout(() => setBackgroundColor("black"), 100);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
 
   React.useEffect(() => {
     //Periodically increase max elements.
@@ -178,7 +182,12 @@ const JustSomeThoughts = () => {
   ]);
 
   return (
-    <MenuLayout color={`rgb(${menuColor}, ${menuColor}, ${menuColor})`}>
+    <MenuLayout
+      color={menuColor}
+      buttonStyles={`
+        transition: color 60s ease
+      `}
+    >
       <SEO
         title="Just Some Thought"
         keywords={["poetry", "new media", "thought"]}
@@ -194,17 +203,14 @@ const JustSomeThoughts = () => {
             left: 0;
             right: 0;
             bottom: 0;
+            transition: background-color 240s ease-out;
           }
         `}
       </style>
       <style jsx>
         {`
           .container {
-            background-color: rgb(
-              ${backgroundColor},
-              ${backgroundColor},
-              ${backgroundColor}
-            );
+            background-color: ${backgroundColor};
           }
         `}
       </style>
