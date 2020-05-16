@@ -16,3 +16,4 @@ yarn-error.log*
 .eslintcache
 
 .DS_Store
+.vscode
