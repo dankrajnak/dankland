@@ -11,7 +11,7 @@ const NotFoundPage = () => (
         <h1>
           404 <span style={{ fontWeight: "lighter" }}>| NOT FOUND</span>
         </h1>
-        <p>Either I made a mistake, or you did.</p>
+        <p>One of us made a mistake.</p>
         <p
           style={{
             display: "flex",
