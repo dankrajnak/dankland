@@ -1,12 +1,47 @@
 import * as React from "react";
 import SEO from "../View/Utility/seo";
+import Link from "next/link";
+import Layout from "../View/Layout/Layout";
 
 const NotFoundPage = () => (
-  <>
-    <SEO title="404: Not found" />
-    <h1>NOT FOUND</h1>
-    <p>You just hit a route that doesn&#39;t exist... that sucks.</p>
-  </>
+  <Layout>
+    <SEO title="404" />
+    <div className="container">
+      <div>
+        <h1>
+          404 <span style={{ fontWeight: "lighter" }}>| NOT FOUND</span>
+        </h1>
+        <p>Either I made a mistake, or you did.</p>
+        <p
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Link href={"/"}>
+            <a>Homepage</a>
+          </Link>
+        </p>
+      </div>
+    </div>
+    <style jsx>
+      {`
+        .container {
+          height: 100vh;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        p {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      `}
+    </style>
+  </Layout>
 );
 
 export default NotFoundPage;
