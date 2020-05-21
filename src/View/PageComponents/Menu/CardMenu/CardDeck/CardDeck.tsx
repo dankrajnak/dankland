@@ -1,5 +1,4 @@
 import * as React from "react";
-import styled, { StyledComponent } from "styled-components";
 import useScrollAmount from "../../../../Hooks/useScrollAmount";
 import Card, { Props as CardProps } from "../Card/Card";
 import useFullScreen from "../../../../Hooks/useFullScreen";
@@ -20,26 +19,23 @@ interface Props {
   cardsHeight: number;
   scrollToCard?: number | null;
 }
-const CardDeckHolder = styled.div<{ height: number }>`
-  height: ${(props) => props.height}px;
-  width: 100%;
-`;
 
-const CardHolder = styled.div.attrs<{ dx: number; dy: number; order: number }>(
-  (props) => ({
-    style: {
+const CardHolder = (props: {
+  dx: number;
+  dy: number;
+  order: number;
+  children: React.ReactNode;
+}) => (
+  <div
+    style={{
       transform: `translate(${props.dx}px, ${props.dy}px)`,
       zIndex: 2000 - props.order,
-    },
-  })
-)`
-  position: fixed;
-` as StyledComponent<
-  "div",
-  any,
-  { dx: number; dy: number; order: number },
-  never
->;
+      position: "fixed",
+    }}
+  >
+    {props.children}
+  </div>
+);
 
 const PERIOD = 0.4;
 const EASING_FUNCTION = EasingFunctions.easeInOutQuart;
@@ -109,52 +105,63 @@ const CardDeck = (props: Props) => {
     return flash;
   }
   return (
-    <CardDeckHolder height={scrollLength + windowHeight}>
-      {props.cards.map((card, i) => {
-        // Only draw cards when the card above it has moved and it's on screen.
-        const nextCardPosition =
-          i !== props.cards.length - 1
-            ? getPosition(scroll, i + 1)
-            : cardPositionStart;
-        const currentCardPosition = getPosition(scroll, i);
-        const prevCardPosition =
-          i !== 0 ? getPosition(scroll, i - 1) : cardPositionEnd;
+    <>
+      <div className="card-deck-holder">
+        {props.cards.map((card, i) => {
+          // Only draw cards when the card above it has moved and it's on screen.
+          const nextCardPosition =
+            i !== props.cards.length - 1
+              ? getPosition(scroll, i + 1)
+              : cardPositionStart;
+          const currentCardPosition = getPosition(scroll, i);
+          const prevCardPosition =
+            i !== 0 ? getPosition(scroll, i - 1) : cardPositionEnd;
 
-        const shouldNotDrawCard =
-          (currentCardPosition === nextCardPosition &&
-            currentCardPosition !== deckPosition) ||
-          prevCardPosition === cardPositionStart;
+          const shouldNotDrawCard =
+            (currentCardPosition === nextCardPosition &&
+              currentCardPosition !== deckPosition) ||
+            prevCardPosition === cardPositionStart;
 
-        return (
-          <Link href={card.link} key={i}>
-            <div className="card-deck-card-link">
-              <CardHolder
-                dx={
-                  i === props.cards.length - 1
-                    ? cardPositionStart
-                    : currentCardPosition
-                }
-                dy={(windowHeight - props.cardsHeight) / 2}
-                order={i}
-              >
-                {!shouldNotDrawCard && (
-                  <Card
-                    {...card}
-                    width={props.cardsWidth}
-                    height={props.cardsHeight}
-                    shadowAmount={
-                      i === props.cards.length - 1
-                        ? 0
-                        : scrollDemap(getPosition(scroll, i))
-                    }
-                  />
-                )}
-              </CardHolder>
-            </div>
-          </Link>
-        );
-      })}
-    </CardDeckHolder>
+          return (
+            <Link href={card.link} key={i}>
+              <div className="card-deck-card-link">
+                <CardHolder
+                  dx={
+                    i === props.cards.length - 1
+                      ? cardPositionStart
+                      : currentCardPosition
+                  }
+                  dy={(windowHeight - props.cardsHeight) / 2}
+                  order={i}
+                >
+                  {!shouldNotDrawCard && (
+                    <Card
+                      {...card}
+                      width={props.cardsWidth}
+                      height={props.cardsHeight}
+                      shadowAmount={
+                        i === props.cards.length - 1
+                          ? 0
+                          : scrollDemap(getPosition(scroll, i))
+                      }
+                    />
+                  )}
+                </CardHolder>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+      <style global jsx>{`
+        .card-deck-holder {
+          height: ${scrollLength + windowHeight}px;
+          width: 100%;
+        }
+        .fixed {
+          position: fixed;
+        }
+      `}</style>
+    </>
   );
 };
 export default CardDeck;

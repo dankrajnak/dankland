@@ -1,15 +1,6 @@
 import * as React from "react";
 import useTypeWriter from "../../Hooks/useTypeWriter/useTypeWriter";
-import styled from "styled-components";
 
-const Container = styled.div`
-  background-color: white;
-  color: black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-`;
 const title = "It's a caipirinhas and sad boy music night";
 const JustSomeThoughtsPreview = () => {
   const [text, setText] = useTypeWriter("");
@@ -35,7 +26,23 @@ const JustSomeThoughtsPreview = () => {
       timeouts.forEach(clearTimeout);
     };
   }, [setText]);
-  return <Container className="withTypingIndicator">{text}</Container>;
+  return (
+    <>
+      <div className="withTypingIndicator container">{text}</div>
+      <style jsx>
+        {`
+          .container {
+            background-color: white;
+            color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+          }
+        `}
+      </style>
+    </>
+  );
 };
 
 export default JustSomeThoughtsPreview;
