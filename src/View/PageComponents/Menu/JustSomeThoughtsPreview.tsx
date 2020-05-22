@@ -5,7 +5,7 @@ const title = "It's a caipirinhas and sad boy music night";
 const JustSomeThoughtsPreview = () => {
   const [text, setText] = useTypeWriter("");
   React.useEffect(() => {
-    const timeouts: number[] = [];
+    const timeouts: NodeJS.Timeout[] = [];
     const repeatTyping = () => {
       timeouts.push(
         setTimeout(() => {
