@@ -24,7 +24,7 @@ const TypeBox = ({
 }: TypeBoxProps) => {
   const [text, setText] = useTypeWriter();
   React.useEffect(() => {
-    let timeout: number;
+    let timeout: NodeJS.Timeout;
     setText(textToType, {
       listener: () => {
         timeout = setTimeout(() => {
