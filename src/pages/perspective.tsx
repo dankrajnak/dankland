@@ -1,5 +1,4 @@
 import * as React from "react";
-import styled from "styled-components";
 import useFullScreen from "../View/Hooks/useFullScreen";
 import PerspectiveSquare from "../Services/PerspectiveSquare/PerspectiveSquare.service";
 import Square from "../Domain/Square/Square";
@@ -12,14 +11,6 @@ import CanvasDrawer from "../View/UI/CavnasDrawer/CanvasDrawer";
 import PersepctiveSquareDrawer from "../Services/PerspectiveSquare/Drawers/Drawer.interface";
 
 const SQUARE_WIDTH = 300;
-
-const FullScreen = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-`;
 
 const Perspective = () => {
   const [width, height, flash] = useFullScreen();
@@ -64,7 +55,7 @@ const Perspective = () => {
   return (
     <MenuLayout color={"white"}>
       <SEO title="Perspective" />
-      <FullScreen>
+      <div className="fulscreen">
         <CanvasDrawer
           width={width}
           height={height}
@@ -72,7 +63,18 @@ const Perspective = () => {
           artist={artist}
           {...mouseProps}
         />
-      </FullScreen>
+      </div>
+      <style jsx>
+        {`
+          .full-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+          }
+        `}
+      </style>
     </MenuLayout>
   );
 };
