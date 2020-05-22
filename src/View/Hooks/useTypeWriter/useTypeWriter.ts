@@ -246,7 +246,7 @@ const useTypeWriter = (initialText = ""): useTypeWriterReturn => {
     sequence: [],
     isWaiting: false,
   });
-  const nextNodeTimeout = React.useRef<number | null>(null);
+  const nextNodeTimeout = React.useRef<NodeJS.Timeout | null>(null);
 
   React.useEffect(() => {
     if (state.isWaiting || !state.sequence.length) {
