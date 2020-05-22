@@ -1,5 +1,4 @@
 import * as React from "react";
-import styled from "styled-components";
 import SEO from "../View/Utility/seo";
 import useFullScreen from "../View/Hooks/useFullScreen";
 import TheCoolestOne from "../View/PageComponents/Homepage/TheCoolestOne";
@@ -9,27 +8,36 @@ import useScrollThreshold from "../View/Hooks/useScrollTreshold";
 import throttle from "../Services/Throttle/Throttle.service";
 import useWindowEvent from "../View/Hooks/useWindowEvent";
 
-const TitleHolder = styled.div`
-  position: fixed;
-  z-index: 0;
-  display: flex;
-  height: 100%;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-`;
+const Title = (props: { color?: string; children: React.ReactNode }) => (
+  <>
+    <h1 style={{ color: props.color || "#2f3030" }}>{props.children}</h1>
+    <style jsx>
+      {`
+        h1 {
+          font-size: 2em;
+          font-weight: 500;
+          text-align: center;
+        }
+      `}
+    </style>
+  </>
+);
 
-const Title = styled.h1<{ color?: string }>`
-  color: ${(props): string => props.color || "#2f3030"};
-  font-size: 2em;
-  font-weight: 500;
-  text-align: center;
-`;
-const Fader = styled.div<{ visible: boolean }>`
-  position: fixed;
-  opacity: ${(props): number => (props.visible ? 1 : 0)};
-  transition: opacity 1s ease;
-`;
+const Fader = (props: { visible: boolean; children: React.ReactNode }) => (
+  <>
+    <div className="fader" style={{ opacity: props.visible ? 1 : 0 }}>
+      {props.children}
+    </div>
+    <style jsx>
+      {`
+        .fader {
+          position: fixed;
+          transition: opacity 1s ease;
+        }
+      `}
+    </style>
+  </>
+);
 
 const NUM_PAGES = 3;
 
@@ -65,23 +73,34 @@ const IndexPage = (): React.ReactNode => {
       <SEO title="Home" />
       {currentPage === 0 && (
         <Fader visible={currentPage === 0}>
-          <TitleHolder>
+          <div className="title-holder">
             <Title color="#EEE">Again, again, again</Title>
-          </TitleHolder>
+          </div>
           <Lorenz width={width} height={height} />
         </Fader>
       )}
       <Fader visible={currentPage === 1}>
-        <TitleHolder>
+        <div className="title-holder">
           <Title> again, again again</Title>
-        </TitleHolder>
+        </div>
         <TheCoolestOne width={width} height={height} />
       </Fader>
       <Fader visible={currentPage === 2}>
-        <TitleHolder>
+        <div className="title-holder">
           <Title>agin again agian</Title>
-        </TitleHolder>
+        </div>
       </Fader>
+      <style jsx>{`
+        .title-holder {
+          position: fixed;
+          z-index: 0;
+          display: flex;
+          height: 100%;
+          width: 100%;
+          justify-content: center;
+          align-items: center;
+        }
+      `}</style>
     </MenuLayout>
   );
 };

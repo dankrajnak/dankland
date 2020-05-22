@@ -1,6 +1,5 @@
 import * as React from "react";
 import CanvasDrawer from "../View/UI/CavnasDrawer/CanvasDrawer";
-import styled from "styled-components";
 import FluidService from "../Services/Fluid/Fluid.service";
 
 const WIDTH = 600;
@@ -13,14 +12,6 @@ const fluidService = new FluidService(
   HEIGHT,
   1000 / FPS / 500
 );
-
-const CenterScreen = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
-`;
 
 const FluidExperiment = () => {
   const artist = React.useMemo(
@@ -49,9 +40,22 @@ const FluidExperiment = () => {
   );
 
   return (
-    <CenterScreen>
-      <CanvasDrawer width={WIDTH} height={HEIGHT} artist={artist} fps={FPS} />
-    </CenterScreen>
+    <>
+      <div className="center-screen">
+        <CanvasDrawer width={WIDTH} height={HEIGHT} artist={artist} fps={FPS} />
+      </div>
+      <style jsx>
+        {`
+          .center-screen {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+          }
+        `}
+      </style>
+    </>
   );
 };
 

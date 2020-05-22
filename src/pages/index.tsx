@@ -1,5 +1,4 @@
 import * as React from "react";
-import styled from "styled-components";
 import Layout from "../View/Layout/Layout";
 import SEO from "../View/Utility/seo";
 import Lorenz from "../View/PageComponents/Homepage/Lorenz";
@@ -11,10 +10,6 @@ import Card from "../Domain/Card/Card";
 import CardMenu from "../View/PageComponents/Menu/CardMenu";
 import { MenuRouteProps } from "../Domain/Menu/Menu";
 import LiquorForDinnerPreview from "../View/PageComponents/Menu/LiquorForDinnerPreview";
-
-const Mute = styled.em`
-  font-weight: 200;
-`;
 
 const cards: Card[] = [
   {
@@ -36,8 +31,9 @@ const cards: Card[] = [
     title: "Hallway",
     description: (
       <div>
-        <Mute>(Almost)</Mute> Shamelessly <Mute>(basically)</Mute> stolen{" "}
-        <Mute>(from a tutorial)</Mute>
+        <em className="mute">(Almost)</em> Shamelessly{" "}
+        <em className="mute">(basically)</em> stolen{" "}
+        <em className="mute">(from a tutorial)</em>
       </div>
     ),
     link: "/hallway",
@@ -66,6 +62,13 @@ const Menu = (props: MenuRouteProps) => (
   <Layout>
     <SEO title="Menu" />
     <CardMenu routeProps={props} cards={cards} />
+    <style jsx>
+      {`
+        .mute {
+          font-weight: 200;
+        }
+      `}
+    </style>
   </Layout>
 );
 
