@@ -1,48 +1,59 @@
 import * as React from "react";
+import MenuLayout from "../View/Layout/MenuLayout";
+import useClickHoverWander from "../View/Hooks/useClickHoverWander";
+import Vector2d from "../Domain/Vector/Vector2d";
 
 const colors = ["#CD1E33", "#F8B240", "#35687C"];
 
-const useCirclePos = (
-  start: number,
-  low: number,
-  high: number,
-  period = 1
-): number => {
-  const [pos, setPos] = React.useState(start);
-
-  React.useEffect(() => {
-    let start: number | null = null;
-    let request: any = null;
-    const render = (timeStep: any) => {
-      if (!start) {
-        start = timeStep;
-      }
-      setPos(
-        (Math.sin((timeStep / 1000) * period) / 2 + 0.5) * (high - low) + low
-      );
-      request = window.requestAnimationFrame(render);
-    };
-    request = window.requestAnimationFrame(render);
-    return () => window.cancelAnimationFrame(request);
-  }, [high, low, period]);
-  return pos;
-};
+const ZeroVector = new Vector2d(0, 0);
 
 const LavaLampExperiment = () => {
-  const circleA = useCirclePos(300, 200, 400, 1.5);
-  const circleB = useCirclePos(400, 300, 500, 1);
-  const circleC = useCirclePos(300, 100, 500, 0.7);
+  const [circleA, circleAHandlers] = useClickHoverWander(
+    1000,
+    500,
+    ZeroVector,
+    { tension: 12, friction: 5 }
+  );
+  const [circleB, circleBHandlers] = useClickHoverWander(
+    1000,
+    500,
+    ZeroVector,
+    {
+      tension: 20,
+      friction: 3,
+    }
+  );
+  const [circleC, circleCHandlers] = useClickHoverWander(
+    1000,
+    500,
+    ZeroVector,
+    {
+      tension: 8,
+      friction: 5,
+    }
+  );
 
   return (
-    <>
-      <div className="svg-holder">
+    <MenuLayout>
+      <div
+        className="svg-holder"
+        onClick={(e) => {
+          circleAHandlers.onClick(e);
+          circleBHandlers.onClick(e);
+          circleCHandlers.onClick(e);
+        }}
+        onMouseMove={(e) => {
+          circleBHandlers.onMouseMove(e);
+          circleAHandlers.onMouseMove(e);
+          circleCHandlers.onMouseMove(e);
+        }}
+      >
         <svg
           version="1.1"
           x="0px"
           y="0px"
-          width="600px"
-          height="600px"
-          viewBox="0 0 600 600"
+          width="100%"
+          height="100%"
           xmlSpace="preserve"
           style={{ border: "solid 1px black" }}
         >
@@ -63,9 +74,24 @@ const LavaLampExperiment = () => {
           </defs>
           <rect width="100%" height="100%" fill="#212121"></rect>
           <g filter="url(#goo)">
-            <circle cx={circleA} cy={300} r={50} fill={colors[0]}></circle>
-            <circle cx={circleB} cy={300} r={50} fill={colors[1]}></circle>
-            <circle cx={circleC} cy={220} r={50} fill={colors[2]}></circle>
+            <circle
+              cx={circleA.x}
+              cy={circleA.y}
+              r={50}
+              fill={colors[0]}
+            ></circle>
+            <circle
+              cx={circleB.x}
+              cy={circleB.y}
+              r={50}
+              fill={colors[1]}
+            ></circle>
+            <circle
+              cx={circleC.x}
+              cy={circleC.y}
+              r={50}
+              fill={colors[2]}
+            ></circle>
           </g>
         </svg>
       </div>
@@ -81,7 +107,7 @@ const LavaLampExperiment = () => {
           }
         `}
       </style>
-    </>
+    </MenuLayout>
   );
 };
 

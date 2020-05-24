@@ -27,7 +27,11 @@ const getNextPosition = (
 const useClickHoverWander = (
   width: number,
   height: number,
-  initialFocusPoint: Vector2d = new Vector2d(0, 0)
+  initialFocusPoint: Vector2d = new Vector2d(0, 0),
+  springConfig: { tension: number; friction: number } = {
+    tension: 2,
+    friction: 5,
+  }
 ): [
   Vector2d,
   {
@@ -43,10 +47,14 @@ const useClickHoverWander = (
 
   React.useEffect(() => {
     const springSystem = new SpringSystem();
-    const springTension = 2;
-    const springFriction = 5;
-    xSpring.current = springSystem.createSpring(springTension, springFriction);
-    ySpring.current = springSystem.createSpring(springTension, springFriction);
+    xSpring.current = springSystem.createSpring(
+      springConfig.tension,
+      springConfig.friction
+    );
+    ySpring.current = springSystem.createSpring(
+      springConfig.tension,
+      springConfig.friction
+    );
 
     const goToNextPosition = () => {
       if (!xSpring.current || !ySpring.current) {
@@ -116,7 +124,7 @@ const useClickHoverWander = (
       xSpring.current && xSpring.current.destroy();
       ySpring.current && ySpring.current.destroy();
     };
-  }, [height, width]);
+  }, [height, springConfig.friction, springConfig.tension, width]);
 
   const onMouseMove = React.useMemo(
     () =>
