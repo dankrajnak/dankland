@@ -10,6 +10,7 @@ import Card from "../Domain/Card/Card";
 import CardMenu from "../View/PageComponents/Menu/CardMenu";
 import { MenuRouteProps } from "../Domain/Menu/Menu";
 import LiquorForDinnerPreview from "../View/PageComponents/Menu/LiquorForDinnerPreview";
+import NucleusMenu from "../View/PageComponents/Menu/NucleusMenu";
 
 const cards: Card[] = [
   {
@@ -61,7 +62,7 @@ const cards: Card[] = [
 const Menu = (props: MenuRouteProps) => (
   <Layout>
     <SEO title="Menu" />
-    <CardMenu routeProps={props} cards={cards} />
+    <NucleusMenu routeProps={props} cards={cards} />
     <style jsx>
       {`
         .mute {

@@ -4,7 +4,7 @@ import * as React from "react";
  * while the page is getting ready.
  */
 const FlashScreen = () => (
-  <>
+  <span>
     <div className="flash" />
     <style jsx>
       {`
@@ -16,7 +16,7 @@ const FlashScreen = () => (
         }
       `}
     </style>
-  </>
+  </span>
 );
 
 export default FlashScreen;

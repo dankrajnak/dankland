@@ -16,10 +16,10 @@ module.exports = {
     "prettier/prettier": "error",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "arrow-body-style": ["error", "as-needed"],
     "@typescript-eslint/explicit-function-return-type": 0,
     "typescript/no-unused-expression": 0,
     "@typescript-eslint/ban-ts-ignore": 0,
+    "@typescript-eslint/ban-ts-comment": 0,
     "@typescript-eslint/no-empty-function": 0,
     "@typescript-eslint/no-explicit-any": 0,
     "jsx-a11y/anchor-is-valid": 0,
@@ -27,7 +27,9 @@ module.exports = {
   overrides: [
     {
       files: ["*.tsx"],
-      rules: { "@typescript-eslint/explicit-module-boundary-types": 0 },
+      rules: {
+        "@typescript-eslint/explicit-module-boundary-types": 0,
+      },
     },
   ],
 };

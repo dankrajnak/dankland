@@ -29,7 +29,7 @@ const renderPendulums = (
 
   pendulums.forEach((p) => {
     ctx.beginPath();
-    ctx.strokeStyle = "#AAA";
+    ctx.strokeStyle = "#FFF";
     ctx.ellipse(p.x2, p.y2, 1, 1, 0, 0, Math.PI * 2);
     ctx.stroke();
     ctx.closePath();
@@ -37,7 +37,7 @@ const renderPendulums = (
 
   // Draw lines between pendulums
   ctx.beginPath();
-  ctx.strokeStyle = "#333";
+  ctx.strokeStyle = "#FFF";
   ctx.moveTo(pendulums[0].x1, pendulums[0].y1);
   for (let i = 1; i < pendulums.length; i++) {
     ctx.lineTo(pendulums[i].x1, pendulums[i].y1);

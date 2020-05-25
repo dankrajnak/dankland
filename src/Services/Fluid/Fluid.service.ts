@@ -48,7 +48,7 @@ const INTERACTION_RADIUS_SQ = INTERACTION_RADIUS ** 2;
 const STIFFNESS = 35; // NO idea what these should be.
 const STIFFNESS_NEAR = 100;
 const REST_DENSITY = 5;
-
+// based on https://peeke.nl/simulating-blobs-of-fluid
 export default class FluidService {
   public readonly state: State;
   private particleCount: number;
