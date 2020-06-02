@@ -1,5 +1,5 @@
 import * as React from "react";
-import Head from "next/head";
+import Link from "next/link";
 import { Menu } from "../../../../Domain/Menu/Menu";
 import TheCoolestOne from "../../Homepage/TheCoolestOne";
 import Layout from "../../../Layout/Layout";
@@ -23,11 +23,19 @@ const NucleusMenu: Menu = ({ cards }) => {
       >
         {width && height && <TheCoolestOne width={width} height={height} />}
       </div>
-      {width &&
-        height &&
-        cards.map((card) => (
-          <card.background width={width} height={height / 3} />
+      <div className="card-container">
+        {cards.map((card, index) => (
+          <div>
+            <Link href={card.link} key={index}>
+              <a>
+                <card.background width={300} height={500} />
+              </a>
+            </Link>
+            <h1>{card.title}</h1>
+            <div>{card.description}</div>
+          </div>
         ))}
+      </div>
 
       <style jsx>
         {`
@@ -49,6 +57,19 @@ const NucleusMenu: Menu = ({ cards }) => {
             right: 0;
             transition: opacity 2s ease;
             z-index: -1;
+          }
+
+          .card-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            flex-direction: column;
+          }
+
+          .card-container > div {
+            margin-top: 20px;
+            margin-bottom: 20px;
           }
         `}
       </style>
