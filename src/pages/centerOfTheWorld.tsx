@@ -1,44 +1,25 @@
 import * as React from "react";
+import { useRouter } from "next/router";
 import MenuLayout from "../View/Layout/MenuLayout";
 import SEO from "../View/Utility/seo";
 import LocalStorageService from "../Services/LocalStorage/LocalStorage.service";
-import { useRouter } from "next/router";
 
-const Index = () => {
-  const [mess, setMess] = React.useState("ok");
-  React.useEffect(() => {
-    setTimeout(() => {
-      setMess("something Else");
-    }, 500);
-  }, []);
-
-  return (
-    <div>
-      Hi <Thing message={mess} />
-    </div>
-  );
-};
-const Thing = (props: { message: string }) => {
-  const message = React.useMemo(() => props.message, []);
-  return <div>{message}</div>;
-};
-
-const LiquorForDinner = () => {
+const CenterOfTheWorld = () => {
   const liquorPage = React.useState(LocalStorageService.getLiquorPage())[0];
   const router = useRouter();
   React.useEffect(() => {
-    if (liquorPage === "liquor") {
+    if (liquorPage === "middle") {
       LocalStorageService.toggleLiquorPage();
     } else {
-      router.push("/centerOfTheWorld");
+      router.push("/liquorForDinner");
     }
   }, [liquorPage, router]);
 
   return (
     <MenuLayout>
-      <SEO title="Liquor For Dinner" />
+      <SEO title="Center Of the World" />
       <div className="container">
-        <h2 className="content">Nothing's Here.</h2>
+        <h2 className="content">Center Of The World</h2>
       </div>
       <style jsx>
         {`
@@ -62,4 +43,4 @@ const LiquorForDinner = () => {
   );
 };
 
-export default LiquorForDinner;
+export default CenterOfTheWorld;
