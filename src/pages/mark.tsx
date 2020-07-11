@@ -50,7 +50,7 @@ const Mark = () => {
   React.useEffect(() => {
     setScreen((s) =>
       s.map((row, rowIndex) =>
-        row.map((pixel, pixelIndex) =>
+        row.map((_pixel, pixelIndex) =>
           Math.min(
             width /
               new Vector2d(
@@ -62,7 +62,7 @@ const Mark = () => {
         )
       )
     );
-  }, [mousePosition, screen.length]);
+  }, [height, mousePosition, screen.length, width]);
 
   if (!width || !height) {
     return null;
