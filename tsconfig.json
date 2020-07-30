@@ -1,9 +1,13 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "target": "es5",
+    "target": "esnext",
     "module": "esnext",
-    "lib": ["dom", "es2015", "es2017"],
+    "lib": [
+      "dom",
+      "es2015",
+      "es2017"
+    ],
     "jsx": "preserve",
     "sourceMap": true,
     "skipLibCheck": true,
@@ -19,6 +23,13 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "include": ["./src"],
-  "exclude": ["./node_modules", "./.next", "./out"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "./node_modules",
+    "./.next",
+    "./out"
+  ]
 }
