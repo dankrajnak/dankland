@@ -17,3 +17,5 @@ extern "C" {
 pub fn greet() {
     alert("Hello, something else!");
 }
+
+mod fluid;
