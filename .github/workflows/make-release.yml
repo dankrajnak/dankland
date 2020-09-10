@@ -2,7 +2,7 @@ name: Make-Release
 
 on:
   push:
-    branches: [release]
+    branches: [ release ]
 
 jobs:
   make-release:
