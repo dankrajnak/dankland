@@ -7,7 +7,7 @@
     "dev": "next",
     "start": "next start",
     "build": "next build && next export",
-    "now-build": "yarn test && yarn build",
+    "now-build": "yarn build",
     "test": "jest",
     "type-check": "tsc --noEmit --skipLibCheck"
   },
