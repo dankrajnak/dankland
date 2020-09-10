@@ -20,7 +20,7 @@ jobs:
       with:
         test-command: yarn test --coverage
     - name: Merge to Release
-    - uses: everlytic/branch-merge@1.1.0
+      uses: everlytic/branch-merge@1.1.0
       with:
         github_token: ${{ github.token }}
         source_ref: ${{ github.ref }}
