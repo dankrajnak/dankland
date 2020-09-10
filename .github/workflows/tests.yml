@@ -1,4 +1,4 @@
-name: Jest Code Coverage
+name: Tests
 
 on:
   push:
