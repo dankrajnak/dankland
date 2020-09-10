@@ -36,29 +36,6 @@ jobs:
         source_ref: ${{ github.ref }}
         target_branch: 'release'
         commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
-    - name: Create Version Tag
-      uses: paulhatch/semantic-version@v3
-      with:
-        # The branch to count commits on
-        branch: "master"
-        # The prefix to use to identify tags
-        tag_prefix: "v"
-        # A string which, if present in a git commit, indicates that a change represents a
-        # major (breaking) change
-        major_pattern: "(MAJOR)"
-        # Same as above except indicating a minor change
-        minor_pattern: "(MINOR)"
-        # A string to determine the format of the version output
-        format: "${major}.${minor}.${patch}"
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        body_path: "ReleaseInfo.md"
 
 
 
