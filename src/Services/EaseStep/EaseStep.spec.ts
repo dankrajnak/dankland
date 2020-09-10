@@ -5,6 +5,10 @@ test("returns 0 for no stages", () => {
   expect(easer(0, 0)).toBe(0);
 });
 
+test("expect this to fail", () => {
+  expect(true).toBe(false);
+});
+
 test("0 period moves items together", () => {
   const [easer] = stepEaser(2, 0);
   for (let i = 0; i < 1; i += 0.1) {
