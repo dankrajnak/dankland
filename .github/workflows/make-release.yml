@@ -1,0 +1,34 @@
+name: Make-Release
+
+on:
+  push:
+    branches: [release]
+
+jobs:
+  make-release:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+    - name: Wait for Vercel deployment
+      uses: mskelton/wait-for-vercel-action@v1
+      with:
+        prod-url: dank.land
+        token: ${{ secrets.VERCEL_TOKEN }}
+    - name: Create Release
+      uses: paulhatch/semantic-version@v3
+      with:
+        # The branch to count commits on
+        branch: "release"
+        # The prefix to use to identify tags
+        tag_prefix: "v"
+        # A string which, if present in a git commit, indicates that a change represents a
+        # major (breaking) change
+        major_pattern: "(MAJOR)"
+        # Same as above except indicating a minor change
+        minor_pattern: "(MINOR)"
+        # A string to determine the format of the version output
+        format: "${major}.${minor}.${patch}"
+
+        
+        
