@@ -28,7 +28,7 @@ jobs:
     - name: Jest Annotations & Coverage
       uses: mattallty/jest-github-action@v1.0.3
       with:
-        test-command: yarn test --coverage
+        test-command: yarn test
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
       env:
