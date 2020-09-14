@@ -34,10 +34,10 @@ jobs:
       with:
         test-command: yarn test
         
-    - name: Install wasm-pack
-      uses: jetli/wasm-pack-action@v0.3.0
-    - name: Build WebAssembly
-      run: wasm-pack build src/webassembly/fluid
+    # - name: Install wasm-pack
+    #   uses: jetli/wasm-pack-action@v0.3.0
+    # - name: Build WebAssembly
+    #   run: wasm-pack build src/webassembly/fluid
 
     - name: Merge to Release
       uses: everlytic/branch-merge@1.1.0
