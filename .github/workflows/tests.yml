@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      SENTRY_PUBLIC_DSN: ${{ secrets.SENTRY_PUBLIC_DSN }}
     steps:
     - uses: actions/checkout@v2
     - name: Get yarn cache directory path
