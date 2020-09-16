@@ -4,7 +4,6 @@ import * as Sentry from "@sentry/react";
 import { Integrations } from "@sentry/tracing";
 
 if (process.env.SENTRY_PUBLIC_DSN) {
-  console.log(process.env.SENTRY_PUBLIC_DSN);
   Sentry.init({
     enabled: process.env.NODE_ENV === "production",
     dsn: process.env.SENTRY_PUBLIC_DSN,
