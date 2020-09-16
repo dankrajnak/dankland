@@ -3,7 +3,7 @@ on:
   pull_request:
     branches: [ release ]
 jobs:
-  rebase-release:
+  release-rebase:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
