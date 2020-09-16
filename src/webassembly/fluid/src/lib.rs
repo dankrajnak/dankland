@@ -19,3 +19,4 @@ pub fn greet() {
 }
 
 mod fluid;
+mod spatialHashMap;

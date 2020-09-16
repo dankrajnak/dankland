@@ -5,8 +5,8 @@ const GRAVITY: f32 = 35.0;
 
 #[wasm_bindgen]
 pub struct FluidSimulation {
-  particleCount: u32,
-  x: Vec<&f32>,
+  particle_count: u32,
+  x: Vec<f32>,
   y: Vec<f32>,
   oldX: Vec<f32>,  // previous x location
   oldY: Vec<f32>,  // previous y location
@@ -19,12 +19,32 @@ pub struct FluidSimulation {
 
 #[wasm_bindgen]
 impl FluidSimulation {
-  fn simulate(&self) -> bool {
+  pub fn new(particle_count: u32) -> FluidSimulation {
+    FluidSimulation {
+      particle_count,
+      x: Vec::new(),
+      y: Vec::new(),
+      oldX: Vec::new(),  // previous x location
+      oldY: Vec::new(),  // previous y location
+      vx: Vec::new(),    // horizontal velocity
+      vy: Vec::new(),    // vertical velocity
+      p: Vec::new(),     // pressure
+      pNear: Vec::new(), // pressure near
+      g: Vec::new(),
+    }
+  }
+
+  fn simulate(&mut self) -> bool {
     // Update old position
     for i in 0..PARTICLE_COUNT {
-      *&self.oldX[i] = &self.x[i]
+      self.oldX[i] = self.x[i]
     }
 
     true
   }
+}
+
+fn main() {
+  let mut thing = FluidSimulation::new(32);
+  thing.simulate();
 }
