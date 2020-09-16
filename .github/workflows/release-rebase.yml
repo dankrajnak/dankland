@@ -1,6 +1,6 @@
 name: Release Rebase
 on:
-  pr:
+  pull_request:
     branches: [ release ]
 jobs:
   rebase-release:
