@@ -40,11 +40,11 @@ jobs:
     # - name: Build WebAssembly
     #   run: wasm-pack build src/webassembly/fluid
     - name: Make Release PR
-        uses: tretuna/sync-branches@1.2.0
-        with:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          FROM_BRANCH: ${{ github.ref }}
-          TO_BRANCH: "release"
+      uses: tretuna/sync-branches@1.2.0
+      with:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        FROM_BRANCH: ${{ github.ref }}
+        TO_BRANCH: "release"
 
 
 
