@@ -61,7 +61,15 @@ const cards: Card[] = [
 const Menu = (props: MenuRouteProps) => (
   <Layout>
     <SEO title="Menu" />
-    <button onClick={() => breakEverything()}>Break Everything</button>
+    <button
+      onClick={() => {
+        if (props) {
+          throw new Error("Custom error");
+        }
+      }}
+    >
+      Break Everything
+    </button>
     {/* <CardMenu routeProps={props} cards={cards} /> */}
     <style jsx>
       {`
