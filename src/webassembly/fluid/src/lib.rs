@@ -18,5 +18,9 @@ pub fn greet() {
     alert("Hello, something else!");
 }
 
-mod fluid;
-mod spatialHashMap;
+pub mod fluid;
+pub mod spatial_hash_map;
+
+pub fn main() {
+    crate::utils::set_panic_hook();
+}
