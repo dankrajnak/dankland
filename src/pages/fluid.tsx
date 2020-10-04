@@ -69,9 +69,8 @@ const Fluid = () => {
         height={height}
         fps={30}
         artist={artist}
-        onMouseOut={() => {
-          mousePosition.current = [0, 0];
-        }}
+        // @ts-ignore
+        onMouseOut={() => (mousePosition.current = [0, 0])}
         onMouseMove={(event: React.MouseEvent) => {
           const bounds = event.currentTarget.getBoundingClientRect();
           mousePosition.current = [
