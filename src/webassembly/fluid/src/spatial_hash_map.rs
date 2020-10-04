@@ -139,26 +139,23 @@ impl<T: Copy> SpatialHashMap<T> {
     let bottom = cmp::max(float_max(y - radius, 0.0) as usize, 0) / self.cell_size;
     let top = cmp::min(float_max(y + radius, 0.0) as usize, self.height - 1) / self.cell_size;
 
-    let mut result: Vec<T> = Vec::new();
-    println!("grid: {}", self.grid.len());
-    println!("left: {}", left);
-    println!("right: {}", right);
-    println!("bottom: {}", bottom);
-    println!("top: {}", top);
+    let mut slices = Vec::new();
     for i in left..(right + 1) {
       for j in bottom..(top + 1) {
-        println!(
-          "i: {}, j: {}, index: {}",
-          i,
-          j,
-          self.get_bucket_index(i as f32, j as f32)
-        );
-        let bucket = self.grid[i + j * self.width / self.cell_size].to_vec();
-        for k in 0..bucket.len() {
-          result.push(bucket[k]);
-        }
+        slices.push(&self.grid[i + j * self.width / self.cell_size]);
       }
     }
+    let mut total: usize = 0;
+    for i in 0..slices.len() {
+      total += slices[i].len()
+    }
+
+    let mut result: Vec<T> = Vec::with_capacity(total);
+
+    for i in 0..slices.len() {
+      result.extend_from_slice(slices[i])
+    }
+
     return result;
   }
 

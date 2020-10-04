@@ -20,7 +20,9 @@ pub fn greet() {
 
 pub mod fluid;
 pub mod spatial_hash_map;
+pub mod timer;
 
-pub fn main() {
+#[wasm_bindgen]
+pub fn init() {
     crate::utils::set_panic_hook();
 }

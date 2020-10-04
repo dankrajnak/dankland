@@ -42,7 +42,7 @@ class State {
 }
 
 const GRAVITY = new Vector2d(0, 9.8);
-const INTERACTION_RADIUS = 105;
+const INTERACTION_RADIUS = 20;
 const INTERACTION_RADIUS_SQ = INTERACTION_RADIUS ** 2;
 
 const STIFFNESS = 35; // NO idea what these should be.
