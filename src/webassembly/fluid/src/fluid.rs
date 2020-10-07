@@ -36,8 +36,8 @@ fn unit_approx_vector(vec: (f32, f32)) -> (f32, f32) {
   return mult_scalar_vector(vec, ratio);
 }
 
-fn mass(_id: usize) -> f32 {
-  return 0.185;
+fn mass(id: usize) -> f32 {
+  return if id % 2 == 0 { 0.385 } else { 0.2 };
 }
 
 #[wasm_bindgen]
@@ -60,7 +60,17 @@ pub struct FluidSimulation {
   height: f32,
   interaction_radius: f32,
 }
-
+///
+/// ```
+/// use fluid::fluid::FluidSimulation;
+/// let mut simulation = FluidSimulation::new(1000, 46, 46);
+///  println!("{}", simulation.first_x());
+/// simulation.simulate(0.0, 10000.0, 0.0, 0.02857142857142857);
+///  println!("{}",  simulation.first_x());
+/// simulation.simulate(0.0, 10000.0, 0.0, 0.02857142857142857);
+/// println!("{}",  simulation.first_x());
+///
+/// ```
 #[wasm_bindgen]
 impl FluidSimulation {
   pub fn new(particle_count: usize, width: usize, height: usize) -> FluidSimulation {
@@ -86,7 +96,7 @@ impl FluidSimulation {
       g: vec![0.0; particle_count],
       width: width as f32,
       height: height as f32,
-      hash_map: SpatialHashMap::new(width, height, width / 50),
+      hash_map: SpatialHashMap::new(width, height, if width > 50 { width / 50 } else { 1 }),
       interaction_radius: (height as f32 / 50.0) * 2.5 * 38.0 / (particle_count as f32).sqrt(),
       scroll_force: (0.0, 0.0),
       last_scroll: 0.0,
@@ -244,14 +254,12 @@ impl FluidSimulation {
 
       // Calculate new velocities
       self.calculate_velocity(i, dt);
-
-      // Update
     }
   }
 
   fn contain(&mut self, i: usize, _dt: f32) {
-    let dx = self.vx[i] * 0.025;
-    let dy = self.vy[i] * 0.025;
+    let dx = self.vx[i] * 0.015;
+    let dy = self.vy[i] * 0.015;
     if self.x[i] < 0.0 {
       self.x[i] = 0.0;
       self.old_x[i] = -dx;

@@ -57,12 +57,6 @@ export class FluidSimulation {
         return FluidSimulation.__wrap(ret);
     }
     /**
-    *```
-    * # use fluid::fluid::FluidSimulation;
-    * let mut fluid = FluidSimulation::new(1500, 1000, 1000);
-    * fluid.simulate(0.167);
-    *```
-    *
     * @param {number} scroll
     * @param {number} mouse_x
     * @param {number} mouse_y
