@@ -6,8 +6,6 @@ import SEO from "../View/Utility/seo";
 
 const PARTICLE_COUNT = 1000;
 
-const width = 800;
-const height = 800;
 const PERSPECTIVE_ANGLE = 75;
 const CAMERA_DISTANCE = 30;
 
@@ -37,25 +35,37 @@ const Camera = (props: {
   );
 };
 
+const PARTICLE_COLORS = [
+  "#4AA0C9", // red
+  "#FF6466", // blue
+  "#FFA879", // orange
+  "#90CF9C", // green
+  "#FFE596", // yellow
+];
+
 const Particle = (props: {
   index: number;
   xArray: React.MutableRefObject<Float32Array>;
   yArray: React.MutableRefObject<Float32Array>;
 }) => {
   const ref = React.useRef<THREE.Mesh>();
+  const { size } = useThree();
   useFrame(() => {
     if (ref.current) {
       ref.current.position.x =
-        props.xArray.current[props.index] - VIEWPORT_HEIGHT / 2;
+        props.xArray.current[props.index] -
+        ((VIEWPORT_HEIGHT / 2) * size.width) / size.height;
       ref.current.position.y =
-        -props.yArray.current[props.index] + VIEWPORT_HEIGHT / 2;
+        props.yArray.current[props.index] - VIEWPORT_HEIGHT / 2;
       ref.current.position.z = 0;
     }
   });
   return (
     <mesh ref={ref}>
-      <sphereBufferGeometry args={[0.2, 8]} />
-      <meshBasicMaterial color={props.index % 2 === 0 ? "blue" : "red"} />
+      <sphereBufferGeometry args={[0.1, 8]} />
+      <meshBasicMaterial
+        color={PARTICLE_COLORS[props.index % PARTICLE_COLORS.length]}
+      />
     </mesh>
   );
 };
@@ -63,9 +73,11 @@ const Particle = (props: {
 const Particles = ({
   simulator,
   memory,
+  mousePosition,
 }: {
   simulator: FluidSimulation;
   memory: WebAssembly.Memory;
+  mousePosition: React.MutableRefObject<[number, number]>;
 }) => {
   const xPos = React.useRef<Float32Array>(
     new Float32Array(memory.buffer, simulator.x(), PARTICLE_COUNT)
@@ -76,10 +88,11 @@ const Particles = ({
 
   // const [focusPoint, mouseProps] = useClickHoverWander(width, height);
   useFrame((_ctx, dt) => {
+    console.log(mousePosition.current[0], mousePosition.current[1]);
     simulator.simulate(
-      window.scrollY,
-      10000,
-      0,
+      -window.scrollY,
+      mousePosition.current[0],
+      mousePosition.current[1],
       Math.min(Math.max(dt, 0.001), 1 / 35)
     );
     xPos.current = new Float32Array(
@@ -108,6 +121,12 @@ const Fluid = () => {
   );
 
   const [memory, setMemory] = React.useState<WebAssembly.Memory | null>(null);
+  const [width, setWidth] = React.useState(500);
+  const [height, setHeight] = React.useState(500);
+  React.useEffect(() => {
+    setWidth(window.innerWidth);
+    setHeight(window.innerHeight);
+  }, []);
   React.useEffect(() => {
     if (width && height) {
       import(`../webassembly/fluid/pkg`)
@@ -115,7 +134,7 @@ const Fluid = () => {
           import("../webassembly/fluid/pkg/fluid_bg").then(({ memory }) => {
             const simul = module.FluidSimulation.new(
               PARTICLE_COUNT,
-              Math.round(VIEWPORT_HEIGHT),
+              (Math.round(VIEWPORT_HEIGHT) * width) / height,
               Math.round(VIEWPORT_HEIGHT)
             );
             setSimulator(simul);
@@ -124,25 +143,77 @@ const Fluid = () => {
         })
         .catch(console.error);
     }
-  }, []);
+  }, [height, width]);
+
+  const mousePosition = React.useRef<[number, number]>([0, 0]);
 
   return (
     <Layout>
       <SEO title="Fluid" />
       {simulator && memory && (
-        <div style={{ width, height }}>
-          <Canvas>
+        <div style={{ width, height, position: "absolute" }}>
+          <div
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              zIndex: 1000,
+              color: "#FFFFFF",
+              transform: "translate(-50%, -50%)",
+            }}
+          >
+            <h1>Dank Land</h1>
+          </div>
+          <div
+            style={{
+              left: "50%",
+              bottom: 25,
+              zIndex: 1000,
+              position: "absolute",
+              color: "rgba(255, 255, 255, 0.5)",
+              transform: "translate(-50%, -50%)",
+            }}
+          >
+            Scroll
+          </div>
+          <Canvas
+            onMouseMove={(event: React.MouseEvent) => {
+              const bounds = event.currentTarget.getBoundingClientRect();
+              mousePosition.current = [
+                ((event.clientX - bounds.left) / width) *
+                  VIEWPORT_HEIGHT *
+                  (width / height),
+
+                VIEWPORT_HEIGHT -
+                  ((event.clientY - bounds.top) / height) * VIEWPORT_HEIGHT,
+              ];
+            }}
+            onMouseOut={() => {
+              mousePosition.current = [10000, 1000];
+            }}
+          >
             <Camera
               position={[0, 0, CAMERA_DISTANCE]}
               aspect={width / height}
             />
-            <pointLight position={[10, 10, 10]} />
             <ambientLight />
 
-            <Particles simulator={simulator} memory={memory} />
+            <Particles
+              simulator={simulator}
+              memory={memory}
+              mousePosition={mousePosition}
+            />
           </Canvas>
         </div>
       )}
+      <div style={{ width: "100%", height: 2000 }}></div>
+      <style jsx global>
+        {`
+          canvas {
+            background-color: #272731;
+          }
+        `}
+      </style>
     </Layout>
   );
 };

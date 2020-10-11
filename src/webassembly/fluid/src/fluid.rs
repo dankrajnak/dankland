@@ -4,7 +4,7 @@ use crate::spatial_hash_map::SpatialHashMap;
 use wasm_bindgen::prelude::*;
 extern crate web_sys;
 
-const GRAVITY: (f32, f32) = (0.0, 15.0);
+const GRAVITY: (f32, f32) = (0.0, -7.0);
 const STIFFNESS: f32 = 35.0;
 const STIFFNESS_NEAR: f32 = 100.0;
 const REST_DENSITY: f32 = 5.0;
@@ -37,7 +37,7 @@ fn unit_approx_vector(vec: (f32, f32)) -> (f32, f32) {
 }
 
 fn mass(id: usize) -> f32 {
-  return if id % 2 == 0 { 0.385 } else { 0.2 };
+  return 0.525 + ((id % 5) as f32) * 0.3;
 }
 
 #[wasm_bindgen]
@@ -152,7 +152,7 @@ impl FluidSimulation {
     // force = add(force, [0, -0.25 * state.color[i]]);
 
     let from_mouse = sub_vector((self.x[index], self.y[index]), mouse);
-    let scalar = (27000.0 / length_squared_vector(from_mouse)).min(350.0);
+    let scalar = (2700.0 / length_squared_vector(from_mouse)).min(100.0);
     let mouse_force = mult_scalar_vector(unit_approx_vector(from_mouse), scalar);
     force = add_vector(force, mouse_force);
 
