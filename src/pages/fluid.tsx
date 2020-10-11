@@ -121,8 +121,8 @@ const Fluid = () => {
   );
 
   const [memory, setMemory] = React.useState<WebAssembly.Memory | null>(null);
-  const [width, setWidth] = React.useState(500);
-  const [height, setHeight] = React.useState(500);
+  const [width, setWidth] = React.useState<number | null>(null);
+  const [height, setHeight] = React.useState<number | null>(null);
   React.useEffect(() => {
     setWidth(window.innerWidth);
     setHeight(window.innerHeight);
@@ -150,7 +150,7 @@ const Fluid = () => {
   return (
     <Layout>
       <SEO title="Fluid" />
-      {simulator && memory && (
+      {simulator && memory && width && height && (
         <div style={{ width, height, position: "absolute" }}>
           <div
             style={{
@@ -159,10 +159,11 @@ const Fluid = () => {
               left: "50%",
               zIndex: 1000,
               color: "#FFFFFF",
+              fontWeight: 200,
               transform: "translate(-50%, -50%)",
             }}
           >
-            <h1>Dank Land</h1>
+            <h1 style={{ fontWeight: 100 }}>Dank Land</h1>
           </div>
           <div
             style={{
@@ -177,6 +178,9 @@ const Fluid = () => {
             Scroll
           </div>
           <Canvas
+            style={{
+              backgroundColor: "#272731",
+            }}
             onMouseMove={(event: React.MouseEvent) => {
               const bounds = event.currentTarget.getBoundingClientRect();
               mousePosition.current = [
@@ -209,8 +213,18 @@ const Fluid = () => {
       <div style={{ width: "100%", height: 2000 }}></div>
       <style jsx global>
         {`
-          canvas {
+          html,
+          body {
             background-color: #272731;
+          }
+
+          @keyframes fadeIn {
+            0% {
+              opacity: 0;
+            }
+            100% {
+              opacity: 1;
+            }
           }
         `}
       </style>
