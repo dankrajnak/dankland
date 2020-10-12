@@ -1,11 +1,8 @@
 import * as React from "react";
 import { Canvas, useFrame, useThree } from "react-three-fiber";
-import { FluidSimulation } from "../webassembly/fluid/pkg/fluid";
-import Layout from "../View/Layout/Layout";
-import SEO from "../View/Utility/seo";
+import { FluidSimulation } from "../../webassembly/fluid/pkg/fluid";
 
 const PARTICLE_COUNT = 1000;
-
 const PERSPECTIVE_ANGLE = 75;
 const CAMERA_DISTANCE = 30;
 
@@ -88,7 +85,6 @@ const Particles = ({
 
   // const [focusPoint, mouseProps] = useClickHoverWander(width, height);
   useFrame((_ctx, dt) => {
-    console.log(mousePosition.current[0], mousePosition.current[1]);
     simulator.simulate(
       -window.scrollY,
       mousePosition.current[0],
@@ -115,23 +111,18 @@ const Particles = ({
   return <>{particles}</>;
 };
 
-const Fluid = () => {
+const Fluid = ({ width, height }: { width: number; height: number }) => {
   const [simulator, setSimulator] = React.useState<FluidSimulation | null>(
     null
   );
 
   const [memory, setMemory] = React.useState<WebAssembly.Memory | null>(null);
-  const [width, setWidth] = React.useState<number | null>(null);
-  const [height, setHeight] = React.useState<number | null>(null);
-  React.useEffect(() => {
-    setWidth(window.innerWidth);
-    setHeight(window.innerHeight);
-  }, []);
+
   React.useEffect(() => {
     if (width && height) {
-      import(`../webassembly/fluid/pkg`)
+      import(`../../webassembly/fluid/pkg`)
         .then((module) => {
-          import("../webassembly/fluid/pkg/fluid_bg").then(({ memory }) => {
+          import("../../webassembly/fluid/pkg/fluid_bg").then(({ memory }) => {
             const simul = module.FluidSimulation.new(
               PARTICLE_COUNT,
               (Math.round(VIEWPORT_HEIGHT) * width) / height,
@@ -148,88 +139,40 @@ const Fluid = () => {
   const mousePosition = React.useRef<[number, number]>([0, 0]);
 
   return (
-    <Layout>
-      <SEO title="Fluid" />
-      {simulator && memory && width && height && (
-        <div style={{ width, height, position: "absolute" }}>
-          <div
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              zIndex: 1000,
-              color: "#FFFFFF",
-              fontWeight: 200,
-              transform: "translate(-50%, -50%)",
-            }}
-          >
-            <h1 style={{ fontWeight: 100 }}>Dank Land</h1>
-          </div>
-          <div
-            style={{
-              left: "50%",
-              bottom: 25,
-              zIndex: 1000,
-              position: "absolute",
-              color: "rgba(255, 255, 255, 0.5)",
-              transform: "translate(-50%, -50%)",
-            }}
-          >
-            Scroll
-          </div>
-          <Canvas
-            style={{
-              backgroundColor: "#272731",
-            }}
-            onMouseMove={(event: React.MouseEvent) => {
-              const bounds = event.currentTarget.getBoundingClientRect();
-              mousePosition.current = [
-                ((event.clientX - bounds.left) / width) *
-                  VIEWPORT_HEIGHT *
-                  (width / height),
+    simulator &&
+    memory && (
+      <div style={{ width, height }}>
+        <Canvas
+          style={{
+            backgroundColor: "#272731",
+          }}
+          onMouseMove={(event: React.MouseEvent) => {
+            const bounds = event.currentTarget.getBoundingClientRect();
+            mousePosition.current = [
+              ((event.clientX - bounds.left) / width) *
+                VIEWPORT_HEIGHT *
+                (width / height),
 
-                VIEWPORT_HEIGHT -
-                  ((event.clientY - bounds.top) / height) * VIEWPORT_HEIGHT,
-              ];
-            }}
-            onMouseOut={() => {
-              mousePosition.current = [10000, 1000];
-            }}
-          >
-            <Camera
-              position={[0, 0, CAMERA_DISTANCE]}
-              aspect={width / height}
-            />
-            <ambientLight />
+              VIEWPORT_HEIGHT -
+                ((event.clientY - bounds.top) / height) * VIEWPORT_HEIGHT,
+            ];
+          }}
+          onMouseOut={() => {
+            mousePosition.current = [10000, 1000];
+          }}
+        >
+          <Camera position={[0, 0, CAMERA_DISTANCE]} aspect={width / height} />
+          <ambientLight />
 
-            <Particles
-              simulator={simulator}
-              memory={memory}
-              mousePosition={mousePosition}
-            />
-          </Canvas>
-        </div>
-      )}
-      <div style={{ width: "100%", height: 2000 }}></div>
-      <style jsx global>
-        {`
-          html,
-          body {
-            background-color: #272731;
-          }
-
-          @keyframes fadeIn {
-            0% {
-              opacity: 0;
-            }
-            100% {
-              opacity: 1;
-            }
-          }
-        `}
-      </style>
-    </Layout>
+          <Particles
+            simulator={simulator}
+            memory={memory}
+            mousePosition={mousePosition}
+          />
+        </Canvas>
+      </div>
+    )
   );
 };
 
-export default Fluid;
+export default React.memo(Fluid);

@@ -33,8 +33,10 @@ const JustSomeThoughtsPreview = () => {
         {`
           .container {
             background-color: white;
+            padding: 5px;
             color: black;
             display: flex;
+            text-align: center;
             align-items: center;
             justify-content: center;
             height: 100%;
