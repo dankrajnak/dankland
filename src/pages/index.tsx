@@ -64,7 +64,7 @@ const cards: Card[] = [
 // I can't find the typescript type for props passed into pages to save my life.
 const Menu = (props: MenuRouteProps) => {
   const [width, height] = useFullScreen();
-  const scroll = useScrollAmount();
+  // const scroll = useScrollAmount();
   const [Fluid, setFluid] = React.useState<any>(null);
   const [showLoader, setShowLoader] = React.useState(true);
 
@@ -144,7 +144,7 @@ const Menu = (props: MenuRouteProps) => {
             z-index: 1000;
             position: absolute;
             transform: translate(-50%, -50%);
-            opacity: ${scroll > 200 ? 0 : 0.5};
+            opacity: 0.5;
             transition: opacity ease 1s;
             color: white;
           }
