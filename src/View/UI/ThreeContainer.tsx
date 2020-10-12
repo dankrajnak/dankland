@@ -7,9 +7,14 @@ interface Props {
   height: number;
 }
 
-export default React.memo(function ThreeContainer(props: Props) {
+export default React.memo(function ThreeContainer({
+  start,
+  stop,
+  width,
+  height,
+  ...otherProps
+}: Props) {
   const container = React.useRef<HTMLDivElement>(null);
-  const { start, stop, width, height, ...otherProps } = props;
   React.useEffect(() => {
     if (container.current) {
       const curValOfContainer = container.current;

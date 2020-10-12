@@ -6,7 +6,7 @@ interface Props {
   width: number;
   height: number;
   initializeCanvas?: (context: CanvasRenderingContext2D) => void;
-  artist: (context: CanvasRenderingContext2D) => void;
+  artist: (context: CanvasRenderingContext2D, dt: number) => void;
   fps?: number | null;
 }
 
@@ -30,19 +30,18 @@ const CanvasDrawer = ({
   );
   React.useEffect(() => {
     const draw = (context: CanvasRenderingContext2D) => {
-      let then = Date.now();
+      let then = performance.now();
       const renderFrame = () => {
-        requestedFrame.current = requestAnimationFrame(() => {
+        requestedFrame.current = requestAnimationFrame((timestamp) => {
           renderFrame();
+          const delta = timestamp - then;
           if (!fps) {
-            artist(context);
+            artist(context, delta);
           } else {
-            const now = Date.now();
-            const delta = now - then;
             const interval = 1000 / fps;
             if (delta > interval) {
-              then = now - (delta % interval);
-              artist(context);
+              then = timestamp - (delta % interval);
+              artist(context, delta);
             }
           }
         });

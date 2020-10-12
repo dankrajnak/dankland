@@ -17,3 +17,12 @@ extern "C" {
 pub fn greet() {
     alert("Hello, something else!");
 }
+
+pub mod fluid;
+pub mod spatial_hash_map;
+pub mod timer;
+
+#[wasm_bindgen]
+pub fn init() {
+    crate::utils::set_panic_hook();
+}
