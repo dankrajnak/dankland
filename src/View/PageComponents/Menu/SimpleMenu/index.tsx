@@ -6,8 +6,8 @@ import { Menu } from "../../../../Domain/Menu/Menu";
 const SimpleMenu: Menu = ({ cards }) => (
   <>
     <div className="cards-holder">
-      {cards.map((card) => (
-        <Link href={card.link}>
+      {cards.map((card, index) => (
+        <Link href={card.link} key={index}>
           <div className="card-holder">
             <div className="card-graphic">
               <card.background width={300} height={300} />

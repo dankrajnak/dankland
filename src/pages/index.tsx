@@ -154,6 +154,8 @@ const Menu = (props: MenuRouteProps) => {
         {`
           html,
           body {
+            width: 100%;
+            overflow-x: hidden;
             background-color: #272731;
           }
         `}
