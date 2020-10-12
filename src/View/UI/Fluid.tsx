@@ -83,12 +83,14 @@ const Particles = ({
     new Float32Array(memory.buffer, simulator.y(), PARTICLE_COUNT)
   );
 
-  // const [focusPoint, mouseProps] = useClickHoverWander(width, height);
   useFrame((_ctx, dt) => {
+    // Fix weird bug on mobile.
+    const mousePos =
+      window.innerWidth < 600 ? [0, 100000] : mousePosition.current;
     simulator.simulate(
       -window.scrollY,
-      mousePosition.current[0],
-      mousePosition.current[1],
+      mousePos[0],
+      mousePos[1],
       Math.min(Math.max(dt, 0.001), 1 / 35)
     );
     xPos.current = new Float32Array(
