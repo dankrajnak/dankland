@@ -67,12 +67,14 @@ const Menu = (props: MenuRouteProps) => {
   const scroll = useScrollAmount();
   const [Fluid, setFluid] = React.useState<any>(null);
   const [showLoader, setShowLoader] = React.useState(true);
+  const hideLoader = React.useCallback(() => setShowLoader(false), []);
 
   React.useEffect(() => {
     import("../View/UI/Fluid").then((module) => {
       setFluid(module.default);
     });
   }, [setShowLoader]);
+
   return (
     <Layout>
       <SEO title="Menu" />
@@ -80,10 +82,10 @@ const Menu = (props: MenuRouteProps) => {
       <div className="title-container">
         <div className="title-holder">
           <h1>
-            {Fluid ? (
-              "Dank Land"
-            ) : (
+            {showLoader ? (
               <BarLoader color="white" height={2} loading={showLoader} />
+            ) : (
+              "Dank Land"
             )}
           </h1>
         </div>
@@ -95,7 +97,9 @@ const Menu = (props: MenuRouteProps) => {
         </div>
       </div>
       <div className="fluid-holder">
-        {width && height && Fluid && <Fluid width={width} height={height} />}
+        {width && height && Fluid && (
+          <Fluid width={width} height={height} onLoad={hideLoader} />
+        )}
       </div>
       <SimpleMenu routeProps={props} cards={cards} />
       <style jsx>

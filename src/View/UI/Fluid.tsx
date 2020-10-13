@@ -111,7 +111,15 @@ const Particles = ({
   return <>{particles}</>;
 };
 
-const Fluid = ({ width, height }: { width: number; height: number }) => {
+const Fluid = ({
+  width,
+  height,
+  onLoad,
+}: {
+  width: number;
+  height: number;
+  onLoad: () => any;
+}) => {
   const [simulator, setSimulator] = React.useState<FluidSimulation | null>(
     null
   );
@@ -130,11 +138,12 @@ const Fluid = ({ width, height }: { width: number; height: number }) => {
             );
             setSimulator(simul);
             setMemory(memory);
+            onLoad();
           });
         })
         .catch(console.error);
     }
-  }, [height, width]);
+  }, [height, onLoad, width]);
 
   const mousePosition = React.useRef<[number, number]>([0, 0]);
 
