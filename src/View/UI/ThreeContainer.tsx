@@ -1,4 +1,4 @@
-import * as React from "react";
+import { memo, useEffect, useRef } from "react";
 
 interface Props {
   start: (x0: HTMLDivElement) => void;
@@ -7,15 +7,15 @@ interface Props {
   height: number;
 }
 
-export default React.memo(function ThreeContainer({
+export default memo(function ThreeContainer({
   start,
   stop,
   width,
   height,
   ...otherProps
 }: Props) {
-  const container = React.useRef<HTMLDivElement>(null);
-  React.useEffect(() => {
+  const container = useRef<HTMLDivElement>(null);
+  useEffect(() => {
     if (container.current) {
       const curValOfContainer = container.current;
       start(curValOfContainer);

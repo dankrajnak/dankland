@@ -1,4 +1,3 @@
-import * as React from "react";
 import MenuLayout from "../View/Layout/MenuLayout";
 import SEO from "../View/Utility/seo";
 

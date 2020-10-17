@@ -1,10 +1,10 @@
-import * as React from "react";
+import { useEffect } from "react";
 import useTypeWriter from "../../Hooks/useTypeWriter/useTypeWriter";
 
 const title = "It's a caipirinhas and sad boy music night";
 const JustSomeThoughtsPreview = () => {
   const [text, setText] = useTypeWriter("");
-  React.useEffect(() => {
+  useEffect(() => {
     const timeouts: NodeJS.Timeout[] = [];
     const repeatTyping = () => {
       timeouts.push(

@@ -1,6 +1,6 @@
-import * as React from "react";
 import Canvas from "../Canvas";
 import useSafeWindow from "../../Hooks/useSafeWindow";
+import { memo, useEffect, useRef } from "react";
 
 interface Props {
   width: number;
@@ -18,17 +18,15 @@ const CanvasDrawer = ({
   fps,
   ...otherProps
 }: Props) => {
-  const context: React.MutableRefObject<CanvasRenderingContext2D | null> = React.useRef(
+  const context: React.MutableRefObject<CanvasRenderingContext2D | null> = useRef(
     null
   );
-  const requestedFrame: React.MutableRefObject<number | null> = React.useRef(
-    null
-  );
+  const requestedFrame: React.MutableRefObject<number | null> = useRef(null);
 
-  const getContext = React.useRef(
+  const getContext = useRef(
     (c: CanvasRenderingContext2D) => (context.current = c)
   );
-  React.useEffect(() => {
+  useEffect(() => {
     const draw = (context: CanvasRenderingContext2D) => {
       let then = performance.now();
       const renderFrame = () => {
@@ -76,4 +74,4 @@ const CanvasDrawer = ({
   );
 };
 
-export default React.memo(CanvasDrawer);
+export default memo(CanvasDrawer);

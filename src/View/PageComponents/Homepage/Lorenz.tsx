@@ -1,10 +1,10 @@
-import * as React from "react";
 import ColorInterpolate from "color-interpolate";
 import getNextPosition, {
   Position,
 } from "../../../Services/StrangeAttractor/StrangeAttractor.service";
 import CanvasDrawer from "../../UI/CavnasDrawer/CanvasDrawer";
 import { Map } from "immutable";
+import { memo } from "react";
 
 interface Props {
   width: number;
@@ -44,26 +44,15 @@ const Lorenz = (props: Props) => {
   const artist = (context: CanvasRenderingContext2D) => {
     // Draw the thing
     context.fillStyle = props.colorful
-      ? colorInterpolator(
-          colorMapper(
-            // @ts-ignore
-            position.get("z")
-          )
-        )
+      ? colorInterpolator(colorMapper(position.get("z")!))
       : "#2f3030";
     context.fillRect(0, 0, props.width, props.height);
 
     context.fillStyle = "#EEE";
     context.beginPath();
     context.ellipse(
-      xMapper(
-        // @ts-ignore
-        position.get("x")
-      ),
-      yMapper(
-        // @ts-ignore
-        position.get("z")
-      ),
+      xMapper(position.get("x")!),
+      yMapper(position.get("z")!),
       5,
       5,
       0,
@@ -92,4 +81,4 @@ const Lorenz = (props: Props) => {
   );
 };
 
-export default React.memo(Lorenz);
+export default memo(Lorenz);

@@ -1,15 +1,15 @@
-import * as React from "react";
+import { useEffect, useMemo, useRef } from "react";
 import MetaSphere from "../../../Services/MetaSphere/MetaSphere";
 import useClickHoverWander from "../../Hooks/useClickHoverWander";
 import CanvasDrawer from "../../UI/CavnasDrawer/CanvasDrawer";
 
 const MetaSpherePreview = (props: { width: number; height: number }) => {
-  const metaDrawer = React.useRef<MetaSphere | null>(null);
+  const metaDrawer = useRef<MetaSphere | null>(null);
   const [focusPoint, mouseProps] = useClickHoverWander(
     props.width,
     props.height
   );
-  React.useEffect(() => {
+  useEffect(() => {
     metaDrawer.current = new MetaSphere(props.width, props.height, {
       dotSize: 2,
       p: 0.002,
@@ -19,7 +19,7 @@ const MetaSpherePreview = (props: { width: number; height: number }) => {
     });
   }, [props.height, props.width]);
 
-  const artist = React.useMemo(
+  const artist = useMemo(
     () => (ctx: CanvasRenderingContext2D) => {
       metaDrawer.current && metaDrawer.current.draw(ctx, focusPoint);
     },

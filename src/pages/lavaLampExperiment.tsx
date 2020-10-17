@@ -1,4 +1,3 @@
-import * as React from "react";
 import MenuLayout from "../View/Layout/MenuLayout";
 import useClickHoverWander from "../View/Hooks/useClickHoverWander";
 import Vector2d from "../Domain/Vector/Vector2d";

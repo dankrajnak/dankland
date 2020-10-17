@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useReducer, useEffect } from "react";
 import Action from "../../Domain/Action/Action";
 
 // This is something I kinda wrote for Aviso (on the weekend).
@@ -75,11 +75,9 @@ const useService = <T>(
     hasError: false,
     errorMessage: null,
   };
-  const [state, dispatch] = React.useReducer(
-    reducer as ReducerType<T>,
-    initialState
-  );
-  React.useEffect(() => {
+  const [state, dispatch] = useReducer(reducer as ReducerType<T>, initialState);
+
+  useEffect(() => {
     dispatch({ type: "START_FETCH", payload: null });
     servicePromise
       .then((data) => {

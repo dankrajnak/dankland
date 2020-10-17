@@ -1,5 +1,5 @@
 import Action from "../../../Domain/Action/Action";
-import * as React from "react";
+import { useEffect, useReducer, useRef } from "react";
 import TypeWriterService from "../../../Services/TypeWriter/TypeWriter.service";
 
 /**
@@ -241,14 +241,14 @@ type useTypeWriterReturn = [
  * @returns [currentValueOfText, setText, isIdle]
  */
 const useTypeWriter = (initialText = ""): useTypeWriterReturn => {
-  const [state, dispatch] = React.useReducer(reducer, {
+  const [state, dispatch] = useReducer(reducer, {
     currentValue: initialText,
     sequence: [],
     isWaiting: false,
   });
-  const nextNodeTimeout = React.useRef<NodeJS.Timeout | null>(null);
+  const nextNodeTimeout = useRef<NodeJS.Timeout | null>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (state.isWaiting || !state.sequence.length) {
       return;
     }
@@ -262,7 +262,7 @@ const useTypeWriter = (initialText = ""): useTypeWriterReturn => {
     }, nextNode.delay);
   }, [state]);
 
-  React.useEffect(
+  useEffect(
     () => () => {
       nextNodeTimeout.current !== null && clearTimeout(nextNodeTimeout.current);
     },
@@ -273,7 +273,7 @@ const useTypeWriter = (initialText = ""): useTypeWriterReturn => {
    * Use ref so this function can be used in effects and won't cause
    * the effect to rerun after state changes.
    */
-  const typeNextText = React.useRef(
+  const typeNextText = useRef(
     (nextText: string, config?: TypeNextTextConfig) => {
       dispatch({ type: "DELETE_ALL", payload: null });
       const typeTextPayload = {

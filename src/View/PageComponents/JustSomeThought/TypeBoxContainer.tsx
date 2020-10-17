@@ -1,4 +1,3 @@
-import * as React from "react";
 import Vector2d from "../../../Domain/Vector/Vector2d";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {

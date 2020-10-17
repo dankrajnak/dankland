@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useMemo } from "react";
 import CanvasDrawer from "../View/UI/CavnasDrawer/CanvasDrawer";
 import FluidService from "../Services/Fluid/Fluid.service";
 
@@ -14,7 +14,7 @@ const fluidService = new FluidService(
 );
 
 const FluidExperiment = () => {
-  const artist = React.useMemo(
+  const artist = useMemo(
     () => (ctx: CanvasRenderingContext2D) => {
       ctx.clearRect(0, 0, WIDTH, HEIGHT);
       ctx.fillStyle = "black";

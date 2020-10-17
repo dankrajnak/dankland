@@ -1,4 +1,4 @@
-import * as React from "react";
+import { memo, useMemo, useRef } from "react";
 import CanvasDrawer from "../../UI/CavnasDrawer/CanvasDrawer";
 
 interface Props {
@@ -13,12 +13,12 @@ interface Sphere {
 }
 
 const HallwayPreview = ({ width, height }: Props) => {
-  const spheres = React.useRef<Sphere[]>([
+  const spheres = useRef<Sphere[]>([
     { x: width / 2, y: height / 2, color: "#ee6666" },
     { x: width / 2, y: height / 2, color: "#333388" },
   ]);
-  const renderNumber = React.useRef(0);
-  const artist = React.useMemo(
+  const renderNumber = useRef(0);
+  const artist = useMemo(
     () => (ctx: CanvasRenderingContext2D) => {
       renderNumber.current = renderNumber.current + 1;
 
@@ -47,4 +47,4 @@ const HallwayPreview = ({ width, height }: Props) => {
   return <CanvasDrawer width={width} height={height} artist={artist} />;
 };
 
-export default React.memo(HallwayPreview);
+export default memo(HallwayPreview);

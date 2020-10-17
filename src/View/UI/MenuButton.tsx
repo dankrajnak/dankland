@@ -1,5 +1,5 @@
-import * as React from "react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 interface ButtonProps {
   color?: string;
@@ -12,9 +12,9 @@ const Button = ({
   fade = false,
   styles = "",
 }: ButtonProps) => {
-  const [showing, setShowing] = React.useState(true);
+  const [showing, setShowing] = useState(true);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (fade) {
       const timeout = setTimeout(() => setShowing(false), 2000);
       return () => clearTimeout(timeout);

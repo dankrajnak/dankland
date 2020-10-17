@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState, useCallback, useEffect } from "react";
 import Layout from "../View/Layout/Layout";
 import SEO from "../View/Utility/seo";
 import Lorenz from "../View/PageComponents/Homepage/Lorenz";
@@ -65,11 +65,11 @@ const cards: Card[] = [
 const Menu = (props: MenuRouteProps) => {
   const [width, height] = useFullScreen();
   const scroll = useScrollAmount();
-  const [Fluid, setFluid] = React.useState<any>(null);
-  const [showLoader, setShowLoader] = React.useState(true);
-  const hideLoader = React.useCallback(() => setShowLoader(false), []);
+  const [Fluid, setFluid] = useState<any>(null);
+  const [showLoader, setShowLoader] = useState(true);
+  const hideLoader = useCallback(() => setShowLoader(false), []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     import("../View/UI/Fluid").then((module) => {
       setFluid(module.default);
     });

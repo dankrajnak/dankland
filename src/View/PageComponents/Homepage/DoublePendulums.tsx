@@ -1,4 +1,4 @@
-import * as React from "react";
+import { memo } from "react";
 import getNextPendulum, {
   PendulumVector,
 } from "../../../Services/DoublePendulum/DoublePendulum.service";
@@ -56,7 +56,7 @@ const getPendulumCoordinates = (pendulum: PendulumVector): PendulumPosition => {
 /**
  * Simulates chaotic pendulums utilizing the Runge-Katta algorithm
  */
-export default React.memo(function DoublePendulums(props: Props) {
+export default memo(function DoublePendulums(props: Props) {
   let pendulums = props.pendulumsInitialState;
   const drawPendulums = (context: CanvasRenderingContext2D) => {
     props.renderPendulums(

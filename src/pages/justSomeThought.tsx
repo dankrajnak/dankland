@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState, useRef, useEffect, ReactNode, useReducer } from "react";
 import MenuLayout from "../View/Layout/MenuLayout";
 import Vector2d from "../Domain/Vector/Vector2d";
 import useFullScreen from "../View/Hooks/useFullScreen";
@@ -30,14 +30,14 @@ const TheThoughts: string[] = [
 interface State {
   maxElements: number;
   numElementsBeforeWhite: number;
-  elements: { key: number; component: React.ReactNode }[];
+  elements: { key: number; component: ReactNode }[];
   nextKey: number;
   timeOut: number;
 }
 
 type AddElementAction = Action<
   "ADD_ELEMENT",
-  { key: number; component: React.ReactNode }
+  { key: number; component: ReactNode }
 >;
 type RemoveElementAction = Action<"REMOVE_ELEMENT", number>;
 type SetTimeoutAction = Action<"SET_TIMEOUT", number>;
@@ -94,7 +94,7 @@ const reducer = (
 };
 
 const JustSomeThoughts = () => {
-  const [state, dispatch] = React.useReducer(reducer, {
+  const [state, dispatch] = useReducer(reducer, {
     maxElements: 1,
     numElementsBeforeWhite: 100,
     elements: [],
@@ -102,23 +102,23 @@ const JustSomeThoughts = () => {
     timeOut: 2000,
   });
   const [width, height] = useFullScreen();
-  const maxElementsTimeout = React.useRef(20);
-  const [backgroundColor, setBackgroundColor] = React.useState("white");
-  const [menuColor, setMenuColor] = React.useState("black");
-  React.useEffect(() => {
+  const maxElementsTimeout = useRef(20);
+  const [backgroundColor, setBackgroundColor] = useState("white");
+  const [menuColor, setMenuColor] = useState("black");
+  useEffect(() => {
     const timeout = setTimeout(() => setMenuColor("white"), 70000);
     return () => {
       clearTimeout(timeout);
     };
   }, []);
-  React.useEffect(() => {
+  useEffect(() => {
     const timeout = setTimeout(() => setBackgroundColor("black"), 100);
     return () => {
       clearTimeout(timeout);
     };
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     //Periodically increase max elements.
     const interval = setInterval(() => {
       dispatch({
@@ -130,7 +130,7 @@ const JustSomeThoughts = () => {
     return () => clearInterval(interval);
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (state.nextKey > state.numElementsBeforeWhite) {
       return;
     }

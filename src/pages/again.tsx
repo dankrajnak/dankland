@@ -1,4 +1,4 @@
-import * as React from "react";
+import { ReactNode, useState } from "react";
 import SEO from "../View/Utility/seo";
 import useFullScreen from "../View/Hooks/useFullScreen";
 import TheCoolestOne from "../View/PageComponents/Homepage/TheCoolestOne";
@@ -8,7 +8,7 @@ import useScrollThreshold from "../View/Hooks/useScrollTreshold";
 import throttle from "../Services/Throttle/Throttle.service";
 import useWindowEvent from "../View/Hooks/useWindowEvent";
 
-const Title = (props: { color?: string; children: React.ReactNode }) => (
+const Title = (props: { color?: string; children: ReactNode }) => (
   <>
     <h1 style={{ color: props.color || "#2f3030" }}>{props.children}</h1>
     <style jsx>
@@ -23,7 +23,7 @@ const Title = (props: { color?: string; children: React.ReactNode }) => (
   </>
 );
 
-const Fader = (props: { visible: boolean; children: React.ReactNode }) => (
+const Fader = (props: { visible: boolean; children: ReactNode }) => (
   <>
     <div className="fader" style={{ opacity: props.visible ? 1 : 0 }}>
       {props.children}
@@ -41,9 +41,9 @@ const Fader = (props: { visible: boolean; children: React.ReactNode }) => (
 
 const NUM_PAGES = 3;
 
-const IndexPage = (): React.ReactNode => {
+const IndexPage = (): ReactNode => {
   const [width, height] = useFullScreen();
-  const [currentPage, setCurrentPage] = React.useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
   const incrementPage = () =>
     setCurrentPage((page) => Math.min(page + 1, NUM_PAGES - 1));
   const decrementPage = () => setCurrentPage((page) => Math.max(page - 1, 0));

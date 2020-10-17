@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useEffect } from "react";
 import globalStyles from "../Styles/global";
 import GoogleAnalyticsService from "../../Services/GoogleAnalytics/GoogleAnalytics.service";
 import useSafeWindow from "../Hooks/useSafeWindow";
@@ -11,7 +11,7 @@ let gaInitialized = false;
 
 const Layout = (props: Props) => {
   const [safeWindow] = useSafeWindow();
-  React.useEffect(() => {
+  useEffect(() => {
     if (safeWindow && !gaInitialized) {
       GoogleAnalyticsService.initGA();
       gaInitialized = true;

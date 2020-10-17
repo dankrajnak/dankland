@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useRef } from "react";
 import useFullScreen from "../View/Hooks/useFullScreen";
 import PerspectiveSquare from "../Services/PerspectiveSquare/PerspectiveSquare.service";
 import Square from "../Domain/Square/Square";
@@ -15,8 +15,8 @@ const SQUARE_WIDTH = 300;
 const Perspective = () => {
   const [width, height, flash] = useFullScreen();
   const [focusPoint, mouseProps] = useClickHoverWander(width, height);
-  const perspectiveSquare = React.useRef<PerspectiveSquare | null>(null);
-  const squareDrawer = React.useRef<PersepctiveSquareDrawer | null>(null);
+  const perspectiveSquare = useRef<PerspectiveSquare | null>(null);
+  const squareDrawer = useRef<PersepctiveSquareDrawer | null>(null);
 
   const initializeCanvas = (ctx: CanvasRenderingContext2D) => {
     //Create the squares.

@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useEffect } from "react";
 import Vector2d from "../../../Domain/Vector/Vector2d";
 import useTypeWriter, {
   SetText,
@@ -23,7 +23,7 @@ const TypeBox = ({
   onFinish,
 }: TypeBoxProps) => {
   const [text, setText] = useTypeWriter();
-  React.useEffect(() => {
+  useEffect(() => {
     let timeout: NodeJS.Timeout;
     setText(textToType, {
       listener: () => {

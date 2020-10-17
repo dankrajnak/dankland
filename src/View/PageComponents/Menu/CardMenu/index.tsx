@@ -1,5 +1,5 @@
-import * as React from "react";
 import Link from "next/link";
+import { useMemo } from "react";
 import { Menu } from "../../../../Domain/Menu/Menu";
 import useFullScreen from "../../../Hooks/useFullScreen";
 import useScrollAmount from "../../../Hooks/useScrollAmount";
@@ -11,10 +11,10 @@ import CardDeck from "./CardDeck/CardDeck";
  */
 const CardMenu: Menu = ({ routeProps, cards }) => {
   const [width, height, flash] = useFullScreen();
-  const cardWidth = React.useMemo(() => Math.min(500, width * 0.9), [width]);
-  const cardHeight = React.useMemo(() => Math.min(500, height * 0.7), [height]);
+  const cardWidth = useMemo(() => Math.min(500, width * 0.9), [width]);
+  const cardHeight = useMemo(() => Math.min(500, height * 0.7), [height]);
 
-  const cardsWithDimensions = React.useMemo(
+  const cardsWithDimensions = useMemo(
     () =>
       cards.map((card) => ({
         ...card,
@@ -22,7 +22,7 @@ const CardMenu: Menu = ({ routeProps, cards }) => {
       })),
     [cardHeight, cardWidth, cards]
   );
-  const scrollToCard = React.useMemo(() => {
+  const scrollToCard = useMemo(() => {
     if (
       routeProps.location &&
       routeProps.location.state &&

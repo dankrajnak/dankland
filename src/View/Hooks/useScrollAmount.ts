@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState, useEffect } from "react";
 import throttle from "../../Services/Throttle/Throttle.service";
 import useSafeWindow from "./useSafeWindow";
 
@@ -9,8 +9,8 @@ import useSafeWindow from "./useSafeWindow";
  */
 const useScrollAmount = (vertical = true): number => {
   const [window] = useSafeWindow();
-  const [scrollAmount, setScrollAmount] = React.useState(0);
-  React.useEffect(() => {
+  const [scrollAmount, setScrollAmount] = useState(0);
+  useEffect(() => {
     const throttledFunc = throttle(
       () =>
         window && setScrollAmount(vertical ? window.scrollY : window.scrollX),

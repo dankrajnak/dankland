@@ -1,4 +1,4 @@
-import * as React from "react";
+import { memo, useEffect, useRef } from "react";
 import useSafeWindow from "../Hooks/useSafeWindow";
 
 type Props = {
@@ -15,9 +15,9 @@ type Props = {
  * @param {*} ref
  */
 const Canvas = ({ width, height, getContext, ...otherProps }: Props) => {
-  const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [window] = useSafeWindow();
-  React.useEffect(() => {
+  useEffect(() => {
     const context = canvasRef.current && canvasRef.current.getContext("2d");
     if (context) {
       getContext(context);
@@ -27,5 +27,5 @@ const Canvas = ({ width, height, getContext, ...otherProps }: Props) => {
     <canvas ref={canvasRef} width={width} height={height} {...otherProps} />
   );
 };
-// @ts-ignore
-export default React.memo(Canvas);
+
+export default memo(Canvas);

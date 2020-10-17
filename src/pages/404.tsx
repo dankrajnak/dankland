@@ -1,4 +1,3 @@
-import * as React from "react";
 import SEO from "../View/Utility/seo";
 import Link from "next/link";
 import Layout from "../View/Layout/Layout";

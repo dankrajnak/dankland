@@ -1,9 +1,9 @@
-import * as React from "react";
+import { FunctionComponent } from "react";
 import Card from "../Card/Card";
 
 export type MenuRouteProps = any;
 
-export type Menu = React.FunctionComponent<{
+export type Menu = FunctionComponent<{
   routeProps: MenuRouteProps;
   cards: Card[];
 }>;

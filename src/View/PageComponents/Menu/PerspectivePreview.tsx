@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useMemo, useRef } from "react";
 import PerspectiveSquare from "../../../Services/PerspectiveSquare/PerspectiveSquare.service";
 import OriginalPerspectiveSquareDrawer from "../../../Services/PerspectiveSquare/Drawers/Original.service";
 import Vector2d from "../../../Domain/Vector/Vector2d";
@@ -13,10 +13,8 @@ interface Props {
 }
 
 const PerspectivePreview = ({ width, height }: Props) => {
-  const squares = React.useRef<[PerspectiveSquare, PerspectiveSquare] | null>(
-    null
-  );
-  const squareDrawer = React.useRef<PersepctiveSquareDrawer | null>(null);
+  const squares = useRef<[PerspectiveSquare, PerspectiveSquare] | null>(null);
+  const squareDrawer = useRef<PersepctiveSquareDrawer | null>(null);
 
   const [focusPoint, mouseProps] = useClickHoverWander(width, height);
 
@@ -51,7 +49,7 @@ const PerspectivePreview = ({ width, height }: Props) => {
       includeDashes: false,
     });
   };
-  const artist = React.useMemo(
+  const artist = useMemo(
     () => (ctx: CanvasRenderingContext2D) => {
       if (!squareDrawer.current || !squares.current) {
         return null;

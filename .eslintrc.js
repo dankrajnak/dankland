@@ -11,7 +11,6 @@ module.exports = {
   ],
   plugins: ["@typescript-eslint", "react", "jsx-a11y", "react-hooks"],
   parser: `@typescript-eslint/parser`,
-  // plugins: ['@typescript-eslint/eslint-plugin', 'prettier', 'jsx-a11y', 'react-hooks'],
   rules: {
     "prettier/prettier": "error",
     "react-hooks/rules-of-hooks": "error",
@@ -22,7 +21,9 @@ module.exports = {
     "@typescript-eslint/ban-ts-ignore": 0,
     "@typescript-eslint/no-empty-function": 0,
     "@typescript-eslint/no-explicit-any": 0,
+    "@typescript-eslint/no-non-null-assertion": 0,
     "jsx-a11y/anchor-is-valid": 0,
+    "react/react-in-jsx-scope": 0,
   },
   overrides: [
     {

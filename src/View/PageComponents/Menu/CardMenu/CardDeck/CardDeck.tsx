@@ -1,19 +1,17 @@
-import * as React from "react";
+import { useLayoutEffect, useMemo } from "react";
+import Link from "next/link";
+
 import useScrollAmount from "../../../../Hooks/useScrollAmount";
 import Card, { Props as CardProps } from "../Card/Card";
 import useFullScreen from "../../../../Hooks/useFullScreen";
 import { mappedStepEaser } from "../../../../../Services/EaseStep/EaseStep.service";
 import EasingFunctions from "../../../../../Services/Ease/Ease.service";
-import Link from "next/link";
 import useSafeWindow from "../../../../Hooks/useSafeWindow";
 
-// TODO find a better way to do this.
-// @ts-ignore
-const { width, height, ...CardPropsSubset }: CardProps = {};
 interface Props {
   cards: ({
     link: string;
-  } & typeof CardPropsSubset)[];
+  } & Omit<CardProps, "width" | "height">)[];
   width: number;
   cardsWidth: number;
   cardsHeight: number;
@@ -51,12 +49,12 @@ const CardDeck = (props: Props) => {
   const [windowWidth, windowHeight, flash] = useFullScreen();
 
   // This is the position on the screen the deck sits.  It's a computed value based on the windowWidth.
-  const deckPosition = React.useMemo(
-    () => (windowWidth - props.cardsWidth) / 2,
-    [props.cardsWidth, windowWidth]
-  );
+  const deckPosition = useMemo(() => (windowWidth - props.cardsWidth) / 2, [
+    props.cardsWidth,
+    windowWidth,
+  ]);
 
-  const scrollDemap = React.useMemo(
+  const scrollDemap = useMemo(
     () => (val: number) => deckPosition - windowWidth * val,
     [deckPosition, windowWidth]
   );
@@ -65,7 +63,7 @@ const CardDeck = (props: Props) => {
   const cardPositionStart = deckPosition;
   const cardPositionEnd = -props.cardsWidth;
   // Memoize stepEaser to only generate range and getPosition when the cards length changes.
-  const [getPosition, getEaseStart] = React.useMemo(
+  const [getPosition, getEaseStart] = useMemo(
     () =>
       mappedStepEaser(
         0,
@@ -77,7 +75,7 @@ const CardDeck = (props: Props) => {
   );
 
   // Move to the saved scroll position when this component renders
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     let timeout: number;
     if (window) {
       if (props.scrollToCard) {

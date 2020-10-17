@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useEffect } from "react";
 import useSafeWindow from "./useSafeWindow";
 
 const useWindowEvent: typeof window.addEventListener = (
@@ -6,7 +6,7 @@ const useWindowEvent: typeof window.addEventListener = (
   listener: any
 ) => {
   const [window] = useSafeWindow();
-  React.useEffect(() => {
+  useEffect(() => {
     if (window) {
       window.addEventListener(type, listener);
     }

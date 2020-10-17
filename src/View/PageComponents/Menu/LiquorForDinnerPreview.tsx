@@ -1,5 +1,3 @@
-import * as React from "react";
-
 const LiquorForDinnerPreview = () => (
   <>
     <div className="container"></div>

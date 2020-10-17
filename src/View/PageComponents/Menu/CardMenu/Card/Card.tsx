@@ -1,5 +1,3 @@
-import * as React from "react";
-
 export interface Props {
   title: string;
   description: React.ReactNode;

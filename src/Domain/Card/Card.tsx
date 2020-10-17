@@ -1,8 +1,8 @@
-import * as React from "react";
+import { ReactNode, FunctionComponent } from "react";
 
 export default interface Card {
-  background: React.FunctionComponent<{ width: number; height: number }>;
+  background: FunctionComponent<{ width: number; height: number }>;
   title: string;
-  description: React.ReactNode;
+  description: ReactNode;
   link: string;
 }

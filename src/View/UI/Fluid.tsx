@@ -1,4 +1,4 @@
-import * as React from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "react-three-fiber";
 import { FluidSimulation } from "../../webassembly/fluid/pkg/fluid";
 
@@ -13,10 +13,10 @@ const Camera = (props: {
   position: [number, number, number];
   aspect: number;
 }) => {
-  const ref = React.useRef<THREE.PerspectiveCamera>();
+  const ref = useRef<THREE.PerspectiveCamera>();
   const { setDefaultCamera } = useThree();
   // Make the camera known to the system
-  React.useEffect(() => {
+  useEffect(() => {
     if (ref.current) {
       setDefaultCamera(ref.current);
     }
@@ -45,7 +45,7 @@ const Particle = (props: {
   xArray: React.MutableRefObject<Float32Array>;
   yArray: React.MutableRefObject<Float32Array>;
 }) => {
-  const ref = React.useRef<THREE.Mesh>();
+  const ref = useRef<THREE.Mesh>();
   const { size } = useThree();
   useFrame(() => {
     if (ref.current) {
@@ -76,10 +76,10 @@ const Particles = ({
   memory: WebAssembly.Memory;
   mousePosition: React.MutableRefObject<[number, number]>;
 }) => {
-  const xPos = React.useRef<Float32Array>(
+  const xPos = useRef<Float32Array>(
     new Float32Array(memory.buffer, simulator.x(), PARTICLE_COUNT)
   );
-  const yPos = React.useRef<Float32Array>(
+  const yPos = useRef<Float32Array>(
     new Float32Array(memory.buffer, simulator.y(), PARTICLE_COUNT)
   );
 
@@ -120,13 +120,11 @@ const Fluid = ({
   height: number;
   onLoad: () => any;
 }) => {
-  const [simulator, setSimulator] = React.useState<FluidSimulation | null>(
-    null
-  );
+  const [simulator, setSimulator] = useState<FluidSimulation | null>(null);
 
-  const [memory, setMemory] = React.useState<WebAssembly.Memory | null>(null);
+  const [memory, setMemory] = useState<WebAssembly.Memory | null>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (width && height) {
       import(`../../webassembly/fluid/pkg`)
         .then((module) => {
@@ -145,7 +143,7 @@ const Fluid = ({
     }
   }, [height, onLoad, width]);
 
-  const mousePosition = React.useRef<[number, number]>([0, 0]);
+  const mousePosition = useRef<[number, number]>([0, 0]);
 
   return (
     simulator &&
@@ -184,4 +182,4 @@ const Fluid = ({
   );
 };
 
-export default React.memo(Fluid);
+export default memo(Fluid);

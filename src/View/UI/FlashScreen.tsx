@@ -1,4 +1,3 @@
-import * as React from "react";
 /**
  * Component to display for a fraction of a second
  * while the page is getting ready.

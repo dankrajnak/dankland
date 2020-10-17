@@ -1,4 +1,3 @@
-import * as React from "react";
 import MenuButton from "../UI/MenuButton";
 import Layout from "./Layout";
 import globalStyles from "../Styles/global";

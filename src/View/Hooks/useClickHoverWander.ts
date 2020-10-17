@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useRef, useMemo, useState, useEffect } from "react";
 import { SpringSystem, Spring } from "rebound";
 import throttle from "../../Services/Throttle/Throttle.service";
 import Vector2d from "../../Domain/Vector/Vector2d";
@@ -39,13 +39,11 @@ const useClickHoverWander = (
     onMouseMove: (e: React.MouseEvent) => void;
   }
 ] => {
-  const xSpring = React.useRef<Spring | null>(null);
-  const ySpring = React.useRef<Spring | null>(null);
-  const [focusPoint, setFocusPoint] = React.useState<Vector2d>(
-    initialFocusPoint
-  );
+  const xSpring = useRef<Spring | null>(null);
+  const ySpring = useRef<Spring | null>(null);
+  const [focusPoint, setFocusPoint] = useState<Vector2d>(initialFocusPoint);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const springSystem = new SpringSystem();
     xSpring.current = springSystem.createSpring(
       springConfig.tension,
@@ -126,7 +124,7 @@ const useClickHoverWander = (
     };
   }, [height, springConfig.friction, springConfig.tension, width]);
 
-  const onMouseMove = React.useMemo(
+  const onMouseMove = useMemo(
     () =>
       throttle((event: React.MouseEvent) => {
         const position = getCoordinatesFromMouseEvent(event);
@@ -136,7 +134,7 @@ const useClickHoverWander = (
     []
   );
 
-  const onClick = React.useMemo(
+  const onClick = useMemo(
     () => (event: React.MouseEvent) => {
       const position = getCoordinatesFromMouseEvent(event);
       xSpring.current && xSpring.current.setEndValue(position.x);

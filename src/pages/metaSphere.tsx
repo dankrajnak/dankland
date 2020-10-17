@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useRef, useEffect } from "react";
 import MenuLayout from "../View/Layout/MenuLayout";
 import MetaSphere from "../Services/MetaSphere/MetaSphere";
 import useFullScreen from "../View/Hooks/useFullScreen";
@@ -6,10 +6,10 @@ import useClickHoverWander from "../View/Hooks/useClickHoverWander";
 import CanvasDrawer from "../View/UI/CavnasDrawer/CanvasDrawer";
 
 const MetaSphereElm = () => {
-  const metaDrawer = React.useRef<MetaSphere | null>(null);
+  const metaDrawer = useRef<MetaSphere | null>(null);
   const [width, height] = useFullScreen();
   const [focusPoint, mouseProps] = useClickHoverWander(width, height);
-  React.useEffect(() => {
+  useEffect(() => {
     metaDrawer.current = new MetaSphere(width, height);
   }, [height, width]);
 
