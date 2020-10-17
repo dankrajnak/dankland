@@ -1,11 +1,6 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import Layout from "../View/Layout/Layout";
 import SEO from "../View/Utility/seo";
-import Lorenz from "../View/PageComponents/Homepage/Lorenz";
-import HallwayPreview from "../View/PageComponents/Menu/HallwayPreview";
-import PerspectivePreview from "../View/PageComponents/Menu/PerspectivePreview";
-import MetaSpherePreview from "../View/PageComponents/Menu/MetaSpherePreview";
-import JustSomeThoughtsPreview from "../View/PageComponents/Menu/JustSomeThoughtsPreview";
 import Card from "../Domain/Card/Card";
 import { MenuRouteProps } from "../Domain/Menu/Menu";
 import LiquorForDinnerPreview from "../View/PageComponents/Menu/LiquorForDinnerPreview";
@@ -14,6 +9,22 @@ import SimpleMenu from "../View/PageComponents/Menu/SimpleMenu";
 import useScrollAmount from "../View/Hooks/useScrollAmount";
 import { BarLoader } from "react-spinners";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+
+// Dynamically import all the cards to reduce initial load.
+const Lorenz = dynamic(() => import("../View/PageComponents/Homepage/Lorenz"));
+const PerspectivePreview = dynamic(
+  () => import("../View/PageComponents/Menu/PerspectivePreview")
+);
+const HallwayPreview = dynamic(
+  () => import("../View/PageComponents/Menu/HallwayPreview")
+);
+const MetaSpherePreview = dynamic(
+  () => import("../View/PageComponents/Menu/MetaSpherePreview")
+);
+const JustSomeThoughtsPreview = dynamic(
+  () => import("../View/PageComponents/Menu/JustSomeThoughtsPreview")
+);
 
 const cards: Card[] = [
   {
@@ -61,19 +72,15 @@ const cards: Card[] = [
     link: "/liquorForDinner",
   },
 ];
+
+const Fluid = dynamic(() => import("../View/UI/Fluid"));
 // I can't find the typescript type for props passed into pages to save my life.
 const Menu = (props: MenuRouteProps) => {
   const [width, height] = useFullScreen();
   const scroll = useScrollAmount();
-  const [Fluid, setFluid] = useState<any>(null);
+
   const [showLoader, setShowLoader] = useState(true);
   const hideLoader = useCallback(() => setShowLoader(false), []);
-
-  useEffect(() => {
-    import("../View/UI/Fluid").then((module) => {
-      setFluid(module.default);
-    });
-  }, [setShowLoader]);
 
   return (
     <Layout>

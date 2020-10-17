@@ -1,8 +1,8 @@
-import { useEffect } from "react";
+import { FunctionComponent, useEffect } from "react";
 import useTypeWriter from "../../Hooks/useTypeWriter/useTypeWriter";
 
 const title = "It's a caipirinhas and sad boy music night";
-const JustSomeThoughtsPreview = () => {
+const JustSomeThoughtsPreview = (_props: { width: number; height: number }) => {
   const [text, setText] = useTypeWriter("");
   useEffect(() => {
     const timeouts: NodeJS.Timeout[] = [];
