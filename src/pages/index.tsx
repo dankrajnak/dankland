@@ -104,7 +104,7 @@ const Menu = (props: MenuRouteProps) => {
         </div>
       </div>
       <div className="fluid-holder">
-        {width && height && Fluid && (
+        {width > 0 && height > 0 && (
           <Fluid width={width} height={height} onLoad={hideLoader} />
         )}
       </div>
