@@ -96,7 +96,7 @@ const Menu = (props: MenuRouteProps) => {
             )}
           </h1>
         </div>
-        <div className="scroll-message">Scroll</div>
+        {/* <div className="scroll-message">Scroll</div> */}
         <div className="about-holder">
           <Link href="/about">
             <a>About</a>
