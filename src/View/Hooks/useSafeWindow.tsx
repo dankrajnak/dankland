@@ -20,6 +20,4 @@ const useSafeWindow = (): [typeof window | null, JSX.Element | null] => {
   return [safeWindow, flash];
 };
 
-// const dev = () => [window, null];
-
 export default useSafeWindow;
