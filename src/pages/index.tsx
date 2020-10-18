@@ -1,4 +1,8 @@
 import { useState, useCallback } from "react";
+import { BarLoader } from "react-spinners";
+import Link from "next/link";
+import dynamic from "next/dynamic";
+import { isMobile } from "react-device-detect";
 import Layout from "../View/Layout/Layout";
 import SEO from "../View/Utility/seo";
 import Card from "../Domain/Card/Card";
@@ -7,9 +11,6 @@ import LiquorForDinnerPreview from "../View/PageComponents/Menu/LiquorForDinnerP
 import useFullScreen from "../View/Hooks/useFullScreen";
 import SimpleMenu from "../View/PageComponents/Menu/SimpleMenu";
 import useScrollAmount from "../View/Hooks/useScrollAmount";
-import { BarLoader } from "react-spinners";
-import Link from "next/link";
-import dynamic from "next/dynamic";
 
 // Dynamically import all the cards to reduce initial load.
 const Lorenz = dynamic(() => import("../View/PageComponents/Homepage/Lorenz"));
@@ -76,7 +77,7 @@ const cards: Card[] = [
 const Fluid = dynamic(() => import("../View/UI/Fluid"));
 // I can't find the typescript type for props passed into pages to save my life.
 const Menu = (props: MenuRouteProps) => {
-  const [width, height] = useFullScreen();
+  const [width, height] = useFullScreen({ ignoreHeightUpdates: isMobile });
   const scroll = useScrollAmount();
 
   const [showLoader, setShowLoader] = useState(true);
@@ -96,7 +97,7 @@ const Menu = (props: MenuRouteProps) => {
             )}
           </h1>
         </div>
-        {/* <div className="scroll-message">Scroll</div> */}
+        <div className="scroll-message">Scroll</div>
         <div className="about-holder">
           <Link href="/about">
             <a>About</a>
