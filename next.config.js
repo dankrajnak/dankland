@@ -9,6 +9,7 @@ module.exports = withOffline({
   },
   publicRuntimeConfig: {
     // Will be available on both server and client
+    COMMIT_SHA: process.env.VERCEL_GITHUB_COMMIT_SHA,
     BUGSNAG_API_KEY: process.env.BUGSNAG_BROWSER_API_KEY, // Pass through env variables
   },
 });
