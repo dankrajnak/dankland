@@ -57,8 +57,10 @@ const Particle = (props: {
           props.yArray.current[props.index] - VIEWPORT_HEIGHT / 2;
         ref.current.position.z = 0;
       }
-    } catch (err) {
-      console.log(props.index);
+    } catch (_ignore) {
+      // Sometimes the x and y arrays are reallocated and xArray and yArray
+      // become invalid.  On the next render, they will be reconstructed and become
+      // valid again.  So, simply ignore the error.
     }
   });
   return (
