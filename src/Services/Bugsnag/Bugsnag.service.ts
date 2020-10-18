@@ -5,6 +5,7 @@ import getConfig from "next/config";
 const { serverRuntimeConfig, publicRuntimeConfig } = getConfig();
 
 Bugsnag.start({
+  appVersion: process.env.VERCEL_GITHUB_COMMIT_SHA || "local",
   apiKey:
     serverRuntimeConfig.BUGSNAG_API_KEY || publicRuntimeConfig.BUGSNAG_API_KEY,
   plugins: [new BugsnagPluginReact(React)],
