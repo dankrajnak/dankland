@@ -115,7 +115,7 @@ const Menu = (props: MenuRouteProps) => {
         {`
           .title-container {
             width: 100%;
-            height: ${isMobile ? `${height}px` : "100vh"};
+            height: ${height > 0 ? `${height}px` : "100vh"};
           }
 
           .title-holder {
