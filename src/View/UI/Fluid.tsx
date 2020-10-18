@@ -58,7 +58,7 @@ const Particle = (props: {
         ref.current.position.z = 0;
       }
     } catch (err) {
-      // TEMP: ignore error
+      console.log(props.index);
     }
   });
   return (
