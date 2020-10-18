@@ -75,6 +75,7 @@ const cards: Card[] = [
 ];
 
 const Fluid = dynamic(() => import("../View/UI/Fluid"));
+
 // I can't find the typescript type for props passed into pages to save my life.
 const Menu = (props: MenuRouteProps) => {
   const [width, height] = useFullScreen({ ignoreHeightUpdates: isMobile });
@@ -114,7 +115,7 @@ const Menu = (props: MenuRouteProps) => {
         {`
           .title-container {
             width: 100%;
-            height: 100vh;
+            height: ${height > 0 ? `${height}px` : "100vh"};
           }
 
           .title-holder {
@@ -131,8 +132,8 @@ const Menu = (props: MenuRouteProps) => {
           }
 
           .fluid-holder {
-            width: ${width || 0}px;
-            height: ${height || 0}px;
+            width: ${width}px;
+            height: ${height}px;
             position: absolute;
             top: 0;
           }
