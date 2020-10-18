@@ -23,7 +23,7 @@ export function reportWebVitals({
   value,
 }: NextWebVitalsMetric) {
   GoogleAnalyticsService.logEvent({
-    action: "Metrics",
+    action: name,
     category: label === "web-vital" ? "Web Vitals" : "Next.js custom metric",
     value: Math.round(name === "CLS" ? value * 1000 : value), // values must be integers
     label: id, // id unique to current page load
