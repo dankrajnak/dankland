@@ -48,13 +48,17 @@ const Particle = (props: {
   const ref = useRef<THREE.Mesh>();
   const { size } = useThree();
   useFrame(() => {
-    if (ref.current) {
-      ref.current.position.x =
-        props.xArray.current[props.index] -
-        ((VIEWPORT_HEIGHT / 2) * size.width) / size.height;
-      ref.current.position.y =
-        props.yArray.current[props.index] - VIEWPORT_HEIGHT / 2;
-      ref.current.position.z = 0;
+    try {
+      if (ref.current) {
+        ref.current.position.x =
+          props.xArray.current[props.index] -
+          ((VIEWPORT_HEIGHT / 2) * size.width) / size.height;
+        ref.current.position.y =
+          props.yArray.current[props.index] - VIEWPORT_HEIGHT / 2;
+        ref.current.position.z = 0;
+      }
+    } catch (err) {
+      // TEMP: ignore error
     }
   });
   return (
@@ -128,20 +132,23 @@ const Fluid = ({
     if (width && height) {
       import(`../../webassembly/fluid/pkg`)
         .then((module) => {
-          import("../../webassembly/fluid/pkg/fluid_bg").then(({ memory }) => {
-            const simul = module.FluidSimulation.new(
-              PARTICLE_COUNT,
-              (Math.round(VIEWPORT_HEIGHT) * width) / height,
-              Math.round(VIEWPORT_HEIGHT)
-            );
-            setSimulator(simul);
-            setMemory(memory);
-            onLoad();
-          });
+          const simul = module.FluidSimulation.new(
+            PARTICLE_COUNT,
+            (Math.round(VIEWPORT_HEIGHT) * width) / height,
+            Math.round(VIEWPORT_HEIGHT)
+          );
+          setSimulator(simul);
+          onLoad();
         })
         .catch(console.error);
     }
   }, [height, onLoad, width]);
+
+  useEffect(() => {
+    import("../../webassembly/fluid/pkg/fluid_bg").then(({ memory }) =>
+      setMemory(memory)
+    );
+  }, []);
 
   const mousePosition = useRef<[number, number]>([0, 0]);
 
