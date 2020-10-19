@@ -84,7 +84,7 @@ const Menu = (props: MenuRouteProps) => {
   const [showLoader, setShowLoader] = useState(true);
   const hideLoader = useCallback(() => setShowLoader(false), []);
 
-  const titleHeight = height > 0 ? `${height}px` : "100vh";
+  const titleHeight = "100vh";
 
   return (
     <Layout>
