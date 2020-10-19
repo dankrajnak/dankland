@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useLayoutEffect } from "react";
 import { BarLoader } from "react-spinners";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -84,11 +84,18 @@ const Menu = (props: MenuRouteProps) => {
   const [showLoader, setShowLoader] = useState(true);
   const hideLoader = useCallback(() => setShowLoader(false), []);
 
+  const titleHeight = "100vh";
+
   return (
     <Layout>
       <SEO title="Menu" />
 
       <div className="title-container">
+        <div className="about-holder">
+          <Link href="/about">
+            <a>About</a>
+          </Link>
+        </div>
         <div className="title-holder">
           <h1>
             {showLoader ? (
@@ -98,26 +105,32 @@ const Menu = (props: MenuRouteProps) => {
             )}
           </h1>
         </div>
-        <div className="scroll-message">Scroll</div>
-        <div className="about-holder">
-          <Link href="/about">
-            <a>About</a>
-          </Link>
+        <div className="fluid-holder">
+          {width > 0 && height > 0 && (
+            <Fluid width={width} height={height} onLoad={hideLoader} />
+          )}
         </div>
+        <div className="scroll-message">Scroll</div>
       </div>
-      <div className="fluid-holder">
-        {width > 0 && height > 0 && (
-          <Fluid width={width} height={height} onLoad={hideLoader} />
-        )}
-      </div>
+      <div className="title-spacer" />
+
       <SimpleMenu routeProps={props} cards={cards} />
       <style jsx>
         {`
           .title-container {
+            position: absolute;
+            top: 0;
             width: 100%;
-            height: ${height > 0 ? `${height}px` : "100vh"};
+            height: ${titleHeight};
           }
 
+          .title-spacer {
+            height: ${titleHeight};
+          }
+        `}
+      </style>
+      <style jsx>
+        {`
           .title-holder {
             position: absolute;
             top: 50%;
@@ -132,8 +145,8 @@ const Menu = (props: MenuRouteProps) => {
           }
 
           .fluid-holder {
-            width: ${width}px;
-            height: ${height}px;
+            width: 100%;
+            height: 100%;
             position: absolute;
             top: 0;
           }
@@ -150,7 +163,10 @@ const Menu = (props: MenuRouteProps) => {
             color: white !important;
             text-decoration: none;
           }
-
+        `}
+      </style>
+      <style jsx>
+        {`
           .scroll-message {
             left: 50%;
             bottom: 25px;
