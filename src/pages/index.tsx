@@ -157,7 +157,7 @@ const Menu = (props: MenuRouteProps) => {
             z-index: 1000;
             position: absolute;
             transform: translate(-50%, -50%);
-            opacity: ${scroll > 200 ? 0 : 0.5};
+            opacity: ${scroll > 0 ? 0 : 0.5};
             transition: opacity ease 1s;
             color: white;
           }
