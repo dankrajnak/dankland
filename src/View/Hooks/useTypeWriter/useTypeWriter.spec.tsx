@@ -6,8 +6,6 @@ import {
   DEFAULT_TYPE_CONFIG,
   WaitForNextNodeAction,
 } from "./useTypeWriter";
-import React from "react";
-import { mount } from "enzyme";
 
 const createState = (text = ""): State => ({
   isWaiting: false,
@@ -21,7 +19,7 @@ test("Reducer returns state with invalid action", () => {
   const initialState: State = createState();
   const invalidAction = { type: "INVALID_ACTION", payload: "bad payload" };
 
-  // @ts-ignore
+  //@ts-expect-error invalidAction is an invalid action
   expect(reducer(initialState, invalidAction)).toBe(initialState);
 });
 
@@ -91,24 +89,4 @@ test("Is waiting action sets isWaiting flag", () => {
   };
 
   expect(reducer(initialState, deleteAction).isWaiting).toBeTruthy();
-});
-
-// **************** Hook Tests ****************
-
-const DummyHookComponent = ({ textToType }: { textToType: string }) => {
-  const [typedText, setText] = React.useState("");
-  React.useEffect(() => {
-    setText(textToType);
-  }, [setText, textToType]);
-  return <div>{typedText}</div>;
-};
-
-test("It eventually types some text", () => {
-  jest.useFakeTimers();
-  const testText = "Test!";
-  const component = mount(<DummyHookComponent textToType={testText} />);
-  setTimeout(() => {
-    expect(component.contains(testText)).toBeTruthy();
-  }, 10000);
-  jest.runAllTimers();
 });
