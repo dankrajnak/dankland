@@ -99,11 +99,6 @@ const Menu = (props: MenuRouteProps) => {
           </h1>
         </div>
         <div className="scroll-message">Scroll</div>
-        <div className="about-holder">
-          <Link href="/about">
-            <a>About</a>
-          </Link>
-        </div>
       </div>
       <div className="fluid-holder">
         {width > 0 && height > 0 && (
@@ -111,6 +106,12 @@ const Menu = (props: MenuRouteProps) => {
         )}
       </div>
       <SimpleMenu routeProps={props} cards={cards} />
+      <div className="about-holder">
+        <Link href="/about">
+          <a>About</a>
+        </Link>
+        <span>Created by Daniel Krajnak</span>
+      </div>
       <style jsx>
         {`
           .title-container {
@@ -139,14 +140,18 @@ const Menu = (props: MenuRouteProps) => {
           }
 
           .about-holder {
-            position: absolute;
-            z-index: 1000;
-
-            font-weight: 100;
-            top: 20px;
-            left: 20px;
+            padding: 5px 10px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white !important;
+          }
+          .about-holder span {
+            font-weight: lighter;
           }
           .about-holder a {
+            margin-right: 7px;
             color: white !important;
             text-decoration: none;
           }
