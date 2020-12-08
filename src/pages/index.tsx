@@ -66,12 +66,6 @@ const cards: Card[] = [
     description: "I just, well, here you go",
     link: "/justSomeThought",
   },
-  {
-    background: LiquorForDinnerPreview,
-    title: "Liquor For Dinner",
-    description: null,
-    link: "/liquorForDinner",
-  },
 ];
 
 const Fluid = dynamic(() => import("../View/UI/Fluid"));
