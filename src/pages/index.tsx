@@ -7,7 +7,6 @@ import Layout from "../View/Layout/Layout";
 import SEO from "../View/Utility/seo";
 import Card from "../Domain/Card/Card";
 import { MenuRouteProps } from "../Domain/Menu/Menu";
-import LiquorForDinnerPreview from "../View/PageComponents/Menu/LiquorForDinnerPreview";
 import useFullScreen from "../View/Hooks/useFullScreen";
 import SimpleMenu from "../View/PageComponents/Menu/SimpleMenu";
 import useScrollAmount from "../View/Hooks/useScrollAmount";
