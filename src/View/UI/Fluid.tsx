@@ -33,11 +33,11 @@ const Camera = (props: {
 };
 
 const PARTICLE_COLORS = [
-  "#4AA0C9", // red
-  "#FF6466", // blue
+  "#4AA0C9", // blue
   "#FFA879", // orange
-  "#90CF9C", // green
   "#FFE596", // yellow
+  "#90CF9C", // green
+  "#FF6466", // red
 ];
 
 const Particle = (props: {
