@@ -78,9 +78,11 @@ impl FluidSimulation {
     let mut x: Vec<f32> = Vec::with_capacity(particle_count);
     let mut y: Vec<f32> = Vec::with_capacity(particle_count);
 
+    let spacing = width as f32 * height as f32 / particle_count as f32;
+
     for i in 0..particle_count {
-      x.push(((i * width) / particle_count) as f32);
-      y.push(((i * height) / particle_count) as f32);
+      x.push(((i as f32 * spacing) as usize % width) as f32);
+      y.push(((i as f32 * spacing) as usize / width) as f32);
     }
 
     FluidSimulation {
@@ -146,14 +148,17 @@ impl FluidSimulation {
   fn apply_global_forces(&mut self, index: usize, mouse: (f32, f32), dt: f32) {
     // Calculate force
     let mut force: (f32, f32) = (0.0, 0.0);
-    force = add_vector(force, GRAVITY);
-    force = add_vector(force, self.scroll_force);
-    // force = add_vector(force, ACCELERATION_FORCE);
-    // force = add(force, [0, -0.25 * state.color[i]]);
+    let center_force = sub_vector(
+      (self.width / 2.0, self.height / 2.0),
+      (self.x[index], self.y[index]),
+    );
+    force = add_vector(force, center_force);
+    // force = add_vector(force, self.scroll_force);
 
     let from_mouse = sub_vector((self.x[index], self.y[index]), mouse);
     let scalar = (2700.0 / length_squared_vector(from_mouse)).min(100.0);
     let mouse_force = mult_scalar_vector(unit_approx_vector(from_mouse), scalar);
+
     force = add_vector(force, mouse_force);
 
     // f = m * a --> a = f / m

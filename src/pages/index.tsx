@@ -73,14 +73,17 @@ const Fluid = dynamic(() => import("../View/UI/Fluid"));
 const Menu = (props: MenuRouteProps) => {
   const [width, height] = useFullScreen({ ignoreHeightUpdates: isMobile });
   const scroll = useScrollAmount();
-
   const [showLoader, setShowLoader] = useState(true);
   const hideLoader = useCallback(() => setShowLoader(false), []);
 
   return (
     <Layout>
       <SEO title="Menu" />
-
+      <div className="fluid-holder">
+        {width > 0 && height > 0 && (
+          <Fluid width={width} height={height} onLoad={hideLoader} />
+        )}
+      </div>
       <div className="title-container">
         <div className="title-holder">
           <h1>
@@ -93,11 +96,7 @@ const Menu = (props: MenuRouteProps) => {
         </div>
         <div className="scroll-message">Scroll</div>
       </div>
-      <div className="fluid-holder">
-        {width > 0 && height > 0 && (
-          <Fluid width={width} height={height} onLoad={hideLoader} />
-        )}
-      </div>
+
       <SimpleMenu routeProps={props} cards={cards} />
       <div className="about-holder">
         <Link href="/about">
@@ -105,11 +104,12 @@ const Menu = (props: MenuRouteProps) => {
         </Link>
         <span>Created by Daniel Krajnak</span>
       </div>
+
       <style jsx>
         {`
           .title-container {
             width: 100%;
-            height: ${height > 0 ? `${height}px` : "100vh"};
+            height: ${"100vh"};
           }
 
           .title-holder {
@@ -133,8 +133,8 @@ const Menu = (props: MenuRouteProps) => {
           }
 
           .about-holder {
-            padding: 5px 10px;
-            height: 30px;
+            padding: 20px 30px;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: space-between;

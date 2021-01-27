@@ -6,56 +6,63 @@ const SimpleMenu: Menu = ({ cards }) => (
   <>
     <div className="cards-holder">
       {cards.map((card, index) => (
-        <Link href={card.link} key={index}>
-          <div className="card-holder">
-            <div className="card-graphic">
+        <div className="card-holder">
+          <Link href={card.link} key={index}>
+            <a className="card-graphic">
               <card.background width={300} height={300} />
-            </div>
-            <div className="card-info">
-              <h2 className="info-title">{card.title}</h2>
-              <div className="info-description">{card.description}</div>
-            </div>
-          </div>
-        </Link>
+            </a>
+          </Link>
+        </div>
       ))}
     </div>
 
     <style jsx>{`
-      .card-holder {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+      .cards-holder {
+        margin-top: 20px;
         justify-content: center;
-        width: 33%;
-        height: 500px;
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
       }
+
+      .card-holder {
+        cursor: pointer;
+        width: 300px;
+        height: 300px;
+        margin: 50px;
+        box-shadow: 18px 18px 37px #21212a, -18px -18px 37px #2d2d38;
+      }
+
+      .card-graphic {
+        display: block;
+        width: 300px;
+        height: 300px;
+        overflow: hidden;
+      }
+
       @media screen and (max-width: 900px) {
         .card-holder {
           width: 100% !important;
         }
       }
-      .card-graphic {
-        width: 300px;
-        height: 300px;
-        border-radius: 5px;
-        overflow: hidden;
-      }
+
       .info-title {
-        font-weight: 100;
+        font-weight: 400;
+        margin-bottom: 5px;
       }
+
       .card-info {
-        display: flex;
+        font-weight: 100;
+        color: white;
+        display: none;
         flex-direction: column;
         width: 300px;
         height: 100px;
       }
-
-      .cards-holder {
-        background-color: white;
-        cursor: pointer;
-        display: flex;
-        width: 100%;
-        flex-wrap: wrap;
+    `}</style>
+    <style jsx global>{`
+      a.card-graphic {
+        text-decoration: none !important;
       }
     `}</style>
   </>
