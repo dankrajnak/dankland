@@ -90,7 +90,7 @@ const Menu = (props: MenuRouteProps) => {
             {showLoader ? (
               <BarLoader color="white" height={2} loading={showLoader} />
             ) : (
-              "Dank Land"
+              "We shall have spring again."
             )}
           </h1>
         </div>

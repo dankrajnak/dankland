@@ -30,7 +30,6 @@ const SimpleMenu: Menu = ({ cards }) => (
         width: 300px;
         height: 300px;
         margin: 50px;
-        box-shadow: 18px 18px 37px #21212a, -18px -18px 37px #2d2d38;
       }
 
       .card-graphic {
