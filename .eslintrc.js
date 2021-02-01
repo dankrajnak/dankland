@@ -9,7 +9,7 @@ module.exports = {
     "react-app",
     "plugin:prettier/recommended", // Enables eslint-plugin-prettier and displays prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
   ],
-  plugins: ["@typescript-eslint", "react", "jsx-a11y", "react-hooks"],
+  plugins: ["@typescript-eslint", "react", "jsx-a11y", "react-hooks", "import"],
   parser: `@typescript-eslint/parser`,
   rules: {
     "prettier/prettier": "error",
@@ -24,6 +24,7 @@ module.exports = {
     "@typescript-eslint/no-non-null-assertion": 0,
     "jsx-a11y/anchor-is-valid": 0,
     "react/react-in-jsx-scope": 0,
+    "import/order": "warn",
   },
   overrides: [
     {

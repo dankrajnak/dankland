@@ -119,8 +119,14 @@ const useClickHoverWander = (
     ySpring.current.setEndValue(Math.random() * height);
 
     return () => {
-      xSpring.current && xSpring.current.destroy();
-      ySpring.current && ySpring.current.destroy();
+      springSystem.removeAllListeners();
+      [xSpring.current, ySpring.current].forEach((spring) => {
+        if (spring) {
+          springSystem.deregisterSpring(spring);
+          spring.removeAllListeners();
+          spring.destroy();
+        }
+      });
     };
   }, [height, springConfig.friction, springConfig.tension, width]);
 

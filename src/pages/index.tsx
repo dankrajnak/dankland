@@ -1,29 +1,59 @@
-import { useState, useCallback } from "react";
+import {
+  RefObject,
+  useCallback,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { BarLoader } from "react-spinners";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { isMobile } from "react-device-detect";
+import { Check, Pen, X } from "react-bootstrap-icons";
+import SimpleMenu from "../View/PageComponents/Menu/SimpleMenu";
 import Layout from "../View/Layout/Layout";
 import SEO from "../View/Utility/seo";
 import Card from "../Domain/Card/Card";
 import { MenuRouteProps } from "../Domain/Menu/Menu";
 import useFullScreen from "../View/Hooks/useFullScreen";
-import SimpleMenu from "../View/PageComponents/Menu/SimpleMenu";
+
 import useScrollAmount from "../View/Hooks/useScrollAmount";
+import useRequest from "../Hooks/useRequest";
+import TitleService from "../Services/Title/Title.service";
+import { Either, failure, success } from "../Utils/Either";
+
+const LinkLoading = () => (
+  <>
+    <div />
+    <style jsx>{`
+      div {
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.5);
+      }
+    `}</style>
+  </>
+);
 
 // Dynamically import all the cards to reduce initial load.
-const Lorenz = dynamic(() => import("../View/PageComponents/Homepage/Lorenz"));
+const Lorenz = dynamic(() => import("../View/PageComponents/Homepage/Lorenz"), {
+  loading: () => <LinkLoading />,
+});
 const PerspectivePreview = dynamic(
-  () => import("../View/PageComponents/Menu/PerspectivePreview")
+  () => import("../View/PageComponents/Menu/PerspectivePreview"),
+  { loading: () => <LinkLoading /> }
 );
 const HallwayPreview = dynamic(
-  () => import("../View/PageComponents/Menu/HallwayPreview")
+  () => import("../View/PageComponents/Menu/HallwayPreview"),
+  { loading: () => <LinkLoading /> }
 );
 const MetaSpherePreview = dynamic(
-  () => import("../View/PageComponents/Menu/MetaSpherePreview")
+  () => import("../View/PageComponents/Menu/MetaSpherePreview"),
+  { loading: () => <LinkLoading /> }
 );
 const JustSomeThoughtsPreview = dynamic(
-  () => import("../View/PageComponents/Menu/JustSomeThoughtsPreview")
+  () => import("../View/PageComponents/Menu/JustSomeThoughtsPreview"),
+  { loading: () => <LinkLoading /> }
 );
 
 const cards: Card[] = [
@@ -69,11 +99,193 @@ const cards: Card[] = [
 
 const Fluid = dynamic(() => import("../View/UI/Fluid"));
 
+const INVALID_RED = "#FF6466";
+const BACKGROUND_COLOR = "#272731";
+
+const validateTitle = (
+  title: string | null | undefined
+): Either<string, string> => {
+  const trimmedTitle = title?.trim();
+  if (!trimmedTitle) {
+    return failure("Title cannot be empty");
+  }
+
+  if (trimmedTitle.length > 250) {
+    return failure(
+      "Title cannot be over 250 characters.  It doesn't look good otherwise :/"
+    );
+  }
+  return success(trimmedTitle);
+};
+
+const Title = ({
+  initialTitle,
+  showLoader,
+}: {
+  initialTitle: string;
+  showLoader: boolean;
+}) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [updateTitleState, updateTitle] = useRequest(TitleService.setTitle, {
+    initialData: initialTitle,
+  });
+  const [validationError, setValidationError] = useState<string | null>(null);
+  const inputRef = useRef() as RefObject<HTMLTextAreaElement>;
+
+  useLayoutEffect(() => {
+    if (isEditing) {
+      inputRef.current?.select();
+      inputRef.current?.focus();
+    }
+  }, [isEditing]);
+
+  if (showLoader || updateTitleState.isLoading) {
+    return <BarLoader color="white" height={2} />;
+  }
+
+  return (
+    <>
+      <>
+        <div className="edit">
+          <div className="text-holder">
+            <textarea
+              onChange={() => setValidationError(null)}
+              ref={inputRef}
+              className={validationError ? "error" : ""}
+              rows={2}
+              defaultValue={updateTitleState.data!}
+            />
+            {validationError && (
+              <div className="error-message">{validationError}</div>
+            )}
+          </div>
+          <span style={{ marginLeft: 6, display: "flex" }}>
+            <>
+              <button
+                onClick={() => {
+                  const validResult = validateTitle(inputRef.current?.value);
+                  validResult.whenSuccess((title) => {
+                    setValidationError(null);
+                    updateTitle(title).then(() => {
+                      setIsEditing(false);
+                    });
+                  });
+                  validResult.whenFailure((errorMessage) => {
+                    setValidationError(errorMessage);
+                    inputRef.current?.select();
+                    inputRef.current?.focus();
+                  });
+                }}
+              >
+                <Check size="1.75rem" />
+              </button>
+              <button>
+                <X
+                  size="1.75rem"
+                  onClick={() => {
+                    setIsEditing(false);
+                    if (inputRef.current) {
+                      inputRef.current.value = updateTitleState.data ?? "";
+                    }
+                    setValidationError(null);
+                  }}
+                />
+              </button>
+            </>
+          </span>
+        </div>
+
+        <h1 className="no-edit">
+          {updateTitleState.data}
+          <sup>
+            <button
+              className="simple-button"
+              onClick={() => {
+                setIsEditing(true);
+              }}
+            >
+              <Pen size=".8rem" />
+            </button>
+          </sup>
+        </h1>
+      </>
+
+      <style jsx>{`
+        h1,
+        textarea {
+          font-weight: 100;
+          font-size: 2rem;
+        }
+        h1 {
+          text-align: center;
+        }
+        textarea {
+          background-color: ${BACKGROUND_COLOR} !important;
+          color: inherit;
+          resize: none;
+          flex-grow: 1;
+
+          border: none;
+          background-color: transparent;
+          box-shadow: none;
+        }
+
+        textarea.error {
+          outline: none;
+          border: solid 1px ${INVALID_RED} !important;
+          border-radius: 5px;
+        }
+
+        .error-message {
+          margin-top: 3px;
+          color: ${INVALID_RED};
+          word-break: break-word;
+        }
+
+        .text-holder {
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+        }
+
+        button {
+          color: inherit;
+          background: none !important;
+          border: none !important;
+          border-radius: 5px;
+          transition: background 0.5s ease, color 0.5s ease;
+        }
+
+        button:hover {
+          cursor: pointer;
+        }
+
+        .edit button:hover {
+          background-color: white !important;
+          color: ${BACKGROUND_COLOR};
+          cursor: pointer;
+        }
+      `}</style>
+      <style jsx>{`
+        .no-edit {
+          ${isEditing ? "display: none" : ""}
+        }
+
+        .edit {
+          ${!isEditing ? "display: none;" : " display: flex;"}
+          width: 100%;
+          align-items: center;
+        }
+      `}</style>
+    </>
+  );
+};
+
 // I can't find the typescript type for props passed into pages to save my life.
 const Menu = (props: MenuRouteProps) => {
   const [width, height] = useFullScreen({ ignoreHeightUpdates: isMobile });
   const scroll = useScrollAmount();
-  const [showLoader, setShowLoader] = useState(true);
+  const [showLoader, setShowLoader] = useState(false);
   const hideLoader = useCallback(() => setShowLoader(false), []);
 
   return (
@@ -86,13 +298,7 @@ const Menu = (props: MenuRouteProps) => {
       </div>
       <div className="title-container">
         <div className="title-holder">
-          <h1>
-            {showLoader ? (
-              <BarLoader color="white" height={2} loading={showLoader} />
-            ) : (
-              "We shall have spring again."
-            )}
-          </h1>
+          <Title showLoader={showLoader} initialTitle={props.title} />
         </div>
         <div className="scroll-message">Scroll</div>
       </div>
@@ -115,14 +321,14 @@ const Menu = (props: MenuRouteProps) => {
           .title-holder {
             position: absolute;
             top: 50%;
+            width: 60%;
+            display: flex;
+            justify-content: center;
             left: 50%;
             z-index: 1000;
-            color: #ffffff;
+            color: white;
             font-weight: 200;
             transform: translate(-50%, -50%);
-          }
-          .title-holder h1 {
-            font-weight: 100;
           }
 
           .fluid-holder {
@@ -150,11 +356,11 @@ const Menu = (props: MenuRouteProps) => {
           }
 
           .scroll-message {
-            left: 50%;
+            width: 100%;
+            text-align: center;
             bottom: 25px;
             z-index: 1000;
             position: absolute;
-            transform: translate(-50%, -50%);
             opacity: ${scroll > 0 ? 0 : 0.5};
             transition: opacity ease 1s;
             color: white;
@@ -167,7 +373,7 @@ const Menu = (props: MenuRouteProps) => {
           body {
             width: 100%;
             overflow-x: hidden;
-            background-color: #272731;
+            background-color: ${BACKGROUND_COLOR};
           }
         `}
       </style>
@@ -175,4 +381,8 @@ const Menu = (props: MenuRouteProps) => {
   );
 };
 
+export const getStaticProps = async () => ({
+  props: { title: await TitleService.getTitle() },
+  revalidate: 1,
+});
 export default Menu;

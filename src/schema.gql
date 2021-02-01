@@ -1,0 +1,12 @@
+type Title {
+  title: String!
+  timestamp: Time!
+}
+
+type Mutation {
+  addTitle(title: String!): Title! @resolver(name: "create_title")
+}
+
+type Query {
+  getTitle: String! @resolver(name: "get_title")
+}

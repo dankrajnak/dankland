@@ -39,12 +39,6 @@ const SimpleMenu: Menu = ({ cards }) => (
         overflow: hidden;
       }
 
-      @media screen and (max-width: 900px) {
-        .card-holder {
-          width: 100% !important;
-        }
-      }
-
       .info-title {
         font-weight: 400;
         margin-bottom: 5px;
