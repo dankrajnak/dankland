@@ -1,6 +1,4 @@
 import { GraphQLClient } from "graphql-request";
-import getConfig from "next/config";
-const { publicRuntimeConfig } = getConfig();
 
 const endpoint = "https://graphql.fauna.com/graphql";
 
