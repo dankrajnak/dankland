@@ -10,13 +10,13 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { isMobile } from "react-device-detect";
 import { Check, Pen, X } from "react-bootstrap-icons";
+import useSwr from "swr";
 import SimpleMenu from "../View/PageComponents/Menu/SimpleMenu";
 import Layout from "../View/Layout/Layout";
 import SEO from "../View/Utility/seo";
 import Card from "../Domain/Card/Card";
 import { MenuRouteProps } from "../Domain/Menu/Menu";
 import useFullScreen from "../View/Hooks/useFullScreen";
-
 import useScrollAmount from "../View/Hooks/useScrollAmount";
 import useRequest from "../Hooks/useRequest";
 import TitleService from "../Services/Title/Title.service";
@@ -118,17 +118,16 @@ const validateTitle = (
   return success(trimmedTitle);
 };
 
-const Title = ({
-  initialTitle,
-  showLoader,
-}: {
-  initialTitle: string;
-  showLoader: boolean;
-}) => {
+const Title = ({ showLoader }: { showLoader: boolean }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [updateTitleState, updateTitle] = useRequest(TitleService.setTitle, {
-    initialData: initialTitle,
+  const [updateTitleState, updateTitle] = useRequest(TitleService.setTitle);
+
+  const { data, mutate, error } = useSwr("fetch-title", TitleService.getTitle, {
+    refreshInterval: 10 * 1000,
   });
+  const titleIsLoading = !data && !error;
+  const siteTitle = data || "We shall have spring again";
+
   const [validationError, setValidationError] = useState<string | null>(null);
   const inputRef = useRef() as RefObject<HTMLTextAreaElement>;
 
@@ -139,7 +138,7 @@ const Title = ({
     }
   }, [isEditing]);
 
-  if (showLoader || updateTitleState.isLoading) {
+  if (showLoader || updateTitleState.isLoading || titleIsLoading) {
     return <BarLoader color="white" height={2} />;
   }
 
@@ -152,7 +151,6 @@ const Title = ({
             ref={inputRef}
             className={validationError ? "error" : ""}
             rows={2}
-            defaultValue={updateTitleState.data!}
           />
           {validationError && (
             <div className="error-message">{validationError}</div>
@@ -166,6 +164,7 @@ const Title = ({
               validResult.whenSuccess((title) => {
                 setValidationError(null);
                 updateTitle(title).then(() => {
+                  mutate(title);
                   setIsEditing(false);
                 });
               });
@@ -184,7 +183,7 @@ const Title = ({
               onClick={() => {
                 setIsEditing(false);
                 if (inputRef.current) {
-                  inputRef.current.value = updateTitleState.data ?? "";
+                  inputRef.current.value = siteTitle;
                 }
                 setValidationError(null);
               }}
@@ -194,11 +193,14 @@ const Title = ({
       </div>
 
       <h1 className="no-edit">
-        {updateTitleState.data}
+        {siteTitle}
         <sup>
           <button
             className="simple-button"
             onClick={() => {
+              if (inputRef.current) {
+                inputRef.current.value = siteTitle;
+              }
               setIsEditing(true);
             }}
           >
@@ -313,7 +315,7 @@ const Menu = (props: MenuRouteProps) => {
       </div>
       <div className="title-container">
         <div className="title-holder">
-          <Title showLoader={showLoader} initialTitle={props.title} />
+          <Title showLoader={showLoader} />
         </div>
         <div className="scroll-message">Scroll</div>
       </div>
@@ -398,8 +400,4 @@ const Menu = (props: MenuRouteProps) => {
   );
 };
 
-export const getStaticProps = async () => ({
-  props: { title: await TitleService.getTitle() },
-  revalidate: 1,
-});
 export default Menu;
