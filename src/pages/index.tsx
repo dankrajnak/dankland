@@ -145,70 +145,67 @@ const Title = ({
 
   return (
     <>
-      <>
-        <div className="edit">
-          <div className="text-holder">
-            <textarea
-              onChange={() => setValidationError(null)}
-              ref={inputRef}
-              className={validationError ? "error" : ""}
-              rows={2}
-              defaultValue={updateTitleState.data!}
-            />
-            {validationError && (
-              <div className="error-message">{validationError}</div>
-            )}
-          </div>
-          <span style={{ marginLeft: 6, display: "flex" }}>
-            <>
-              <button
-                onClick={() => {
-                  const validResult = validateTitle(inputRef.current?.value);
-                  validResult.whenSuccess((title) => {
-                    setValidationError(null);
-                    updateTitle(title).then(() => {
-                      setIsEditing(false);
-                    });
-                  });
-                  validResult.whenFailure((errorMessage) => {
-                    setValidationError(errorMessage);
-                    inputRef.current?.select();
-                    inputRef.current?.focus();
-                  });
-                }}
-              >
-                <Check size="1.75rem" />
-              </button>
-              <button>
-                <X
-                  size="1.75rem"
-                  onClick={() => {
-                    setIsEditing(false);
-                    if (inputRef.current) {
-                      inputRef.current.value = updateTitleState.data ?? "";
-                    }
-                    setValidationError(null);
-                  }}
-                />
-              </button>
-            </>
-          </span>
+      <div className="edit">
+        <div className="text-holder">
+          <textarea
+            onChange={() => setValidationError(null)}
+            ref={inputRef}
+            className={validationError ? "error" : ""}
+            rows={2}
+            defaultValue={updateTitleState.data!}
+          />
+          {validationError && (
+            <div className="error-message">{validationError}</div>
+          )}
         </div>
-
-        <h1 className="no-edit">
-          {updateTitleState.data}
-          <sup>
-            <button
-              className="simple-button"
+        <span className="edit-button-holder">
+          <button
+            style={{ marginRight: 5 }}
+            onClick={() => {
+              const validResult = validateTitle(inputRef.current?.value);
+              validResult.whenSuccess((title) => {
+                setValidationError(null);
+                updateTitle(title).then(() => {
+                  setIsEditing(false);
+                });
+              });
+              validResult.whenFailure((errorMessage) => {
+                setValidationError(errorMessage);
+                inputRef.current?.select();
+                inputRef.current?.focus();
+              });
+            }}
+          >
+            <Check size="1.75rem" />
+          </button>
+          <button>
+            <X
+              size="1.75rem"
               onClick={() => {
-                setIsEditing(true);
+                setIsEditing(false);
+                if (inputRef.current) {
+                  inputRef.current.value = updateTitleState.data ?? "";
+                }
+                setValidationError(null);
               }}
-            >
-              <Pen size=".8rem" />
-            </button>
-          </sup>
-        </h1>
-      </>
+            />
+          </button>
+        </span>
+      </div>
+
+      <h1 className="no-edit">
+        {updateTitleState.data}
+        <sup>
+          <button
+            className="simple-button"
+            onClick={() => {
+              setIsEditing(true);
+            }}
+          >
+            <Pen size=".8rem" />
+          </button>
+        </sup>
+      </h1>
 
       <style jsx>{`
         h1,
@@ -243,7 +240,7 @@ const Title = ({
         }
 
         .text-holder {
-          flex-grow: 1;
+          width: 60vw;
           display: flex;
           flex-direction: column;
         }
@@ -260,21 +257,39 @@ const Title = ({
           cursor: pointer;
         }
 
-        .edit button:hover {
+        .edit-button-holder button:hover {
           background-color: white !important;
           color: ${BACKGROUND_COLOR};
           cursor: pointer;
         }
+
+        .edit-button-holder {
+          display: flex;
+          margin-top: 10px;
+        }
+
+        @media screen and (max-width: 600px) {
+          .edit {
+            width: 100%;
+            margin-right: 10px;
+            margin-left: 10px;
+          }
+          .text-holder {
+            width: 90vw;
+          }
+        }
       `}</style>
       <style jsx>{`
         .no-edit {
-          ${isEditing ? "display: none" : ""}
+          ${isEditing ? "display: none;" : ""}
+          width: 60vw;
         }
 
         .edit {
           ${!isEditing ? "display: none;" : " display: flex;"}
-          width: 100%;
+          flex-grow: 1;
           align-items: center;
+          flex-direction: column;
         }
       `}</style>
     </>
@@ -320,15 +335,16 @@ const Menu = (props: MenuRouteProps) => {
 
           .title-holder {
             position: absolute;
-            top: 50%;
-            width: 60%;
+            top: 0;
+            bottom: 0;
+            width: 100vw;
             display: flex;
             justify-content: center;
-            left: 50%;
+            align-items: center;
+
             z-index: 1000;
             color: white;
             font-weight: 200;
-            transform: translate(-50%, -50%);
           }
 
           .fluid-holder {
