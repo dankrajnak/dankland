@@ -335,9 +335,10 @@ const Menu = (props: MenuRouteProps) => {
 
           .title-holder {
             position: absolute;
-            top: 0;
-            bottom: 0;
+            top: 50%;
+            left: 50%;
             width: 100vw;
+            transform: translate(-50%, -50%);
             display: flex;
             justify-content: center;
             align-items: center;
