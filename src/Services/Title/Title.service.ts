@@ -13,13 +13,16 @@ export default class TitleService {
     return getTitle;
   }
   static async setTitle(title: string): Promise<string> {
-    const { addTitle } = await graphQLClient.request(gql`
-    mutation {
-      addTitle(title: "${title}") {
-        title
-      }
-    }
-    `);
+    const { addTitle } = await graphQLClient.request(
+      gql`
+        mutation setTitle($title: String!) {
+          addTitle(title: $title) {
+            title
+          }
+        }
+      `,
+      { title }
+    );
     return addTitle.title;
   }
 }
