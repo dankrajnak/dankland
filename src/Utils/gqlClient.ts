@@ -6,6 +6,6 @@ const endpoint = "https://graphql.fauna.com/graphql";
 
 export const graphQLClient = new GraphQLClient(endpoint, {
   headers: {
-    authorization: `Bearer ${publicRuntimeConfig.FAUNA_DB}`,
+    authorization: `Bearer fnAEA3pNaLACBqPgXfxZt8FCaqCmHhmaH4k6jhFd`,
   },
 });
