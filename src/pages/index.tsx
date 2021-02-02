@@ -1,10 +1,13 @@
 import {
   RefObject,
   useCallback,
+  useEffect,
   useLayoutEffect,
   useRef,
   useState,
 } from "react";
+import { useClippy } from "use-clippy-now";
+
 import { BarLoader } from "react-spinners";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -300,10 +303,24 @@ const Title = ({ showLoader }: { showLoader: boolean }) => {
 
 // I can't find the typescript type for props passed into pages to save my life.
 const Menu = (props: MenuRouteProps) => {
+  const withClippy = useClippy("Clippy");
   const [width, height] = useFullScreen({ ignoreHeightUpdates: isMobile });
   const scroll = useScrollAmount();
   const [showLoader, setShowLoader] = useState(false);
   const hideLoader = useCallback(() => setShowLoader(false), []);
+  const [spoken, setSpoken] = useState(false);
+  useEffect(() => {
+    if (!spoken) {
+      setSpoken(true);
+      setTimeout(
+        () =>
+          withClippy((clippy: any) =>
+            clippy?.speak("Click on the tiles below to check out a new page!")
+          ),
+        1000
+      );
+    }
+  }, [setSpoken, spoken, withClippy]);
 
   return (
     <Layout>
