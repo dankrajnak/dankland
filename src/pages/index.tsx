@@ -158,6 +158,7 @@ const Title = ({ showLoader }: { showLoader: boolean }) => {
         </div>
         <span className="edit-button-holder">
           <button
+            title="Save"
             style={{ marginRight: 5 }}
             onClick={() => {
               const validResult = validateTitle(inputRef.current?.value);
@@ -177,17 +178,17 @@ const Title = ({ showLoader }: { showLoader: boolean }) => {
           >
             <Check size="1.75rem" />
           </button>
-          <button>
-            <X
-              size="1.75rem"
-              onClick={() => {
-                setIsEditing(false);
-                if (inputRef.current) {
-                  inputRef.current.value = siteTitle;
-                }
-                setValidationError(null);
-              }}
-            />
+          <button
+            title="Cancel"
+            onClick={() => {
+              setIsEditing(false);
+              if (inputRef.current) {
+                inputRef.current.value = siteTitle;
+              }
+              setValidationError(null);
+            }}
+          >
+            <X size="1.75rem" />
           </button>
         </span>
       </div>
@@ -196,6 +197,7 @@ const Title = ({ showLoader }: { showLoader: boolean }) => {
         {siteTitle}
         <sup>
           <button
+            title="Edit title"
             className="simple-button"
             onClick={() => {
               if (inputRef.current) {
