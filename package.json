@@ -70,7 +70,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push": "if (yarn git-branch-is master >/dev/null 2>&1); then yarn run type-check && yarn test; fi"
+      "pre-push": "if (yarn git-branch-is main >/dev/null 2>&1); then yarn run type-check && yarn test; fi"
     }
   },
   "lint-staged": {
