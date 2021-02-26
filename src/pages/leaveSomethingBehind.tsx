@@ -9,8 +9,8 @@ type Point = {
   pressure?: number | undefined;
 };
 
-const SVG_WIDTH = 800;
-const SVG_HEIGHT = 800;
+const SVG_WIDTH = 700;
+const SVG_HEIGHT = 700;
 
 export default function Example() {
   const [marks, setMarks] = useState<
