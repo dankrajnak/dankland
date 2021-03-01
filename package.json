@@ -36,7 +36,7 @@
     "rebound": "^0.1.0",
     "styled-jsx-plugin-sass": "^1.0.0",
     "swr": "^0.4.1",
-    "three": "^0.124.0"
+    "three": "^0.125.0"
   },
   "devDependencies": {
     "@types/enzyme": "^3.10.8",
