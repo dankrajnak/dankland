@@ -6,31 +6,35 @@ export const useScroll = (
   listener: (x0: number) => any,
   throttleAmount = 300
 ): void => {
-  const lastTouch = useRef<number>();
+  const touchStartPosition = useRef<number>();
   useEffect(() => {
     const throttledFunc = throttle(
       (deltaY: number) => listener(deltaY),
       throttleAmount
     );
     const wheelHandler = (e: WheelEvent) => {
-      console.log("scroll event", e);
-
       throttledFunc(e.deltaY);
     };
-    const touchHandler = (e: TouchEvent) => {
+
+    const touchMoveHandler = (e: TouchEvent) => {
       const thisY = e.touches.item(0)?.clientY;
-      if (thisY && lastTouch.current) {
-        throttledFunc(thisY - lastTouch.current);
+      if (thisY && touchStartPosition.current) {
+        throttledFunc(thisY - touchStartPosition.current);
       }
-      lastTouch.current = thisY;
     };
 
+    const touchStartHandler = (e: TouchEvent) => {
+      touchStartPosition.current = e.touches.item(0)?.clientY;
+    };
+
+    window.addEventListener("touchstart", touchStartHandler);
     window.addEventListener("wheel", wheelHandler);
-    window.addEventListener("touchmove", touchHandler);
+    window.addEventListener("touchmove", touchMoveHandler);
 
     return () => {
+      window.removeEventListener("touchstart", touchStartHandler);
       window.removeEventListener("wheel", wheelHandler);
-      window.removeEventListener("touchmove", touchHandler);
+      window.removeEventListener("touchmove", touchMoveHandler);
     };
   }, [listener, throttleAmount]);
 };
