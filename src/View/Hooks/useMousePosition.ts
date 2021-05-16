@@ -15,7 +15,8 @@ const useMousePosition = (
   const mousePosition = useRef<[number, number]>([0, 0]);
   useEffect(() => {
     const element = domElement.current;
-    const throttledFunc = throttle(
+    // Type as any because MouseEvent doesn't extend Event.
+    const throttledFunc: any = throttle(
       (e: MouseEvent) =>
         (mousePosition.current = absolute
           ? [e.clientX, e.clientY]
