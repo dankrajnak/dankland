@@ -19,7 +19,7 @@ export const useScroll = (
     const touchMoveHandler = (e: TouchEvent) => {
       const thisY = e.touches.item(0)?.clientY;
       if (thisY && touchStartPosition.current) {
-        throttledFunc(thisY - touchStartPosition.current);
+        throttledFunc(touchStartPosition.current - thisY);
       }
     };
 
