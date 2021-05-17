@@ -1070,6 +1070,18 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@danielkrajnak/throttle@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@danielkrajnak/throttle/-/throttle-0.0.3.tgz#b999a5cab2fc5c04206a1227567fc5aae87c8eee"
+  integrity sha512-oMYSUUySPcSvGDqjA/hPYC05yhlHd6ekGc+zS2Egul/U8ZtOg+2ub1H2BJR5Rby5a50k1w4yXMGx/JsbpKA3tg==
+
+"@danielkrajnak/use-scroll-threshold@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@danielkrajnak/use-scroll-threshold/-/use-scroll-threshold-0.0.3.tgz#f01518c3237427cd2e7bc052f06459584b79edc4"
+  integrity sha512-CXhJs6q+vQIg8wNv2mnMyhG7bFyPlDW9B+EX2CMqBsw1vecXbr2YyUB2tnbp2pWGl77eqkSwp+qvY8mbYos1TA==
+  dependencies:
+    "@danielkrajnak/throttle" "^0.0.3"
+
 "@emotion/cache@^10.0.27":
   version "10.0.29"
   resolved "https://registry.yarnpkg.com/@emotion/cache/-/cache-10.0.29.tgz#87e7e64f412c060102d589fe7c6dc042e6f9d1e0"

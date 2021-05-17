@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import throttle from "../../Services/Throttle/Throttle.service";
+import throttle from "@danielkrajnak/throttle";
 
 /**
  * Returns how far the window is currently scrolled in either the vertical

@@ -14,6 +14,8 @@
   "dependencies": {
     "@bugsnag/js": "^7.6.0",
     "@bugsnag/plugin-react": "^7.6.0",
+    "@danielkrajnak/throttle": "^0.0.3",
+    "@danielkrajnak/use-scroll-threshold": "^0.0.3",
     "@types/color": "^3.0.1",
     "color": "^3.1.2",
     "color-interpolate": "^1.0.5",

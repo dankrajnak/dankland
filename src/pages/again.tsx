@@ -1,11 +1,11 @@
 import { ReactNode, useState } from "react";
+import throttle from "@danielkrajnak/throttle";
+import useScrollThreshold from "@danielkrajnak/use-scroll-threshold";
 import SEO from "../View/Utility/seo";
 import useFullScreen from "../View/Hooks/useFullScreen";
 import TheCoolestOne from "../View/PageComponents/Homepage/TheCoolestOne";
 import MenuLayout from "../View/Layout/MenuLayout";
 import Lorenz from "../View/PageComponents/Homepage/Lorenz";
-import useScrollThreshold from "../View/Hooks/useScrollTreshold";
-import throttle from "../Services/Throttle/Throttle.service";
 import useWindowEvent from "../View/Hooks/useWindowEvent";
 
 const Title = (props: { color?: string; children: ReactNode }) => (

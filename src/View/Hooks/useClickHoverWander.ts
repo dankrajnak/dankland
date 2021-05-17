@@ -1,6 +1,6 @@
 import { useRef, useMemo, useState, useEffect } from "react";
 import { SpringSystem, Spring } from "rebound";
-import throttle from "../../Services/Throttle/Throttle.service";
+import throttle from "@danielkrajnak/throttle";
 import Vector2d from "../../Domain/Vector/Vector2d";
 
 const getCoordinatesFromMouseEvent = (event: React.MouseEvent): Vector2d => {
