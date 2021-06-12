@@ -15,7 +15,7 @@
   "dependencies": {
     "@bugsnag/js": "7.9.2",
     "@bugsnag/plugin-react": "7.9.2",
-    "@danielkrajnak/throttle": "0.0.3",
+    "@danielkrajnak/throttle": "0.0.8",
     "@danielkrajnak/use-scroll-threshold": "0.0.3",
     "@types/color": "3.0.1",
     "color": "3.1.3",
