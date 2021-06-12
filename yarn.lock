@@ -1090,7 +1090,12 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@danielkrajnak/throttle@0.0.3", "@danielkrajnak/throttle@^0.0.3":
+"@danielkrajnak/throttle@0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@danielkrajnak/throttle/-/throttle-0.0.8.tgz#6f0ac4ce899e5e60a9d14e8f9628b6822aeeebb2"
+  integrity sha512-70GRSu2ng8ao2wvbLcFAF4Ey+Z99eA9VwUGQjDEmU117pT4YWJxyJ1AZbK8ndtRrCrDdxkbhd2tEObratG/YQg==
+
+"@danielkrajnak/throttle@^0.0.3":
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/@danielkrajnak/throttle/-/throttle-0.0.3.tgz#b999a5cab2fc5c04206a1227567fc5aae87c8eee"
   integrity sha512-oMYSUUySPcSvGDqjA/hPYC05yhlHd6ekGc+zS2Egul/U8ZtOg+2ub1H2BJR5Rby5a50k1w4yXMGx/JsbpKA3tg==
