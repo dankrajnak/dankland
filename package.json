@@ -37,7 +37,7 @@
     "react-three-fiber": "5.3.22",
     "rebound": "0.1.0",
     "styled-jsx-plugin-sass": "1.0.0",
-    "swr": "0.4.2",
+    "swr": "0.5.6",
     "three": "0.125.2"
   },
   "devDependencies": {
