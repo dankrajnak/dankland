@@ -4,13 +4,26 @@
   ],
   "packageRules": [
     {
+      "matchPackagePatterns": [
+        "*"
+      ],
       "matchUpdateTypes": [
         "minor",
-        "patch",
-        "pin",
-        "digest"
+        "patch"
       ],
-      "automerge": true
+      "groupName": "all non-major dependencies",
+      "groupSlug": "all-minor-patch",
+      "schedule": [
+        "every weekend"
+      ]
+    },
+    {
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "schedule": [
+        "every weekend"
+      ]
     }
   ]
 }
