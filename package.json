@@ -33,7 +33,7 @@
     "react-device-detect": "1.17.0",
     "react-dom": "17.0.2",
     "react-ga": "3.3.0",
-    "react-spinners": "0.9.0",
+    "react-spinners": "0.11.0",
     "react-three-fiber": "5.3.22",
     "rebound": "0.1.0",
     "styled-jsx-plugin-sass": "1.0.0",
