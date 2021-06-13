@@ -7983,12 +7983,10 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-perfect-freehand@0.2.5:
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/perfect-freehand/-/perfect-freehand-0.2.5.tgz#d497e48f62d5f956eaaab9ef4dd7213ec77e6b3a"
-  integrity sha512-myGFhaM24+t3dQ9fnrcpyRYqqLcI7Hi7g8wv8RmjLJLDP30+d67g9uxOmHUhTcNbXnrPkN/eTUMNnBdoCN7BDQ==
-  dependencies:
-    polygon-clipping "^0.15.2"
+perfect-freehand@0.4.9:
+  version "0.4.9"
+  resolved "https://registry.yarnpkg.com/perfect-freehand/-/perfect-freehand-0.4.9.tgz#09e9f5a1057da7eda335367d5f1f2c6fbd369e3e"
+  integrity sha512-mNf9Yd2dxWV3kZs2PPNWjLOt8Yh31+PIu6/zst7I8YJOicYBnRofzXl9us5gxqK4ZfHKO5O7PjttHF0tuHfo0g==
 
 performance-now@^2.1.0:
   version "2.1.0"
@@ -8080,13 +8078,6 @@ pnp-webpack-plugin@1.6.4:
   integrity sha512-7Wjy+9E3WwLOEL30D+m8TSTF7qJJUJLONBnwQp0518siuMxUQUbgZwssaFX+QKlZkjHZcw/IpZCt/H0srrntSg==
   dependencies:
     ts-pnp "^1.1.6"
-
-polygon-clipping@^0.15.2:
-  version "0.15.3"
-  resolved "https://registry.yarnpkg.com/polygon-clipping/-/polygon-clipping-0.15.3.tgz#0215840438470ba2e9e6593625e4ea5c1087b4b7"
-  integrity sha512-ho0Xx5DLkgxRx/+n4O74XyJ67DcyN3Tu9bGYKsnTukGAW6ssnuak6Mwcyb1wHy9MZc9xsUWqIoiazkZB5weECg==
-  dependencies:
-    splaytree "^3.1.0"
 
 posix-character-classes@^0.1.0:
   version "0.1.1"
@@ -9320,11 +9311,6 @@ spdx-license-ids@^3.0.0:
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/spdx-license-ids/-/spdx-license-ids-3.0.7.tgz#e9c18a410e5ed7e12442a549fbd8afa767038d65"
   integrity sha512-U+MTEOO0AiDzxwFvoa4JVnMV6mZlJKk2sBLt90s7G0Gd0Mlknc7kxEn3nuDPNZRta7O2uy8oLcZLVT+4sqNZHQ==
-
-splaytree@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/splaytree/-/splaytree-3.1.0.tgz#17d4a0108a6da3627579690b7b847241e18ddec8"
-  integrity sha512-gvUGR7xnOy0fLKTCxDeUZYgU/I1Tdf8M/lM1Qrf8L2TIOR5ipZjGk02uYcdv0o2x7WjVRgpm3iS2clLyuVAt0Q==
 
 split-lines@^2.0.0:
   version "2.1.0"
