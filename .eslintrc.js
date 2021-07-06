@@ -15,7 +15,7 @@ module.exports = {
     "prettier/prettier": "error",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "arrow-body-style": ["error", "as-needed"],
+    "arrow-body-style": 0,
     "@typescript-eslint/explicit-function-return-type": 0,
     "typescript/no-unused-expression": 0,
     "@typescript-eslint/ban-ts-ignore": 0,
