@@ -17,7 +17,7 @@ module.exports = withOffline({
     return {
       ...config,
       experiments: {
-        ...config?.experiments,
+        ...config.experiments,
         asyncWebAssembly: true,
       },
     };
