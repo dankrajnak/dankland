@@ -13,4 +13,13 @@ module.exports = withOffline({
     BUGSNAG_API_KEY: process.env.BUGSNAG_BROWSER_API_KEY, // Pass through env variables
     FAUNA_DB: process.env.FAUNA_DB,
   },
+  webpack: (config) => {
+    return {
+      ...config,
+      experiments: {
+        ...config?.experiments,
+        asyncWebAssembly: true,
+      },
+    };
+  },
 });
