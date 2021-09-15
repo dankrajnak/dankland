@@ -1,5 +1,6 @@
 import useAsync from "@danielkrajnak/use-async";
 import MenuLayout from "../View/Layout/MenuLayout";
+import SEO from "../View/Utility/seo";
 
 const getTeapot = async (): Promise<Record<string, unknown>> => {
   const response = await fetch("/api/teapot");
@@ -25,6 +26,7 @@ const Teapot = () => {
   }
   return (
     <MenuLayout>
+      <SEO title="Teapot" />
       <div className="container">
         <button onClick={() => makeCoffee()}>Make coffee</button>
         <pre>{text}</pre>
