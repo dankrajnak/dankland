@@ -1097,10 +1097,22 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@danielkrajnak/ignorable-promise@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@danielkrajnak/ignorable-promise/-/ignorable-promise-0.0.5.tgz#5bb1a54e57f0630900138f2d4d0a22058017cfad"
+  integrity sha512-da1xNAR6lqGibdAX8yRba+sKDIqgkOHF3oNiUxtiSTCV3Da56smruJ4NV1BZsxMPhVw86Es8N+Bx5IMIX/Lk6Q==
+
 "@danielkrajnak/throttle@0.0.8":
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/@danielkrajnak/throttle/-/throttle-0.0.8.tgz#6f0ac4ce899e5e60a9d14e8f9628b6822aeeebb2"
   integrity sha512-70GRSu2ng8ao2wvbLcFAF4Ey+Z99eA9VwUGQjDEmU117pT4YWJxyJ1AZbK8ndtRrCrDdxkbhd2tEObratG/YQg==
+
+"@danielkrajnak/use-async@^0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@danielkrajnak/use-async/-/use-async-0.0.8.tgz#ae0fa7842d903fcac5390c6bdb06d90036d7cb68"
+  integrity sha512-T9+qp/pnEezKa5wM+r7OzoFtTt6WolMIVYTh/Y8sCZbBNu0F1DCkIbV+8Nf1fvSkOPbSAPiwwaEISAuzoU2seA==
+  dependencies:
+    "@danielkrajnak/ignorable-promise" "^0.0.5"
 
 "@danielkrajnak/use-scroll-threshold@0.0.8":
   version "0.0.8"
