@@ -77,9 +77,11 @@ export default function Example() {
             {marks.map((m, i) => (
               <path
                 key={i}
-                d={getPath(m.points, {
-                  simulatePressure: m.type !== "pen",
-                })}
+                d={
+                  getPath(m.points, {
+                    simulatePressure: m.type !== "pen",
+                  })[0]
+                }
               />
             ))}
           </svg>

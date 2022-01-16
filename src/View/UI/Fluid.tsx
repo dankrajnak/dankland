@@ -1,5 +1,5 @@
 import { memo, useEffect, useRef, useState } from "react";
-import { Canvas, useFrame, useThree } from "react-three-fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { FluidSimulation } from "../../webassembly/fluid/pkg/fluid";
 
 const PARTICLE_COUNT = 1000;
@@ -8,29 +8,6 @@ const CAMERA_DISTANCE = 30;
 
 const VIEWPORT_HEIGHT =
   Math.tan((PERSPECTIVE_ANGLE / 2 / 180) * Math.PI) * CAMERA_DISTANCE * 2;
-
-const Camera = (props: {
-  position: [number, number, number];
-  aspect: number;
-}) => {
-  const ref = useRef<THREE.PerspectiveCamera>();
-  const { setDefaultCamera } = useThree();
-  // Make the camera known to the system
-  useEffect(() => {
-    if (ref.current) {
-      setDefaultCamera(ref.current);
-    }
-  }, [setDefaultCamera]);
-  // Update it every frame
-  useFrame(() => ref.current?.updateMatrixWorld());
-  return (
-    <perspectiveCamera
-      ref={ref}
-      args={[75, props.aspect, 0.1, 1000]}
-      {...props}
-    />
-  );
-};
 
 const PARTICLE_COLORS = [
   "#4AA0C9", // blue
@@ -52,7 +29,7 @@ const Particle = (props: {
       if (ref.current) {
         ref.current.position.x =
           props.xArray.current[props.index] -
-          ((VIEWPORT_HEIGHT / 2) * size.width) / size.height;
+          (VIEWPORT_HEIGHT / 2) * (size.width / size.height);
         ref.current.position.y =
           props.yArray.current[props.index] - VIEWPORT_HEIGHT / 2;
         ref.current.position.z = 0;
@@ -76,11 +53,9 @@ const Particle = (props: {
 const Particles = ({
   simulator,
   memory,
-  mousePosition,
 }: {
   simulator: FluidSimulation;
   memory: WebAssembly.Memory;
-  mousePosition: React.MutableRefObject<[number, number]>;
 }) => {
   const xPos = useRef<Float32Array>(
     new Float32Array(memory.buffer, simulator.x(), PARTICLE_COUNT)
@@ -89,14 +64,16 @@ const Particles = ({
     new Float32Array(memory.buffer, simulator.y(), PARTICLE_COUNT)
   );
 
-  // const [focusPoint, mouseProps] = useClickHoverWander(width, height);
-  useFrame((_ctx, dt) => {
+  useFrame(({ mouse, size }, dt) => {
+    const mouseX = (mouse.x / 2) * VIEWPORT_HEIGHT * (size.width / size.height);
+    const mouseY = (mouse.y / 2) * VIEWPORT_HEIGHT;
     simulator.simulate(
       -window.scrollY,
-      mousePosition.current[0],
-      mousePosition.current[1],
+      mouseX + (VIEWPORT_HEIGHT / 2) * (size.width / size.height),
+      mouseY + VIEWPORT_HEIGHT / 2,
       Math.min(Math.max(dt, 0.001), 1 / 35)
     );
+
     xPos.current = new Float32Array(
       memory.buffer,
       simulator.x(),
@@ -161,6 +138,13 @@ const Fluid = ({
     memory && (
       <div style={{ width, height }}>
         <Canvas
+          camera={{
+            fov: 75,
+            near: 0.1,
+            far: 1000,
+            aspect: width / height,
+            position: [0, 0, CAMERA_DISTANCE],
+          }}
           style={{
             backgroundColor: "#272731",
           }}
@@ -179,14 +163,9 @@ const Fluid = ({
             mousePosition.current = [10000, 1000];
           }}
         >
-          <Camera position={[0, 0, CAMERA_DISTANCE]} aspect={width / height} />
           <ambientLight />
 
-          <Particles
-            simulator={simulator}
-            memory={memory}
-            mousePosition={mousePosition}
-          />
+          <Particles simulator={simulator} memory={memory} />
         </Canvas>
       </div>
     )
