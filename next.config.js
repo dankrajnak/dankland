@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 // next.config.js
-const withOffline = require("next-offline");
+// const withOffline = require("next-offline");
 
-module.exports = withOffline({
+module.exports = {
   serverRuntimeConfig: {
     // Will only be available on the server side
     BUGSNAG_API_KEY: process.env.BUGSNAG_SERVER_API_KEY,
@@ -21,4 +20,4 @@ module.exports = withOffline({
       // asyncWebAssembly: true,
     },
   }),
-});
+};

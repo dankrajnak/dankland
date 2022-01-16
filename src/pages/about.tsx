@@ -8,10 +8,11 @@ const About = () => (
       <div className="content">
         <h4>This is just stuff I like making.</h4>
         <p>
-          My name's Daniel. This is a place that I put stuff I make. If you like
-          my work, feel free to reach out. My email is the first three letters
-          of my first name plus a '.' plus my last name (krajnak). It's the
-          google kind. Suck on that, email-harvesting bots
+          My name&apos;s Daniel. This is a place that I put stuff I make. If you
+          like my work, feel free to reach out. My email is the first three
+          letters of my first name plus a &quot;.&quot; plus my last name
+          (krajnak). It&apos;s the google kind. Suck on that, email-harvesting
+          bots
         </p>
       </div>
     </div>
