@@ -1,6 +1,7 @@
 import { memo, useEffect, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { FluidSimulation } from "../../webassembly/fluid/pkg/fluid";
+import { memory } from "../../webassembly/fluid/pkg/fluid_bg.wasm";
 
 const PARTICLE_COUNT = 1000;
 const PERSPECTIVE_ANGLE = 75;
@@ -126,7 +127,6 @@ const Fluid = ({
   }, [height, onLoad, width]);
 
   useEffect(() => {
-    // @ts-ignore
     import("../../webassembly/fluid/pkg/fluid_bg.wasm").then(({ memory }) => {
       setMemory(memory);
     });
