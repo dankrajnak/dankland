@@ -23,6 +23,6 @@ pub mod spatial_hash_map;
 pub mod timer;
 
 #[wasm_bindgen]
-pub fn init() {
+pub fn start() {
     crate::utils::set_panic_hook();
 }

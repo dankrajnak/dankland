@@ -60,7 +60,7 @@ mod tests {
     hash_map.add(5.0, 3.0, 1);
     hash_map.add(10.0, 10.0, 1);
 
-    assert_eq!(hash_map.query(5.0, 3.0, Some(2.0)), vec![1, 1, 1, 1]);
+    assert_eq!(hash_map.query(5.0, 3.0, Some(2.0)), vec![1, 1, 1]);
   }
 
   #[test]

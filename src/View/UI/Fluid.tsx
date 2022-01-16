@@ -134,6 +134,8 @@ const Fluid = ({
     if (width && height) {
       import(`../../webassembly/fluid/pkg`)
         .then((module) => {
+          module.start();
+
           const simul = module.FluidSimulation.new(
             PARTICLE_COUNT,
             (Math.round(VIEWPORT_HEIGHT) * width) / height,
@@ -147,9 +149,9 @@ const Fluid = ({
   }, [height, onLoad, width]);
 
   useEffect(() => {
-    import("../../webassembly/fluid/pkg/fluid_bg").then(({ memory }) =>
-      setMemory(memory)
-    );
+    import("../../webassembly/fluid/pkg/fluid_bg.wasm").then(({ memory }) => {
+      setMemory(memory);
+    });
   }, []);
 
   const mousePosition = useRef<[number, number]>([0, 0]);

@@ -7,6 +7,7 @@
   "files": [
     "fluid_bg.wasm",
     "fluid.js",
+    "fluid_bg.js",
     "fluid.d.ts"
   ],
   "module": "fluid.js",

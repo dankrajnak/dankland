@@ -1,15 +1,6 @@
-use std::cmp;
-
 /// Restrict a value to be in-between a min and max value
 fn clamp(val: usize, min: usize, max: usize) -> usize {
-  return cmp::min(cmp::max(val, min), max);
-}
-
-fn float_max(a: f32, b: f32) -> f32 {
-  return match a > b {
-    true => a,
-    false => b,
-  };
+  return val.max(min).min(max);
 }
 
 /// Grouping of a dataset by location in a 2D space.
@@ -27,13 +18,22 @@ impl<T: Copy> SpatialHashMap<T> {
   /// determines how big the "buckets" should be in the hashmap.  A smaller
   /// cell size will yield more accurate queries, but queries become more expensive.
   ///
+  /// TODO: width and height really shouldn't be usize.  They should be floats
+  /// there's a problem with the code now where we have to have an extra column
+  /// and row of cells which end up being infintesimally small.  In other words,
+  /// if this is 1-dimensinal and of length 10 and you decide to set sell size to 5,
+  /// you'll have three cells.  The first cell is from 0 - 4.999..., the second is from
+  /// 5 to 9.999999 and the last cell is only for points that are exactly 10.  
+  /// We need to specifically handle these edge cases and consider points that are
+  /// exactly at the edge inside the closest box.
+  ///
   /// ```
   /// # use fluid::spatial_hash_map::SpatialHashMap;
   /// let _hash_map: SpatialHashMap<usize> = SpatialHashMap::new(2,2, 1);
   /// ```
   pub fn new(width: usize, height: usize, cell_size: usize) -> SpatialHashMap<T> {
     let mut grid = Vec::new();
-    for _ in 0..(width * height / cell_size.pow(2)) {
+    for _ in 0..((width / cell_size + 1) * (height / cell_size + 1)) {
       grid.push(Vec::new())
     }
     SpatialHashMap {
@@ -134,10 +134,13 @@ impl<T: Copy> SpatialHashMap<T> {
   }
 
   fn query_with_radius(&self, x: f32, y: f32, radius: f32) -> Vec<T> {
-    let left = cmp::max((x - radius).max(0.0) as usize, 0) / self.cell_size;
-    let right = cmp::min(float_max(x + radius, 0.0) as usize, self.width - 1) / self.cell_size;
-    let bottom = cmp::max(float_max(y - radius, 0.0) as usize, 0) / self.cell_size;
-    let top = cmp::min(float_max(y + radius, 0.0) as usize, self.height - 1) / self.cell_size;
+    // get radius bounds in number of cells from the left or from the bottom.
+    // for example, the value of left is how many cells from the left our
+    // radius starts (inclusive)
+    let left = clamp((x - radius).max(0.0) as usize, 0, self.width) / self.cell_size;
+    let right = clamp((x + radius).max(0.0) as usize, 0, self.width) / self.cell_size;
+    let bottom = clamp((y - radius).max(0.0) as usize, 0, self.height) / self.cell_size;
+    let top = clamp((y + radius).max(0.0) as usize, 0, self.height) / self.cell_size;
 
     let mut slices = Vec::new();
     for i in left..(right + 1) {
@@ -168,8 +171,8 @@ impl<T: Copy> SpatialHashMap<T> {
   /// ```
   ///
   pub fn get_bucket_index(&self, x: f32, y: f32) -> usize {
-    let clamp_x = clamp(float_max(x, 0.0) as usize, 0, self.width - 1) / self.cell_size;
-    let clamp_y = clamp(float_max(y, 0.0) as usize, 0, self.height - 1) / self.cell_size;
+    let clamp_x = clamp(x.max(0.0) as usize, 0, self.width) / self.cell_size;
+    let clamp_y = clamp(y.max(0.0) as usize, 0, self.height) / self.cell_size;
     return clamp_x + clamp_y * self.width / self.cell_size;
   }
 }

@@ -63,12 +63,11 @@ pub struct FluidSimulation {
 ///
 /// ```
 /// use fluid::fluid::FluidSimulation;
-/// let mut simulation = FluidSimulation::new(1000, 46, 46);
-///  println!("{}", simulation.first_x());
+/// let mut simulation = FluidSimulation::new(1000, 150, 17);
+/// simulation.simulate(0.0, 0.0, 0.0, 0.001);
 /// simulation.simulate(0.0, 10000.0, 0.0, 0.02857142857142857);
-///  println!("{}",  simulation.first_x());
 /// simulation.simulate(0.0, 10000.0, 0.0, 0.02857142857142857);
-/// println!("{}",  simulation.first_x());
+/// assert_eq!(true, true)
 ///
 /// ```
 #[wasm_bindgen]
