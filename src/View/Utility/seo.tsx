@@ -80,8 +80,9 @@ const SEO = ({
       <title>
         {title} | {siteTitle}
       </title>
+      <meta name="description" content="Something" />
       {[...meta, ...defaultMeta].map((info, key) => (
-        <meta {...info} key={key} />
+        <meta name={info.name} content={info.content} key={key} />
       ))}
     </Head>
   );
