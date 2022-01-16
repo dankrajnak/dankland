@@ -126,7 +126,7 @@ const Fluid = ({
   }, [height, onLoad, width]);
 
   useEffect(() => {
-    // ts-ignore
+    // @ts-ignore
     import("../../webassembly/fluid/pkg/fluid_bg.wasm").then(({ memory }) => {
       setMemory(memory);
     });
