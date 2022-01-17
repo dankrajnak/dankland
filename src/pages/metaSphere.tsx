@@ -1,7 +1,6 @@
 import { useRef, useEffect } from "react";
 import MenuLayout from "../View/Layout/MenuLayout";
 import MetaSphere from "../Services/MetaSphere/MetaSphere";
-import useFullScreen from "../View/Hooks/useFullScreen";
 import useClickHoverWander from "../View/Hooks/useClickHoverWander";
 import CanvasDrawer from "../View/UI/CavnasDrawer/CanvasDrawer";
 import { useWindowSize } from "react-use";
