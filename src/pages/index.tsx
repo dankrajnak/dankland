@@ -212,6 +212,9 @@ const Title = ({ showLoader }: { showLoader: boolean }) => {
       </h1>
 
       <style jsx>{`
+        body {
+          background-color: #272731;
+        }
         h1,
         textarea {
           font-weight: 100;

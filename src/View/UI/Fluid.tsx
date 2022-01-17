@@ -132,8 +132,6 @@ const Fluid = ({
     });
   }, []);
 
-  const mousePosition = useRef<[number, number]>([0, 0]);
-
   return (
     simulator &&
     memory && (
@@ -146,26 +144,7 @@ const Fluid = ({
             aspect: width / height,
             position: [0, 0, CAMERA_DISTANCE],
           }}
-          style={{
-            backgroundColor: "#272731",
-          }}
-          onMouseMove={(event: React.MouseEvent) => {
-            const bounds = event.currentTarget.getBoundingClientRect();
-            mousePosition.current = [
-              ((event.clientX - bounds.left) / width) *
-                VIEWPORT_HEIGHT *
-                (width / height),
-
-              VIEWPORT_HEIGHT -
-                ((event.clientY - bounds.top) / height) * VIEWPORT_HEIGHT,
-            ];
-          }}
-          onMouseOut={() => {
-            mousePosition.current = [10000, 1000];
-          }}
         >
-          <ambientLight />
-
           <Particles simulator={simulator} memory={memory} />
         </Canvas>
       </div>
