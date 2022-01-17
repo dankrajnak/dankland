@@ -33,6 +33,8 @@ const Fader = (props: { visible: boolean; children: ReactNode }) => (
         .fader {
           position: fixed;
           height: 100%;
+          top: 0;
+          bottom: 0;
           transition: opacity 1s ease;
         }
       `}
