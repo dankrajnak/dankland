@@ -5,7 +5,7 @@ import useIsBrowser from "./useIsBrowser";
 const useSafeWindow = (): [typeof window | null, JSX.Element | null] => {
   const inBrowser = useIsBrowser();
   const [safeWindow, setSafeWindow] = useState<typeof window | null>(
-    inBrowser ? null : window
+    inBrowser ? window : null
   );
   const [flash, setFlash] = useState<JSX.Element | null>(<FlashScreen />);
   useEffect(() => {
