@@ -2,11 +2,11 @@ import { ReactNode, useState } from "react";
 import throttle from "@danielkrajnak/throttle";
 import useScrollThreshold from "@danielkrajnak/use-scroll-threshold";
 import SEO from "../View/Utility/seo";
-import useFullScreen from "../View/Hooks/useFullScreen";
 import TheCoolestOne from "../View/PageComponents/Homepage/TheCoolestOne";
 import MenuLayout from "../View/Layout/MenuLayout";
 import Lorenz from "../View/PageComponents/Homepage/Lorenz";
 import useWindowEvent from "../View/Hooks/useWindowEvent";
+import { useWindowSize } from "react-use";
 
 const Title = (props: { color?: string; children: ReactNode }) => (
   <>
@@ -42,7 +42,7 @@ const Fader = (props: { visible: boolean; children: ReactNode }) => (
 const NUM_PAGES = 3;
 
 const IndexPage = (): ReactNode => {
-  const [width, height] = useFullScreen();
+  const { width, height } = useWindowSize();
   const [currentPage, setCurrentPage] = useState(0);
   const incrementPage = () =>
     setCurrentPage((page) => Math.min(page + 1, NUM_PAGES - 1));

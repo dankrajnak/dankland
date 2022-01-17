@@ -3,10 +3,10 @@ import Link from "next/link";
 
 import useScrollAmount from "../../../../Hooks/useScrollAmount";
 import Card, { Props as CardProps } from "../Card/Card";
-import useFullScreen from "../../../../Hooks/useFullScreen";
 import { mappedStepEaser } from "../../../../../Services/EaseStep/EaseStep.service";
 import EasingFunctions from "../../../../../Services/Ease/Ease.service";
 import useSafeWindow from "../../../../Hooks/useSafeWindow";
+import { useWindowSize } from "react-use";
 
 interface Props {
   cards: ({
@@ -46,13 +46,13 @@ const CardDeck = (props: Props) => {
   const scroll = useScrollAmount(true);
   const [window] = useSafeWindow();
 
-  const [windowWidth, windowHeight, flash] = useFullScreen();
+  const { width: windowWidth, height: windowHeight } = useWindowSize();
 
   // This is the position on the screen the deck sits.  It's a computed value based on the windowWidth.
-  const deckPosition = useMemo(() => (windowWidth - props.cardsWidth) / 2, [
-    props.cardsWidth,
-    windowWidth,
-  ]);
+  const deckPosition = useMemo(
+    () => (windowWidth - props.cardsWidth) / 2,
+    [props.cardsWidth, windowWidth]
+  );
 
   const scrollDemap = useMemo(
     () => (val: number) => deckPosition - windowWidth * val,
@@ -99,9 +99,6 @@ const CardDeck = (props: Props) => {
     };
   }, [getEaseStart, props.cards.length, props.scrollToCard, window]);
 
-  if (flash) {
-    return flash;
-  }
   return (
     <>
       <div className="card-deck-holder">
@@ -121,8 +118,8 @@ const CardDeck = (props: Props) => {
             prevCardPosition === cardPositionStart;
 
           return (
-            <Link href={card.link} key={i}>
-              <div className="card-deck-card-link">
+            <Link href={card.link} key={i} passHref>
+              <a className="card-deck-card-link">
                 <CardHolder
                   dx={
                     i === props.cards.length - 1
@@ -145,7 +142,7 @@ const CardDeck = (props: Props) => {
                     />
                   )}
                 </CardHolder>
-              </div>
+              </a>
             </Link>
           );
         })}

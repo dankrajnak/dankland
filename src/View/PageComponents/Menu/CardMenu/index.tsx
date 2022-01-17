@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useMemo } from "react";
+import { useWindowSize } from "react-use";
 import { Menu } from "../../../../Domain/Menu/Menu";
-import useFullScreen from "../../../Hooks/useFullScreen";
 import useScrollAmount from "../../../Hooks/useScrollAmount";
 import CardDeck from "./CardDeck/CardDeck";
 
@@ -10,7 +10,8 @@ import CardDeck from "./CardDeck/CardDeck";
  * offscreen.  Known to be a little buggy on iphones.
  */
 const CardMenu: Menu = ({ routeProps, cards }) => {
-  const [width, height, flash] = useFullScreen();
+  const { width, height } = useWindowSize();
+
   const cardWidth = useMemo(() => Math.min(500, width * 0.9), [width]);
   const cardHeight = useMemo(() => Math.min(500, height * 0.7), [height]);
 
@@ -35,13 +36,11 @@ const CardMenu: Menu = ({ routeProps, cards }) => {
     return null;
   }, [cards, routeProps.location]);
   const scroll = useScrollAmount();
-  if (flash) {
-    return flash;
-  }
+
   return (
     <>
       <div className="aboutContainer">
-        <Link href={"/about"}>
+        <Link href="/about">
           <a>About</a>
         </Link>
       </div>
