@@ -47,7 +47,7 @@ const Button = ({
       <style jsx>
         {`
           .menu-button {
-            color: ${color};
+            color: ${color} !important;
             ${styles}
           }
           .menu-button-container {

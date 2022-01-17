@@ -5,6 +5,7 @@ import Action from "../Domain/Action/Action";
 import TypeBox from "../View/PageComponents/JustSomeThought/TypeBox";
 import SEO from "../View/Utility/seo";
 import { useWindowSize } from "react-use";
+import Div100vh from "react-div-100vh";
 
 const TheThoughts: string[] = [
   "It still comes back to you",
@@ -191,17 +192,16 @@ const JustSomeThoughts = () => {
         title="Just Some Thought"
         keywords={["poetry", "new media", "thought"]}
       />
-      <div className="container">
-        {state.elements.map((elm) => elm.component)}
-      </div>
+      <Div100vh>
+        <div className="container">
+          {state.elements.map((elm) => elm.component)}
+        </div>
+      </Div100vh>
       <style jsx>
         {`
           .container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            height: 100%;
+            width: 100%;
             transition: background-color 240s ease-out;
           }
         `}
