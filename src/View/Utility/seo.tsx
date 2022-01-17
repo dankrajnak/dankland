@@ -31,6 +31,8 @@ const SEO = ({
       name: `description`,
       content: description,
     },
+    { name: "theme-color", content: "#272731" },
+    { name: "apple-mobile-web-app-status-bar-style", content: "#272731" },
     {
       property: `og:title`,
       content: siteTitle,
