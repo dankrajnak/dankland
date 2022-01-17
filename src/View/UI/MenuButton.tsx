@@ -32,6 +32,9 @@ const Button = ({
             font-weight: 600;
             text-decoration: none;
           }
+          .menu-button:visited {
+            color: inherit;
+          }
           .menu-container {
             position: fixed;
             top: 20px;
