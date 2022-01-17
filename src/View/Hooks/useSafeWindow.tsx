@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import FlashScreen from "../UI/FlashScreen";
+import useIsBrowser from "./useIsBrowser";
 
 const useSafeWindow = (): [typeof window | null, JSX.Element | null] => {
+  const inBrowser = useIsBrowser();
   const [safeWindow, setSafeWindow] = useState<typeof window | null>(
-    typeof window === "undefined" ? null : window
+    inBrowser ? null : window
   );
   const [flash, setFlash] = useState<JSX.Element | null>(<FlashScreen />);
   useEffect(() => {
