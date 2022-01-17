@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import useFullScreen from "../View/Hooks/useFullScreen";
 import PerspectiveSquare from "../Services/PerspectiveSquare/PerspectiveSquare.service";
 import Square from "../Domain/Square/Square";
 import Vector2d from "../Domain/Vector/Vector2d";
@@ -9,11 +8,12 @@ import SEO from "../View/Utility/seo";
 import useClickHoverWander from "../View/Hooks/useClickHoverWander";
 import CanvasDrawer from "../View/UI/CavnasDrawer/CanvasDrawer";
 import PersepctiveSquareDrawer from "../Services/PerspectiveSquare/Drawers/Drawer.interface";
+import { useWindowSize } from "react-use";
 
 const SQUARE_WIDTH = 300;
 
 const Perspective = () => {
-  const [width, height, flash] = useFullScreen();
+  const { width, height } = useWindowSize(0, 0);
   const [focusPoint, mouseProps] = useClickHoverWander(width, height);
   const perspectiveSquare = useRef<PerspectiveSquare | null>(null);
   const squareDrawer = useRef<PersepctiveSquareDrawer | null>(null);
@@ -48,8 +48,8 @@ const Perspective = () => {
     );
   };
 
-  if (flash) {
-    return flash;
+  if (!width || !height) {
+    return null;
   }
 
   return (

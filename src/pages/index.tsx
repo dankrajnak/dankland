@@ -21,6 +21,7 @@ import useRequest from "../Hooks/useRequest";
 import TitleService from "../Services/Title/Title.service";
 import { Either, failure, success } from "../Utils/Either";
 import { useWindowSize } from "react-use";
+import useFullScreen from "../View/Hooks/useFullScreen";
 
 const LinkLoading = () => (
   <>
@@ -302,7 +303,7 @@ const Title = ({ showLoader }: { showLoader: boolean }) => {
 
 // I can't find the typescript type for props passed into pages to save my life.
 const Menu = (props: MenuRouteProps) => {
-  const { width, height } = useWindowSize();
+  const { width, height } = useFullScreen({ ignoreHeightUpdates: isMobile });
   const scroll = useScrollAmount();
   const [showLoader, setShowLoader] = useState(false);
   const hideLoader = useCallback(() => setShowLoader(false), []);

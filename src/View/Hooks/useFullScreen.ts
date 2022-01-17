@@ -1,49 +1,51 @@
 import { useEffect, useMemo, useState } from "react";
-import useSafeWindow from "./useSafeWindow";
+import useIsBrowser from "./useIsBrowser";
+import { useRafState } from "react-use";
+import debounce from "debounce";
 
 type Config = {
   ignoreHeightUpdates: boolean;
+  initialWidth: number;
+  initialHeight: number;
 };
 
 const DEFAULT_CONFIG: Config = {
   ignoreHeightUpdates: false,
+  initialWidth: 0,
+  initialHeight: 0,
 };
 
 const useFullScreen = (
   config: Partial<Config> = DEFAULT_CONFIG
-): [number, number, JSX.Element | null] => {
-  const safeConfig = useMemo(() => ({ ...DEFAULT_CONFIG, ...config }), [
-    config,
-  ]);
-  const [window, flash] = useSafeWindow();
-  const [width, setWidth] = useState(window ? window.innerWidth : 0);
-  const [height, setHeight] = useState(window ? window.innerHeight : 0);
-
-  //Initial resize
-  useEffect(() => {
-    if (width === 0 && height === 0 && window) {
-      setWidth(window.innerWidth);
-      setHeight(window.innerHeight);
-    }
-  }, [height, width, window]);
+): { width: number; height: number } => {
+  const isBrowser = useIsBrowser();
+  const safeConfig = useMemo(
+    () => ({ ...DEFAULT_CONFIG, ...config }),
+    [config]
+  );
+  const [width, setWidth] = useRafState(
+    isBrowser ? window.innerWidth : safeConfig.initialWidth
+  );
+  const [height, setHeight] = useRafState(
+    isBrowser ? window.innerHeight : safeConfig.initialHeight
+  );
 
   useEffect(() => {
-    const resize = () => {
-      if (window) {
+    if (isBrowser) {
+      const resize = debounce(() => {
         setWidth(window.innerWidth);
         if (!safeConfig.ignoreHeightUpdates) {
           setHeight(window.innerHeight);
         }
-      }
-    };
-    resize();
-    const listener = window && window.addEventListener("resize", resize);
-    return () => {
-      window && listener && window.removeEventListener("resize", listener);
-    };
-  }, [safeConfig.ignoreHeightUpdates, window]);
+      }, 1000);
+      window.addEventListener("resize", resize);
+      return () => {
+        window.removeEventListener("resize", resize);
+      };
+    }
+  }, [isBrowser, safeConfig.ignoreHeightUpdates, setHeight, setWidth]);
 
-  return [width, height, flash];
+  return { width, height };
 };
 
 export default useFullScreen;
