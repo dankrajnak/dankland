@@ -4,10 +4,11 @@ import MetaSphere from "../Services/MetaSphere/MetaSphere";
 import useFullScreen from "../View/Hooks/useFullScreen";
 import useClickHoverWander from "../View/Hooks/useClickHoverWander";
 import CanvasDrawer from "../View/UI/CavnasDrawer/CanvasDrawer";
+import { useWindowSize } from "react-use";
 
 const MetaSphereElm = () => {
   const metaDrawer = useRef<MetaSphere | null>(null);
-  const [width, height] = useFullScreen();
+  const { width, height } = useWindowSize();
   const [focusPoint, mouseProps] = useClickHoverWander(width, height);
   useEffect(() => {
     metaDrawer.current = new MetaSphere(width, height);

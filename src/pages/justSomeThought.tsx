@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect, ReactNode, useReducer } from "react";
 import MenuLayout from "../View/Layout/MenuLayout";
 import Vector2d from "../Domain/Vector/Vector2d";
-import useFullScreen from "../View/Hooks/useFullScreen";
 import Action from "../Domain/Action/Action";
 import TypeBox from "../View/PageComponents/JustSomeThought/TypeBox";
 import SEO from "../View/Utility/seo";
+import { useWindowSize } from "react-use";
 
 const TheThoughts: string[] = [
   "It still comes back to you",
@@ -101,7 +101,7 @@ const JustSomeThoughts = () => {
     nextKey: 0,
     timeOut: 2000,
   });
-  const [width, height] = useFullScreen();
+  const { width, height } = useWindowSize();
   const maxElementsTimeout = useRef(20);
   const [backgroundColor, setBackgroundColor] = useState("white");
   const [menuColor, setMenuColor] = useState("black");
