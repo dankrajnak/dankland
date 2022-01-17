@@ -4,7 +4,7 @@ import useScrollThreshold from "@danielkrajnak/use-scroll-threshold";
 import SEO from "../View/Utility/seo";
 import TheCoolestOne from "../View/PageComponents/Homepage/TheCoolestOne";
 import MenuLayout from "../View/Layout/MenuLayout";
-import Lorenz from "../View/PageComponents/Homepage/Lorenz";
+import Lorenz, { LORENZ_BLACK } from "../View/PageComponents/Homepage/Lorenz";
 import useWindowEvent from "../View/Hooks/useWindowEvent";
 import { useWindowSize } from "react-use";
 
@@ -35,7 +35,6 @@ const Fader = (props: { visible: boolean; children: ReactNode }) => (
           height: 100%;
           top: 0;
           bottom: 0;
-          background-color: red;
           transition: opacity 1s ease;
         }
       `}
@@ -74,7 +73,7 @@ const IndexPage = (): ReactNode => {
   );
   return (
     <MenuLayout color={currentPage === 0 ? "white" : "black"}>
-      <SEO title="Home" />
+      <SEO title="Home" color={LORENZ_BLACK} />
       {currentPage === 0 && (
         <Fader visible={currentPage === 0}>
           <div className="title-holder">

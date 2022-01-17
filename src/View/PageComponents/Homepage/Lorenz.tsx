@@ -13,13 +13,12 @@ interface Props {
   colorful?: boolean | null;
 }
 
-const mapper = (
-  fromLow: number,
-  fromHigh: number,
-  toLow: number,
-  toHigh: number
-) => (mapValue: number) =>
-  ((mapValue - fromLow) / (fromHigh - fromLow)) * (toHigh - toLow) + toLow;
+export const LORENZ_BLACK = "#2f3030";
+
+const mapper =
+  (fromLow: number, fromHigh: number, toLow: number, toHigh: number) =>
+  (mapValue: number) =>
+    ((mapValue - fromLow) / (fromHigh - fromLow)) * (toHigh - toLow) + toLow;
 
 const colorInterpolator = ColorInterpolate([
   "#F58B73",
@@ -45,7 +44,7 @@ const Lorenz = (props: Props) => {
     // Draw the thing
     context.fillStyle = props.colorful
       ? colorInterpolator(colorMapper(position.get("z")!))
-      : "#2f3030";
+      : LORENZ_BLACK;
     context.fillRect(0, 0, props.width, props.height);
 
     context.fillStyle = "#EEE";
@@ -66,7 +65,7 @@ const Lorenz = (props: Props) => {
   };
 
   const initializeCanvas = (context: CanvasRenderingContext2D) => {
-    context.fillStyle = "#2f3030";
+    context.fillStyle = LORENZ_BLACK;
     context.strokeStyle = "#EEE";
     context.lineWidth = 0.5;
   };

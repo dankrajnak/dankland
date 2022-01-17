@@ -21,6 +21,7 @@ import TitleService from "../Services/Title/Title.service";
 import { Either, failure, success } from "../Utils/Either";
 import useFullScreen from "../View/Hooks/useFullScreen";
 import useAsync from "@danielkrajnak/use-async";
+import colors from "../View/Styles/colors";
 
 const LinkLoading = () => (
   <>
@@ -213,7 +214,7 @@ const Title = ({ showLoader }: { showLoader: boolean }) => {
 
       <style jsx>{`
         body {
-          background-color: #272731;
+          background-color: ${colors.gray};
         }
         h1,
         textarea {

@@ -1,4 +1,5 @@
 import Head from "next/head";
+import colors from "../Styles/colors";
 
 const siteTitle = "Dank Land";
 const defaultDescription = "The thing one guy works on over his weekends";
@@ -18,6 +19,7 @@ interface Props {
   meta?: { name: string; content: string; property?: undefined }[];
   keywords?: string[];
   title: string;
+  color?: string;
 }
 
 const SEO = ({
@@ -25,14 +27,15 @@ const SEO = ({
   meta = [],
   keywords = defaultKeywords,
   title,
+  color = colors.gray,
 }: Props) => {
   const defaultMeta = [
     {
       name: `description`,
       content: description,
     },
-    { name: "theme-color", content: "#272731" },
-    { name: "apple-mobile-web-app-status-bar-style", content: "#272731" },
+    { name: "theme-color", content: color },
+    { name: "apple-mobile-web-app-status-bar-style", content: color },
     {
       property: `og:title`,
       content: siteTitle,
