@@ -17,11 +17,10 @@ import SEO from "../View/Utility/seo";
 import Card from "../Domain/Card/Card";
 import { MenuRouteProps } from "../Domain/Menu/Menu";
 import useScrollAmount from "../View/Hooks/useScrollAmount";
-import useRequest from "../Hooks/useRequest";
 import TitleService from "../Services/Title/Title.service";
 import { Either, failure, success } from "../Utils/Either";
-import { useWindowSize } from "react-use";
 import useFullScreen from "../View/Hooks/useFullScreen";
+import useAsync from "@danielkrajnak/use-async";
 
 const LinkLoading = () => (
   <>
@@ -121,7 +120,7 @@ const validateTitle = (
 
 const Title = ({ showLoader }: { showLoader: boolean }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [updateTitleState, updateTitle] = useRequest(TitleService.setTitle);
+  const [updateTitleState, updateTitle] = useAsync(TitleService.setTitle);
 
   const { data, mutate, error } = useSwr("fetch-title", TitleService.getTitle, {
     refreshInterval: 10 * 1000,
