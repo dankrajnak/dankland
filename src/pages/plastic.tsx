@@ -192,7 +192,7 @@ const TextContent = () => {
           justifyContent: "center",
         }}
       >
-        <Title text="And I make cool things" show={showSecond} />
+        <Title text="And I make cool things." show={showSecond} />
       </div>
     </>
   );
