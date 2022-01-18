@@ -15,7 +15,6 @@ import SimpleMenu from "../View/PageComponents/Menu/SimpleMenu";
 import Layout from "../View/Layout/Layout";
 import SEO from "../View/Utility/seo";
 import Card from "../Domain/Card/Card";
-import { MenuRouteProps } from "../Domain/Menu/Menu";
 import useScrollAmount from "../View/Hooks/useScrollAmount";
 import TitleService from "../Services/Title/Title.service";
 import { Either, failure, success } from "../Utils/Either";
@@ -304,8 +303,7 @@ const Title = ({ showLoader }: { showLoader: boolean }) => {
   );
 };
 
-// I can't find the typescript type for props passed into pages to save my life.
-const Menu = (props: MenuRouteProps) => {
+const Menu = () => {
   const { width, height } = useFullScreen({ ignoreHeightUpdates: isMobile });
   const scroll = useScrollAmount();
   const [showLoader, setShowLoader] = useState(false);
@@ -326,7 +324,7 @@ const Menu = (props: MenuRouteProps) => {
         <div className="scroll-message">Scroll</div>
       </div>
 
-      <SimpleMenu routeProps={props} cards={cards} />
+      <SimpleMenu cards={cards} />
       <div className="about-holder">
         <Link href="/about">
           <a>About</a>

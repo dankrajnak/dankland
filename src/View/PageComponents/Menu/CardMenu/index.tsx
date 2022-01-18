@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useMemo } from "react";
 import { useWindowSize } from "react-use";
 import { Menu } from "../../../../Domain/Menu/Menu";
@@ -9,8 +10,9 @@ import CardDeck from "./CardDeck/CardDeck";
  * Pages are represented as cards on a deck. As the user scrolls the cards roll off the deck
  * offscreen.  Known to be a little buggy on iphones.
  */
-const CardMenu: Menu = ({ routeProps, cards }) => {
+const CardMenu: Menu = ({ cards }) => {
   const { width, height } = useWindowSize();
+  const router = useRouter();
 
   const cardWidth = useMemo(() => Math.min(500, width * 0.9), [width]);
   const cardHeight = useMemo(() => Math.min(500, height * 0.7), [height]);
@@ -23,18 +25,7 @@ const CardMenu: Menu = ({ routeProps, cards }) => {
       })),
     [cardHeight, cardWidth, cards]
   );
-  const scrollToCard = useMemo(() => {
-    if (
-      routeProps.location &&
-      routeProps.location.state &&
-      routeProps.location.state.prevPath
-    ) {
-      const prevLocation = routeProps.location.state.prevPath;
-      const index = cards.findIndex((card) => card.link === prevLocation);
-      return index === -1 ? null : index;
-    }
-    return null;
-  }, [cards, routeProps.location]);
+
   const scroll = useScrollAmount();
 
   return (
@@ -49,7 +40,6 @@ const CardMenu: Menu = ({ routeProps, cards }) => {
         width={width}
         cardsWidth={cardWidth}
         cardsHeight={cardHeight}
-        scrollToCard={scrollToCard}
       />
 
       <div className="scrollMessage">Scroll Down</div>

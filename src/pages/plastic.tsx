@@ -1,16 +1,12 @@
 import {
-  OrbitControls,
   Reflector,
   Scroll,
   ScrollControls,
-  Stats,
   useScroll,
 } from "@react-three/drei";
-import Head from "next/head";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import type { NextPage } from "next";
-import React, { Suspense } from "react";
-import * as THREE from "three";
+import React, { Suspense, useState } from "react";
 import {
   Bloom,
   EffectComposer,
@@ -22,30 +18,183 @@ import { Leva, useControls } from "leva";
 import Cloth from "../View/PageComponents/Plastic/Cloth";
 import Div100vh from "react-div-100vh";
 import SEO from "../View/Utility/seo";
+import { Vector3 } from "three";
+import dynamic from "next/dynamic";
+import Card from "../Domain/Card/Card";
+import SimpleMenu from "../View/PageComponents/Menu/SimpleMenu";
+import Layout from "../View/Layout/Layout";
 
-const ORIGIN = new THREE.Vector3();
+const LinkLoading = () => (
+  <>
+    <div />
+    <style jsx>{`
+      div {
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.5);
+      }
+    `}</style>
+  </>
+);
+
+// Dynamically import all the cards to reduce initial load.
+const Lorenz = dynamic(() => import("../View/PageComponents/Homepage/Lorenz"), {
+  loading: () => <LinkLoading />,
+});
+const PerspectivePreview = dynamic(
+  () => import("../View/PageComponents/Menu/PerspectivePreview"),
+  { loading: () => <LinkLoading /> }
+);
+const HallwayPreview = dynamic(
+  () => import("../View/PageComponents/Menu/HallwayPreview"),
+  { loading: () => <LinkLoading /> }
+);
+const MetaSpherePreview = dynamic(
+  () => import("../View/PageComponents/Menu/MetaSpherePreview"),
+  { loading: () => <LinkLoading /> }
+);
+const JustSomeThoughtsPreview = dynamic(
+  () => import("../View/PageComponents/Menu/JustSomeThoughtsPreview"),
+  { loading: () => <LinkLoading /> }
+);
+
+const cards: Card[] = [
+  {
+    background: ({ width, height }) => (
+      <Lorenz width={width} height={height} colorful />
+    ),
+    title: "Again",
+    description: "Just to impress you",
+    link: "/again",
+  },
+  {
+    background: PerspectivePreview,
+    title: "Perspective",
+    description: "I spent two fucking days making a square move",
+    link: "/perspective",
+  },
+  {
+    background: HallwayPreview,
+    title: "Hallway",
+    description: (
+      <div>
+        <em className="mute">(Almost)</em> Shamelessly{" "}
+        <em className="mute">(basically)</em> stolen{" "}
+        <em className="mute">(from a tutorial)</em>
+      </div>
+    ),
+    link: "/hallway",
+  },
+  {
+    background: MetaSpherePreview,
+    title: "Meta sphere",
+    description: "Just go have some fun, kid",
+    link: "/metaSphere",
+  },
+  {
+    background: JustSomeThoughtsPreview,
+    title: "Just Some Thought",
+    description: "I just, well, here you go",
+    link: "/justSomeThought",
+  },
+];
+
+const ORIGIN = new Vector3();
 
 const Home: NextPage = () => {
   return (
-    <Div100vh>
-      <SEO title="plastic" />
-      <Leva hidden />
-      <Canvas shadows>
-        {/* <Stats showPanel={0} /> */}
-        <Suspense fallback={null}>
-          <ScrollControls pages={3}>
-            <Inner />
-          </ScrollControls>
-        </Suspense>
-      </Canvas>
-      <style jsx global>
+    <Layout>
+      <Div100vh>
+        <SEO title="plastic" />
+        <Leva hidden />
+        <Canvas shadows>
+          {/* <Stats showPanel={0} /> */}
+          <Suspense fallback={null}>
+            <ScrollControls pages={3}>
+              <Inner />
+            </ScrollControls>
+          </Suspense>
+        </Canvas>
+        <div>
+          <SimpleMenu cards={cards} />
+        </div>
+        <style jsx global>
+          {`
+            body {
+              background-color: black;
+            }
+          `}
+        </style>
+      </Div100vh>
+    </Layout>
+  );
+};
+
+const Title = ({ text, show }: { text: string; show?: boolean }) => {
+  return (
+    <>
+      <h1 className={show ? "show" : ""}>{text}</h1>
+      <style jsx>
         {`
-          body {
-            background-color: black;
+          @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap");
+          h1 {
+            font-family: "Raleway", -apple-system, BlinkMacSystemFont,
+              "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+              "Helvetica Neue", sans-serif;
+            perspective: 157px;
+            transition: opacity 0.5s, transform 0.5s;
+            position: "fixed";
+          }
+          h1:not(.show) {
+            opacity: 0;
+            transform: rotateX(45deg);
           }
         `}
       </style>
-    </Div100vh>
+    </>
+  );
+};
+
+const TextContent = () => {
+  const scroll = useScroll();
+  const { size } = useThree();
+  const [showFirst, setShowFirst] = useState(false);
+  const [showSecond, setShowSecond] = useState(false);
+  useFrame(() => {
+    setShowFirst(scroll.offset < 0.05);
+    setShowSecond(scroll.offset > 0.95);
+  });
+
+  return (
+    <>
+      <div
+        style={{
+          color: "white",
+          position: "absolute",
+          height: size.height,
+          width: size.width,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Title text="Hi, my name is Dan." show={showFirst} />
+      </div>
+      <div
+        style={{
+          color: "white",
+          position: "absolute",
+          top: "200vh",
+          height: size.height,
+          width: size.width,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Title text="And I make cool things" show={showSecond} />
+      </div>
+    </>
   );
 };
 
@@ -67,7 +216,6 @@ const Inner = () => {
     three.camera.position.z = thing.range(0, 1) * 280;
     three.camera.lookAt(ORIGIN);
   });
-  const { size } = useThree();
 
   return (
     <>
@@ -87,30 +235,7 @@ const Inner = () => {
         <Cloth />
 
         <Scroll html>
-          <div
-            style={{
-              color: "white",
-              position: "absolute",
-              top: "200vh",
-              height: size.height,
-              width: size.width,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <h1>Hey, my name is Dan.</h1>
-            <style jsx>
-              {`
-                @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap");
-                h1 {
-                  font-family: "Raleway", -apple-system, BlinkMacSystemFont,
-                    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
-                    "Helvetica Neue", sans-serif;
-                }
-              `}
-            </style>
-          </div>
+          <TextContent />
         </Scroll>
         <Reflector
           position={[0, -5, 0]}

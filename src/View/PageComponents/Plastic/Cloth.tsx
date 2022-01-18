@@ -1,23 +1,29 @@
 import { useFrame, useLoader } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
-import * as THREE from "three";
 import {
   BufferAttribute,
+  Color,
+  DoubleSide,
+  Float32BufferAttribute,
   Mesh,
+  MeshBasicMaterial,
   PlaneBufferGeometry,
   PointLight,
+  RepeatWrapping,
   ShaderMaterial,
   TextureLoader,
+  UniformsUtils,
+  Vector3,
 } from "three";
 import { SubsurfaceScatteringShader } from "three/examples/jsm/shaders/SubsurfaceScatteringShader";
 import { useControls } from "leva";
 import SimplexNoise from "simplex-noise";
 import { useScroll } from "@react-three/drei";
 
-const uniforms = THREE.UniformsUtils.clone(SubsurfaceScatteringShader.uniforms);
-uniforms["diffuse"].value = new THREE.Vector3(0.2, 0.2, 0.2);
+const uniforms = UniformsUtils.clone(SubsurfaceScatteringShader.uniforms);
+uniforms["diffuse"].value = new Vector3(0.2, 0.2, 0.2);
 
-uniforms["thicknessColor"].value = new THREE.Vector3(0.5, 0.3, 0.0);
+uniforms["thicknessColor"].value = new Vector3(0.5, 0.3, 0.0);
 uniforms["thicknessDistortion"].value = 0.76;
 uniforms["thicknessAmbient"].value = 0.06;
 uniforms["thicknessAttenuation"].value = 0.97;
@@ -114,8 +120,8 @@ const Cloth = () => {
   const geometryRef = useRef<PlaneBufferGeometry>();
 
   const whiteTexture = useLoader(TextureLoader, "textures/white.jpg");
-  whiteTexture.wrapS = THREE.RepeatWrapping;
-  whiteTexture.wrapT = THREE.RepeatWrapping;
+  whiteTexture.wrapS = RepeatWrapping;
+  whiteTexture.wrapT = RepeatWrapping;
 
   useControls("shader", controlsWithControls);
 
@@ -123,6 +129,7 @@ const Cloth = () => {
   uniforms.thicknessMap.value = whiteTexture;
 
   const pointLightRef = useRef<PointLight>();
+  const pointLightMaterialRef = useRef<MeshBasicMaterial>();
   const exteriorLightRef = useRef<PointLight>();
 
   const amplitude = 20;
@@ -143,9 +150,15 @@ const Cloth = () => {
 
   const scroll = useScroll();
   useFrame(() => {
-    if (pointLightRef.current && exteriorLightRef.current) {
+    if (
+      pointLightRef.current &&
+      exteriorLightRef.current &&
+      pointLightMaterialRef.current
+    ) {
       pointLightRef.current.intensity = scroll.range(0, 1);
       exteriorLightRef.current.intensity = (scroll.range(0, 1) + 0.2) * 2;
+      const colorVal = scroll.range(0, 1);
+      pointLightMaterialRef.current.color.setRGB(colorVal, colorVal, colorVal);
     }
   });
 
@@ -206,7 +219,7 @@ const Cloth = () => {
         if (geometryRef.current) {
           geometryRef.current.setAttribute(
             "position",
-            new THREE.Float32BufferAttribute(pAndN.positions, 3)
+            new Float32BufferAttribute(pAndN.positions, 3)
           );
           geometryRef.current.computeVertexNormals();
 
@@ -215,7 +228,7 @@ const Cloth = () => {
           );
 
           geometryRef.current.morphAttributes.position.push(
-            new THREE.Float32BufferAttribute(pAndN.positions, 3)
+            new Float32BufferAttribute(pAndN.positions, 3)
           );
         }
       });
@@ -251,7 +264,7 @@ const Cloth = () => {
           ref={geometryRef}
         />
         <shaderMaterial
-          side={THREE.DoubleSide}
+          side={DoubleSide}
           uniforms={uniforms}
           vertexShader={SubsurfaceScatteringShader.vertexShader}
           fragmentShader={SubsurfaceScatteringShader.fragmentShader}
@@ -289,7 +302,7 @@ const Cloth = () => {
       >
         <mesh>
           <sphereBufferGeometry args={[4, 8, 8]} />
-          <meshBasicMaterial color="black" />
+          <meshBasicMaterial ref={pointLightMaterialRef} />
         </mesh>
       </pointLight>
     </>
