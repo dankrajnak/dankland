@@ -10,7 +10,7 @@ import { useWindowSize } from "react-use";
 
 const Title = (props: { color?: string; children: ReactNode }) => (
   <>
-    <h1 style={{ color: props.color || "#2f3030" }}>{props.children}</h1>
+    <h1 style={{ color: props.color || LORENZ_BLACK }}>{props.children}</h1>
     <style jsx>
       {`
         h1 {

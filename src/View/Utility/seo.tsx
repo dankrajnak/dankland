@@ -19,7 +19,7 @@ interface Props {
   meta?: { name: string; content: string; property?: undefined }[];
   keywords?: string[];
   title: string;
-  color?: string;
+  color?: string | null;
 }
 
 const SEO = ({
@@ -27,15 +27,13 @@ const SEO = ({
   meta = [],
   keywords = defaultKeywords,
   title,
-  color = colors.gray,
+  color = null,
 }: Props) => {
   const defaultMeta = [
     {
       name: `description`,
       content: description,
     },
-    { name: "theme-color", content: color },
-    { name: "apple-mobile-web-app-status-bar-style", content: color },
     {
       property: `og:title`,
       content: siteTitle,
@@ -64,10 +62,15 @@ const SEO = ({
       name: `twitter:description`,
       content: description,
     },
-    { name: `theme-color`, content: "#eee" },
     { name: `og:image`, content: "/android-chrome-512x512.png" },
     { name: "keywords", content: keywords.join(", ") },
   ];
+  if (color) {
+    defaultMeta.push(
+      { name: "theme-color", content: color },
+      { name: "apple-mobile-web-app-status-bar-style", content: color }
+    );
+  }
   return (
     <Head>
       <link rel="manifest" href="/manifest.json" />
