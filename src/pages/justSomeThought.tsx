@@ -196,7 +196,7 @@ const JustSomeThoughts = () => {
       <style jsx global>
         {`
           body {
-            transition: background-color 180s ease-out;
+            transition: background-color 85s ease-in;
           }
         `}
       </style>
