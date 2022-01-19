@@ -192,23 +192,17 @@ const JustSomeThoughts = () => {
         title="Just Some Thought"
         keywords={["poetry", "new media", "thought"]}
       />
-      <Div100vh>
-        <div className="container">
-          {state.elements.map((elm) => elm.component)}
-        </div>
-      </Div100vh>
-      <style jsx>
+      <Div100vh>{state.elements.map((elm) => elm.component)}</Div100vh>
+      <style jsx global>
         {`
-          .container {
-            height: 100%;
-            width: 100%;
-            transition: background-color 240s ease-out;
+          body {
+            transition: background-color 180s ease-out;
           }
         `}
       </style>
-      <style jsx>
+      <style jsx global>
         {`
-          .container {
+          body {
             background-color: ${backgroundColor};
           }
         `}
