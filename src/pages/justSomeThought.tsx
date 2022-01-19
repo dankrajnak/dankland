@@ -12,7 +12,7 @@ const TheThoughts: string[] = [
   "Alone and being here, not new",
   "Still want runaway rules and nothing to pursue",
   "Still want that all talk and just do",
-  "I wanna be like shoes, slip me on and just groove",
+  "I wanna be like shoes, slip me on and groove",
   "Forget those nights that include you",
   "Can't listen to that song we used to",
   "Jump in, swirl around, just move",
