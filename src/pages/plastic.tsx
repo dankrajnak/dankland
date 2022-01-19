@@ -115,9 +115,9 @@ const Home: NextPage = () => {
             </ScrollControls>
           </Suspense>
         </Canvas>
-        <div>
+        {/* <div>
           <SimpleMenu cards={cards} />
-        </div>
+        </div> */}
         <style jsx global>
           {`
             body {
@@ -241,12 +241,10 @@ const Inner = () => {
           position={[0, -5, 0]}
           args={[500, 500, 4]} // PlaneBufferGeometry arguments
           resolution={1024} // Off-buffer resolution, lower=faster, higher=better quality
-          mirror={0.6} // Mirror environment, 0 = texture colors, 1 = pick up env colors
-          mixBlur={0} // How much blur mixes with surface roughness (default = 0), note that this can affect performance
-          mixStrength={1} // Strength of the reflections
-          depthScale={2} // Scale the depth factor (0 = no depth, default = 0)
+          mirror={0.95} // Mirror environment, 0 = texture colors, 1 = pick up env colors
+          mixStrength={0.5} // Strength of the reflections
           rotation={[-Math.PI / 2, 0, 0]}
-          debug={0}
+          mixBlur={0.3}
         >
           {(Material, props) => <Material {...props} />}
         </Reflector>
@@ -258,7 +256,7 @@ const Inner = () => {
           radius={200} // Radius of the inner sphere (default=100)
           depth={50} // Depth of area where stars should fit (default=50)
           count={5000} // Amount of stars (default=5000)
-          factor={8} // Size factor (default=4)
+          factor={4} // Size factor (default=4)
           fade // Faded dots (default=false)
         /> */}
       </Suspense>

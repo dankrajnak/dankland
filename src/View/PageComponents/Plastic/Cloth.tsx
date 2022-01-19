@@ -2,7 +2,6 @@ import { useFrame, useLoader } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import {
   BufferAttribute,
-  Color,
   DoubleSide,
   Float32BufferAttribute,
   Mesh,
@@ -281,7 +280,7 @@ const Cloth = () => {
         ]}
         ref={exteriorLightRef}
         intensity={2}
-        distance={300}
+        distance={280}
         position={[0, 200, 10]}
       ></pointLight>
 
@@ -292,7 +291,7 @@ const Cloth = () => {
           interiorLightColor.b / 256,
         ]}
         intensity={0.5}
-        distance={800}
+        distance={250}
         ref={pointLightRef}
         position={[
           interiorLightPosition.x,
@@ -301,7 +300,7 @@ const Cloth = () => {
         ]}
       >
         <mesh>
-          <sphereBufferGeometry args={[4, 8, 8]} />
+          <sphereBufferGeometry args={[3, 8, 8]} />
           <meshBasicMaterial ref={pointLightMaterialRef} />
         </mesh>
       </pointLight>
