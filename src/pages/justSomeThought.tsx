@@ -17,7 +17,7 @@ const TheThoughts: string[] = [
   "Can't listen to that song we used to",
   "Jump in, swirl around, just move",
   "I keep trying to improve",
-  "I'm just trying to conclude something I can pack up and move to",
+  "I'm trying to conclude something I can pack up and move to",
   "Get out of that place you just blew through",
   "Prove to myself I can move too",
   "Or find myself on that middle-aged accrue",
