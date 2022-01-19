@@ -14,7 +14,7 @@ export default class TypeWriterService {
         return uppercase ? character.toLowerCase() : character.toUpperCase();
       }
       //Otherwise make a big finger mistake
-      keyboard.forEach((keyRow) => {
+      for (const keyRow of keyboard) {
         const index = keyRow.indexOf(character.toLowerCase());
         if (index !== -1) {
           switch (index) {
@@ -22,7 +22,7 @@ export default class TypeWriterService {
               return keyRow[1];
 
             case keyRow.length - 1:
-              return keyRow.length - 2;
+              return keyRow[keyRow.length - 2];
 
             default:
               return Math.random() <= 0.5
@@ -30,7 +30,7 @@ export default class TypeWriterService {
                 : keyRow[index + 1];
           }
         }
-      });
+      }
     }
 
     //Handle special characters
