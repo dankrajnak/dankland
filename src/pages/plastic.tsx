@@ -242,7 +242,7 @@ const Inner = () => {
           args={[500, 500, 4]} // PlaneBufferGeometry arguments
           resolution={1024} // Off-buffer resolution, lower=faster, higher=better quality
           mirror={0.95} // Mirror environment, 0 = texture colors, 1 = pick up env colors
-          mixStrength={0.5} // Strength of the reflections
+          mixStrength={0.3} // Strength of the reflections
           rotation={[-Math.PI / 2, 0, 0]}
           mixBlur={0.3}
         >
