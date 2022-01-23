@@ -1,4 +1,5 @@
 import {
+  Html,
   Reflector,
   Scroll,
   ScrollControls,
@@ -6,7 +7,7 @@ import {
 } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import type { NextPage } from "next";
-import React, { Suspense, useState } from "react";
+import { ReactNode, Suspense, useState } from "react";
 import {
   Bloom,
   EffectComposer,
@@ -21,7 +22,6 @@ import SEO from "../View/Utility/seo";
 import { Vector3 } from "three";
 import dynamic from "next/dynamic";
 import Card from "../Domain/Card/Card";
-import SimpleMenu from "../View/PageComponents/Menu/SimpleMenu";
 import Layout from "../View/Layout/Layout";
 
 const LinkLoading = () => (
@@ -130,20 +130,19 @@ const Home: NextPage = () => {
   );
 };
 
-const Title = ({ text, show }: { text: string; show?: boolean }) => {
+const Title = ({ text, show }: { text: ReactNode; show?: boolean }) => {
   return (
     <>
       <h1 className={show ? "show" : ""}>{text}</h1>
       <style jsx>
         {`
-          @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap");
           h1 {
-            font-family: "Raleway", -apple-system, BlinkMacSystemFont,
-              "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
-              "Helvetica Neue", sans-serif;
+            font-weight: 100;
             perspective: 157px;
+            color: white;
             transition: opacity 0.5s, transform 0.5s;
             position: "fixed";
+            width: 300px;
           }
           h1:not(.show) {
             opacity: 0;
@@ -166,35 +165,16 @@ const TextContent = () => {
   });
 
   return (
-    <>
-      <div
-        style={{
-          color: "white",
-          position: "absolute",
-          height: size.height,
-          width: size.width,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Title text="Hi, my name is Dan." show={showFirst} />
-      </div>
-      <div
-        style={{
-          color: "white",
-          position: "absolute",
-          top: "200vh",
-          height: size.height,
-          width: size.width,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Title text="And I make cool things." show={showSecond} />
-      </div>
-    </>
+    <Html center>
+      <Title
+        text={
+          <>
+            <b>Hi.</b> My name is Dan.
+          </>
+        }
+        show={showFirst}
+      />
+    </Html>
   );
 };
 
@@ -233,10 +213,7 @@ const Inner = () => {
       )}
       <Suspense fallback={null}>
         <Cloth />
-
-        <Scroll html>
-          <TextContent />
-        </Scroll>
+        <TextContent />
         <Reflector
           position={[0, -5, 0]}
           args={[500, 500, 4]} // PlaneBufferGeometry arguments
@@ -252,13 +229,6 @@ const Inner = () => {
           <planeBufferGeometry args={[2000, 2000, 4]} />
           <meshBasicMaterial color="black" />
         </mesh>
-        {/* <Stars
-          radius={200} // Radius of the inner sphere (default=100)
-          depth={50} // Depth of area where stars should fit (default=50)
-          count={5000} // Amount of stars (default=5000)
-          factor={4} // Size factor (default=4)
-          fade // Faded dots (default=false)
-        /> */}
       </Suspense>
     </>
   );
