@@ -182,7 +182,7 @@ const Inner = () => {
     const mousePos = three.mouse;
     const time = three.clock.elapsedTime;
     const rotationSpeedMax = 0.01;
-    rotationSpeed.current += mousePos.x * (time - lastTime.current) * 0.1;
+    rotationSpeed.current += mousePos.x * (time - lastTime.current) * 0.02;
 
     rotationSpeed.current = Math.min(
       Math.max(rotationSpeed.current, -rotationSpeedMax),
