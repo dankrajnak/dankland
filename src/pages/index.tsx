@@ -193,7 +193,7 @@ const Title = ({ showLoader }: { showLoader: boolean }) => {
         </span>
       </div>
 
-      <h1 className="no-edit">
+      <h1 className="no-edit font-sansDisplay">
         {siteTitle}
         <sup>
           <button

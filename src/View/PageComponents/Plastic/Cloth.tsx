@@ -162,11 +162,6 @@ const Cloth = () => {
   });
 
   const meshRef = useRef<Mesh>();
-  useFrame(({ clock }) => {
-    if (meshRef.current) {
-      // meshRef.current.rotation.z = clock.elapsedTime * 0.1;
-    }
-  });
 
   const { interiorLightColor, externalLightColor, interiorLightPosition } =
     useControls("lights", {

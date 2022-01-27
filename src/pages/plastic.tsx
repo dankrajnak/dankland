@@ -134,7 +134,7 @@ const Title = ({ text, show }: { text: ReactNode; show?: boolean }) => {
   return (
     <>
       <h1
-        className={`text-3xl w-[300px] text-center font-thin text-white transition duration-500 ${
+        className={`text-3xl font-sansDisplay w-[300px] text-center font-thin text-white transition duration-500 ${
           show ? "opacity-100 show" : "opacity-0"
         }`}
       >
