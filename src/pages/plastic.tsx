@@ -182,14 +182,37 @@ const Inner = () => {
     height: { value: 500, min: 50, max: 800 },
   });
   const thing = useScroll();
+
+  const rotation = useRef(0);
+  const rotationSpeed = useRef(0);
+  const lastTime = useRef(0);
+
   useFrame((three) => {
     const yStartingPosition = 300;
     const yEndingPosition = 100;
-    three.camera.position.x = 0;
+    const mousePos = three.mouse;
+    const time = three.clock.elapsedTime;
+    const rotationSpeedMax = 0.01;
+    rotationSpeed.current += mousePos.x * (time - lastTime.current) * 0.1;
+
+    rotationSpeed.current = Math.min(
+      Math.max(rotationSpeed.current, -rotationSpeedMax),
+      rotationSpeedMax
+    );
+
+    rotation.current += rotationSpeed.current;
+    lastTime.current = time;
+
     three.camera.position.y =
       yStartingPosition -
       thing.range(0, 1) * (yStartingPosition - yEndingPosition);
-    three.camera.position.z = thing.range(0, 1) * 280;
+
+    const radius = thing.range(0, 1) * 280;
+    three.camera.position.z = radius * Math.sin(rotation.current);
+    three.camera.position.x = radius * Math.cos(rotation.current);
+
+    three.camera.position.y += mousePos.y * 50;
+
     three.camera.lookAt(ORIGIN);
   });
 
