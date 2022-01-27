@@ -167,7 +167,7 @@ const Cloth = () => {
     useControls("lights", {
       interiorLightColor: { r: 255, g: 0, b: 0 },
       externalLightColor: { r: 0, g: 0, b: 255 },
-      interiorLightPosition: { x: 0, y: 50, z: 20 },
+      interiorLightPosition: { x: 0, y: 50, z: 0 },
     });
 
   // Create morph targets
@@ -276,7 +276,7 @@ const Cloth = () => {
         ref={exteriorLightRef}
         intensity={2}
         distance={280}
-        position={[0, 200, 10]}
+        position={[0, 200, 0]}
       ></pointLight>
 
       <pointLight
