@@ -1,11 +1,5 @@
-import {
-  Html,
-  Reflector,
-  Scroll,
-  ScrollControls,
-  useScroll,
-} from "@react-three/drei";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Html, Reflector, ScrollControls, useScroll } from "@react-three/drei";
+import { Canvas, useFrame } from "@react-three/fiber";
 import type { NextPage } from "next";
 import { ReactNode, Suspense, useRef, useState } from "react";
 import {
@@ -115,9 +109,6 @@ const Home: NextPage = () => {
             </ScrollControls>
           </Suspense>
         </Canvas>
-        {/* <div>
-          <SimpleMenu cards={cards} />
-        </div> */}
         <style jsx global>
           {`
             body {
@@ -154,10 +145,8 @@ const Title = ({ text, show }: { text: ReactNode; show?: boolean }) => {
 const TextContent = () => {
   const scroll = useScroll();
   const [showFirst, setShowFirst] = useState(false);
-  const [showSecond, setShowSecond] = useState(false);
   useFrame(() => {
     setShowFirst(scroll.offset < 0.05);
-    setShowSecond(scroll.offset > 0.95);
   });
 
   return (
