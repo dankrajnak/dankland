@@ -154,8 +154,8 @@ const Cloth = () => {
       exteriorLightRef.current &&
       pointLightMaterialRef.current
     ) {
-      pointLightRef.current.intensity = scroll.range(0, 1);
-      exteriorLightRef.current.intensity = scroll.range(0, 1) * 2;
+      pointLightRef.current.intensity = scroll.range(0, 1 / 5);
+      exteriorLightRef.current.intensity = scroll.range(0, 1 / 5) * 2;
       const colorVal = scroll.range(0, 1);
       pointLightMaterialRef.current.color.setRGB(colorVal, colorVal, colorVal);
     }

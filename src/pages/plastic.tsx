@@ -93,6 +93,10 @@ const cards: Card[] = [
   },
 ];
 
+const phasesWidth = [3, 2, cards.length];
+
+const NUM_PAGES_FOR_SCROLL = phasesWidth.reduce((sum, phase) => sum + phase, 0);
+
 const ORIGIN = new Vector3();
 
 const Home: NextPage = () => {
@@ -104,7 +108,7 @@ const Home: NextPage = () => {
         <Canvas shadows>
           {/* <Stats showPanel={0} /> */}
           <Suspense fallback={null}>
-            <ScrollControls pages={3}>
+            <ScrollControls pages={NUM_PAGES_FOR_SCROLL}>
               <Inner />
             </ScrollControls>
           </Suspense>
@@ -170,16 +174,16 @@ const Inner = () => {
     smoothing: { value: 0.9, min: 0, max: 1, step: 0.1 },
     height: { value: 500, min: 50, max: 800 },
   });
-  const thing = useScroll();
+  const scroll = useScroll();
 
   const rotation = useRef(0);
   const rotationSpeed = useRef(0);
   const lastTime = useRef(0);
 
   useFrame((three) => {
-    const yStartingPosition = 300;
-    const yEndingPosition = 100;
+    // Divide Scroll rotation into phases.
     const mousePos = three.mouse;
+
     const time = three.clock.elapsedTime;
     const rotationSpeedMax = 0.01;
     rotationSpeed.current += mousePos.x * (time - lastTime.current) * 0.02;
@@ -192,17 +196,49 @@ const Inner = () => {
     rotation.current += rotationSpeed.current;
     lastTime.current = time;
 
-    three.camera.position.y =
-      yStartingPosition -
-      thing.range(0, 1) * (yStartingPosition - yEndingPosition);
-
-    const radius = thing.range(0, 1) * 280;
+    const radius =
+      scroll.range(0, (phasesWidth[0] - 1) / NUM_PAGES_FOR_SCROLL) * 280;
     three.camera.position.z = radius * Math.sin(rotation.current);
     three.camera.position.x = radius * Math.cos(rotation.current);
 
-    three.camera.position.y += mousePos.y * 50;
+    // Firt phase
+    if (scroll.visible(0, phasesWidth[0] / NUM_PAGES_FOR_SCROLL)) {
+      // the first phase is 1/3 of the total
+      const yStartingPosition = 300;
+      const yEndingPosition = 100;
 
-    three.camera.lookAt(ORIGIN);
+      three.camera.position.y =
+        yStartingPosition -
+        scroll.range(0, ((phasesWidth[0] - 1) / NUM_PAGES_FOR_SCROLL) * 0.8) *
+          (yStartingPosition - yEndingPosition);
+
+      three.camera.position.y += mousePos.y * 50;
+      three.camera.lookAt(ORIGIN);
+    } else if (
+      scroll.visible(
+        phasesWidth[0] / NUM_PAGES_FOR_SCROLL,
+        phasesWidth[1] / NUM_PAGES_FOR_SCROLL
+      ) ||
+      true
+    ) {
+      // move beneath the Cloth thing.
+      const yStartingPosition = 100;
+      const yEndingPosition = -400;
+      three.camera.position.y =
+        yStartingPosition -
+        scroll.range(
+          phasesWidth[0] / NUM_PAGES_FOR_SCROLL,
+          phasesWidth[1] / NUM_PAGES_FOR_SCROLL
+        ) *
+          (yStartingPosition - yEndingPosition);
+
+      three.camera.lookAt(
+        0,
+        three.camera.position.y > 0 ? 0 : three.camera.position.y,
+        0
+      );
+    } else {
+    }
   });
 
   return (
