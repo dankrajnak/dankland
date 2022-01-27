@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import globalStyles from "../Styles/global";
 import GoogleAnalyticsService from "../../Services/GoogleAnalytics/GoogleAnalytics.service";
 import useSafeWindow from "../Hooks/useSafeWindow";
 
@@ -19,14 +18,7 @@ const Layout = (props: Props) => {
     GoogleAnalyticsService.logPageView();
   }, [safeWindow]);
 
-  return (
-    <div>
-      {props.children}
-      <style jsx global>
-        {globalStyles}
-      </style>
-    </div>
-  );
+  return <div>{props.children}</div>;
 };
 
 export default Layout;

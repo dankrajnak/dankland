@@ -7,7 +7,7 @@ import {
 } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import type { NextPage } from "next";
-import { ReactNode, Suspense, useState } from "react";
+import { ReactNode, Suspense, useRef, useState } from "react";
 import {
   Bloom,
   EffectComposer,
@@ -133,19 +133,16 @@ const Home: NextPage = () => {
 const Title = ({ text, show }: { text: ReactNode; show?: boolean }) => {
   return (
     <>
-      <h1 className={show ? "show" : ""}>{text}</h1>
+      <h1
+        className={`text-3xl w-[300px] text-center font-thin text-white transition duration-500 ${
+          show ? "opacity-100 show" : "opacity-0"
+        }`}
+      >
+        {text}
+      </h1>
       <style jsx>
         {`
-          h1 {
-            font-weight: 100;
-            perspective: 157px;
-            color: white;
-            transition: opacity 0.5s, transform 0.5s;
-            position: "fixed";
-            width: 300px;
-          }
           h1:not(.show) {
-            opacity: 0;
             transform: rotateX(45deg);
           }
         `}
@@ -156,7 +153,6 @@ const Title = ({ text, show }: { text: ReactNode; show?: boolean }) => {
 
 const TextContent = () => {
   const scroll = useScroll();
-  const { size } = useThree();
   const [showFirst, setShowFirst] = useState(false);
   const [showSecond, setShowSecond] = useState(false);
   useFrame(() => {

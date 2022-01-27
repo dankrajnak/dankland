@@ -1,6 +1,8 @@
 import { FunctionComponent } from "react";
 import { AppProps, NextWebVitalsMetric, AppContext } from "next/app";
 import Bugsnag from "../Services/Bugsnag/Bugsnag.service";
+import "../View/Styles/global.css";
+
 import GoogleAnalyticsService from "../Services/GoogleAnalytics/GoogleAnalytics.service";
 
 const ErrorBoundary = Bugsnag.getPlugin("react") as any;

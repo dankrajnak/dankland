@@ -6,7 +6,7 @@ const About = () => (
     <SEO title="About" />
     <div className="container">
       <div className="content">
-        <h4>This is just stuff I like making.</h4>
+        <h1 className="font-bold">This is just stuff I like making.</h1>
         <p>
           My name&apos;s Daniel. This is a place that I put stuff I make. If you
           like my work, feel free to reach out. My email is the first three

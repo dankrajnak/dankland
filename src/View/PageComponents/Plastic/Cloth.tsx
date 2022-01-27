@@ -164,7 +164,7 @@ const Cloth = () => {
   const meshRef = useRef<Mesh>();
   useFrame(({ clock }) => {
     if (meshRef.current) {
-      meshRef.current.rotation.z = clock.elapsedTime * 0.2;
+      // meshRef.current.rotation.z = clock.elapsedTime * 0.1;
     }
   });
 
