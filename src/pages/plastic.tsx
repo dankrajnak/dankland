@@ -245,6 +245,7 @@ const Inner = () => {
 
     // Firt phase
     if (scroll.visible(0, phasesWidth[0] / NUM_PAGES_FOR_SCROLL)) {
+      setBillboardVisible(false);
       // the first phase is 1/3 of the total
       const yStartingPosition = 300;
       const yEndingPosition = 100;
