@@ -18,6 +18,7 @@ module.exports = {
     fontFamily: {
       sans: baseSansFonts,
       sansDisplay: ["Outfit", ...baseSansFonts],
+      serifDisplay: ["Eiko", "mono"],
     },
   },
   plugins: [],

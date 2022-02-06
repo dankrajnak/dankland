@@ -1,9 +1,27 @@
-import { Html, Reflector, ScrollControls, useScroll } from "@react-three/drei";
+import {
+  Billboard,
+  Html,
+  Reflector,
+  ScrollControls,
+  Text,
+  useScroll,
+} from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
 import type { NextPage } from "next";
-import { ReactNode, Suspense, useRef, useState } from "react";
+import React, {
+  ReactNode,
+  Suspense,
+  useCallback,
+  createContext,
+  useMemo,
+  useRef,
+  useState,
+  FC,
+  useContext,
+} from "react";
 import {
   Bloom,
+  ChromaticAberration,
   EffectComposer,
   SMAA,
   SSAO,
@@ -13,10 +31,14 @@ import { Leva, useControls } from "leva";
 import Cloth from "../View/PageComponents/Plastic/Cloth";
 import Div100vh from "react-div-100vh";
 import SEO from "../View/Utility/seo";
-import { Vector3 } from "three";
+import { Uniform, Vector2, Vector3 } from "three";
 import dynamic from "next/dynamic";
 import Card from "../Domain/Card/Card";
 import Layout from "../View/Layout/Layout";
+import Link from "next/link";
+import { NextRouter, Router, useRouter, withRouter } from "next/router";
+import { debounce } from "debounce";
+import { useThrottle, useThrottleFn } from "react-use";
 
 const LinkLoading = () => (
   <>
@@ -99,19 +121,30 @@ const NUM_PAGES_FOR_SCROLL = phasesWidth.reduce((sum, phase) => sum + phase, 0);
 
 const ORIGIN = new Vector3();
 
+const testRouter = createContext<NextRouter | null>(null);
+const RouterProvier: FC<{ router: NextRouter }> = ({ children, router }) => (
+  <testRouter.Provider value={router}>{children}</testRouter.Provider>
+);
+const useTestRouter = () => {
+  return useContext(testRouter);
+};
+
 const Home: NextPage = () => {
+  const router = useRouter();
   return (
     <Layout>
       <Div100vh>
         <SEO title="plastic" />
         <Leva hidden />
         <Canvas shadows>
-          {/* <Stats showPanel={0} /> */}
-          <Suspense fallback={null}>
-            <ScrollControls pages={NUM_PAGES_FOR_SCROLL}>
-              <Inner />
-            </ScrollControls>
-          </Suspense>
+          <RouterProvier router={router}>
+            {/* <Stats showPanel={0} /> */}
+            <Suspense fallback={null}>
+              <ScrollControls pages={NUM_PAGES_FOR_SCROLL}>
+                <Inner />
+              </ScrollControls>
+            </Suspense>
+          </RouterProvier>
         </Canvas>
         <style jsx global>
           {`
@@ -146,26 +179,25 @@ const Title = ({ text, show }: { text: ReactNode; show?: boolean }) => {
   );
 };
 
-const TextContent = () => {
-  const scroll = useScroll();
-  const [showFirst, setShowFirst] = useState(false);
-  useFrame(() => {
-    setShowFirst(scroll.offset < 0.05);
-  });
-
-  return (
-    <Html center>
-      <Title
-        text={
-          <>
-            <b>Hi.</b> My name is Dan.
-          </>
-        }
-        show={showFirst}
-      />
-    </Html>
-  );
-};
+const Menu = withRouter(
+  ({ card, router }: { card: Card; router: NextRouter }) => {
+    console.log("testRouter", router);
+    return (
+      <>
+        ``
+        <a
+          style={{ width: 300, height: 300 }}
+          onClick={() => {
+            console.log("click");
+            router?.push(card.link);
+          }}
+        >
+          <card.background width={300} height={300} />
+        </a>
+      </>
+    );
+  }
+);
 
 const Inner = () => {
   const { threshold, smoothing, height, on } = useControls("bloom effect", {
@@ -180,9 +212,19 @@ const Inner = () => {
   const rotationSpeed = useRef(0);
   const lastTime = useRef(0);
 
+  const chromeRef = useRef();
+  const [smouse, setSMouse] = useState(new Vector2(0.002, 0.002));
+
+  const [_billboardVisible, setBillboardVisible] = useState(false);
+
   useFrame((three) => {
     // Divide Scroll rotation into phases.
     const mousePos = three.mouse;
+    // if (mousePos) {
+    //   setSMouse(
+    //     new Vector2(Math.abs(mousePos.x * 0.005), Math.abs(mousePos.y * 0.005))
+    //   );
+    // }
 
     const time = three.clock.elapsedTime;
     const rotationSpeedMax = 0.01;
@@ -221,6 +263,7 @@ const Inner = () => {
       ) ||
       true
     ) {
+      setBillboardVisible(true);
       // move beneath the Cloth thing.
       const yStartingPosition = 100;
       const yEndingPosition = -400;
@@ -241,23 +284,67 @@ const Inner = () => {
     }
   });
 
+  const [visibleCards, setVisibleCards] = useState(cards.map((_) => false));
+  useFrame(() => {
+    // calculate which cards are visible
+    const newVisibleCards = visibleCards.map((_, i) =>
+      scroll.visible(
+        (NUM_PAGES_FOR_SCROLL - (cards.length - i)) / NUM_PAGES_FOR_SCROLL,
+        1 / NUM_PAGES_FOR_SCROLL
+      )
+    );
+    if (newVisibleCards.some((val, i) => visibleCards[i] !== val)) {
+      setVisibleCards(newVisibleCards);
+    }
+  });
+  const anyCardsVisible = visibleCards.some((visible) => visible);
+  const billboardVisible = _billboardVisible && !anyCardsVisible;
+
+  const router = useTestRouter();
+
   return (
     <>
       {on && (
         <EffectComposer>
-          <Bloom
+          {/* <Bloom
             luminanceThreshold={threshold}
             luminanceSmoothing={smoothing}
             height={height}
+          /> */}
+          <ChromaticAberration
+            offset={smouse} // color offset
           />
           <Vignette eskil offset={0.1} darkness={1.1} />
-          <SMAA />
+
+          {/* <SMAA /> */}
           <SSAO />
         </EffectComposer>
       )}
       <Suspense fallback={null}>
         <Cloth />
-        <TextContent />
+        {billboardVisible && (
+          <Billboard follow={true}>
+            <Text
+              fontSize={12}
+              position={[0, -180, 0]}
+              font="/fonts/PPEiko-Medium.otf"
+            >
+              This is a gallery of stuff I chose to make. When I’m sad, this is
+              to impress you. When I’m happy, I just fuck around.
+            </Text>
+          </Billboard>
+        )}
+        <Html center position={[0, -400, 0]}>
+          <div
+            className={`text-white font-serifDisplay font-thin transition-opacity duration-700 ${
+              anyCardsVisible ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <div style={{ width: 300, height: 300 }}>
+              {<Menu card={cards[0]} />}
+            </div>
+          </div>
+        </Html>
         <Reflector
           position={[0, -5, 0]}
           args={[500, 500, 4]} // PlaneBufferGeometry arguments
