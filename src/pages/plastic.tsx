@@ -327,6 +327,8 @@ const Inner = () => {
             <Text
               fontSize={12}
               position={[0, -180, 0]}
+              maxWidth={300}
+              lineHeight={2}
               font="/fonts/PPEiko-Medium.otf"
             >
               This is a gallery of stuff I chose to make. When I’m sad, this is
