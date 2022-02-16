@@ -332,8 +332,7 @@ const Inner = () => {
               lineHeight={2}
               font="/fonts/PPEiko-Medium.otf"
             >
-              This is a gallery of stuff I chose to make. When I’m sad, this is
-              to impress you. When I’m happy, I just fuck around.
+              Test test test test test test
             </Text>
           </Billboard>
         )}
