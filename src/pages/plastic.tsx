@@ -137,7 +137,7 @@ const Home: NextPage = () => {
     <Layout>
       <Div100vh>
         <SEO title="plastic" />
-        <Leva />
+        <Leva hidden />
         <Canvas shadows>
           <Stats />
           <RouterProvier router={router}>
