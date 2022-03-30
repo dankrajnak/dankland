@@ -322,7 +322,10 @@ const Inner = () => {
           <SSAO />
         </EffectComposer>
       )}
-      <OrbitControls />
+      <OrbitControls
+        target={new Vector3(0, 0, -160)}
+        maxPolarAngle={Math.PI / 2}
+      />
       <Suspense fallback={null}>
         <Cloth />
         {billboardVisible && (
