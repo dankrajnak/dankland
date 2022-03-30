@@ -1,8 +1,9 @@
 import {
   Billboard,
   Html,
+  OrbitControls,
   Reflector,
-  ScrollControls,
+  Stats,
   Text,
   useScroll,
 } from "@react-three/drei";
@@ -39,6 +40,7 @@ import Link from "next/link";
 import { NextRouter, Router, useRouter, withRouter } from "next/router";
 import { debounce } from "debounce";
 import { useThrottle, useThrottleFn } from "react-use";
+import Birbs6 from "../View/PageComponents/Plastic/Birbs6";
 
 const LinkLoading = () => (
   <>
@@ -135,14 +137,15 @@ const Home: NextPage = () => {
     <Layout>
       <Div100vh>
         <SEO title="plastic" />
-        <Leva hidden />
+        <Leva />
         <Canvas shadows>
+          <Stats />
           <RouterProvier router={router}>
             {/* <Stats showPanel={0} /> */}
             <Suspense fallback={null}>
-              <ScrollControls pages={NUM_PAGES_FOR_SCROLL}>
-                <Inner />
-              </ScrollControls>
+              {/* <ScrollControls pages={NUM_PAGES_FOR_SCROLL}> */}
+              <Inner />
+              {/* </ScrollControls> */}
             </Suspense>
           </RouterProvier>
         </Canvas>
@@ -181,10 +184,8 @@ const Title = ({ text, show }: { text: ReactNode; show?: boolean }) => {
 
 const Menu = withRouter(
   ({ card, router }: { card: Card; router: NextRouter }) => {
-    console.log("testRouter", router);
     return (
       <>
-        ``
         <a
           style={{ width: 300, height: 300 }}
           onClick={() => {
@@ -201,7 +202,7 @@ const Menu = withRouter(
 
 const Inner = () => {
   const { threshold, smoothing, height, on } = useControls("bloom effect", {
-    on: true,
+    on: false,
     threshold: { value: 0, min: 0, max: 1 },
     smoothing: { value: 0.9, min: 0, max: 1, step: 0.1 },
     height: { value: 500, min: 50, max: 800 },
@@ -217,87 +218,87 @@ const Inner = () => {
 
   const [_billboardVisible, setBillboardVisible] = useState(false);
 
-  useFrame((three) => {
-    // Divide Scroll rotation into phases.
-    const mousePos = three.mouse;
-    // if (mousePos) {
-    //   setSMouse(
-    //     new Vector2(Math.abs(mousePos.x * 0.005), Math.abs(mousePos.y * 0.005))
-    //   );
-    // }
+  // useFrame((three) => {
+  //   // Divide Scroll rotation into phases.
+  //   const mousePos = three.mouse;
+  //   // if (mousePos) {
+  //   //   setSMouse(
+  //   //     new Vector2(Math.abs(mousePos.x * 0.005), Math.abs(mousePos.y * 0.005))
+  //   //   );
+  //   // }
 
-    const time = three.clock.elapsedTime;
-    const rotationSpeedMax = 0.01;
-    rotationSpeed.current += mousePos.x * (time - lastTime.current) * 0.02;
+  //   const time = three.clock.elapsedTime;
+  //   const rotationSpeedMax = 0.01;
+  //   rotationSpeed.current += mousePos.x * (time - lastTime.current) * 0.02;
 
-    rotationSpeed.current = Math.min(
-      Math.max(rotationSpeed.current, -rotationSpeedMax),
-      rotationSpeedMax
-    );
+  //   rotationSpeed.current = Math.min(
+  //     Math.max(rotationSpeed.current, -rotationSpeedMax),
+  //     rotationSpeedMax
+  //   );
 
-    rotation.current += rotationSpeed.current;
-    lastTime.current = time;
+  //   rotation.current += rotationSpeed.current;
+  //   lastTime.current = time;
 
-    const radius =
-      scroll.range(0, (phasesWidth[0] - 1) / NUM_PAGES_FOR_SCROLL) * 280;
-    three.camera.position.z = radius * Math.sin(rotation.current);
-    three.camera.position.x = radius * Math.cos(rotation.current);
+  //   // Firt phase
+  //   if (scroll.visible(0, phasesWidth[0] / NUM_PAGES_FOR_SCROLL)) {
+  //     const radius =
+  //       scroll.range(0, (phasesWidth[0] - 1) / NUM_PAGES_FOR_SCROLL) * 280;
+  //     three.camera.position.z = radius * Math.sin(rotation.current);
+  //     three.camera.position.x = radius * Math.cos(rotation.current);
 
-    // Firt phase
-    if (scroll.visible(0, phasesWidth[0] / NUM_PAGES_FOR_SCROLL)) {
-      setBillboardVisible(false);
-      // the first phase is 1/3 of the total
-      const yStartingPosition = 300;
-      const yEndingPosition = 100;
+  //     setBillboardVisible(false);
+  //     // the first phase is 1/3 of the total
+  //     const yStartingPosition = 300;
+  //     const yEndingPosition = 100;
 
-      three.camera.position.y =
-        yStartingPosition -
-        scroll.range(0, ((phasesWidth[0] - 1) / NUM_PAGES_FOR_SCROLL) * 0.8) *
-          (yStartingPosition - yEndingPosition);
+  //     three.camera.position.y =
+  //       yStartingPosition -
+  //       scroll.range(0, ((phasesWidth[0] - 1) / NUM_PAGES_FOR_SCROLL) * 0.8) *
+  //         (yStartingPosition - yEndingPosition);
 
-      three.camera.position.y += mousePos.y * 50;
-      three.camera.lookAt(ORIGIN);
-    } else if (
-      scroll.visible(
-        phasesWidth[0] / NUM_PAGES_FOR_SCROLL,
-        phasesWidth[1] / NUM_PAGES_FOR_SCROLL
-      ) ||
-      true
-    ) {
-      setBillboardVisible(true);
-      // move beneath the Cloth thing.
-      const yStartingPosition = 100;
-      const yEndingPosition = -400;
-      three.camera.position.y =
-        yStartingPosition -
-        scroll.range(
-          phasesWidth[0] / NUM_PAGES_FOR_SCROLL,
-          phasesWidth[1] / NUM_PAGES_FOR_SCROLL
-        ) *
-          (yStartingPosition - yEndingPosition);
+  //     three.camera.position.y += mousePos.y * 50;
+  //     three.camera.lookAt(ORIGIN);
+  //   } else if (
+  //     scroll.visible(
+  //       phasesWidth[0] / NUM_PAGES_FOR_SCROLL,
+  //       phasesWidth[1] / NUM_PAGES_FOR_SCROLL
+  //     ) ||
+  //     true
+  //   ) {
+  //     setBillboardVisible(true);
+  //     // move beneath the Cloth thing.
+  //     const yStartingPosition = 100;
+  //     const yEndingPosition = -400;
+  //     three.camera.position.y =
+  //       yStartingPosition -
+  //       scroll.range(
+  //         phasesWidth[0] / NUM_PAGES_FOR_SCROLL,
+  //         phasesWidth[1] / NUM_PAGES_FOR_SCROLL
+  //       ) *
+  //         (yStartingPosition - yEndingPosition);
 
-      three.camera.lookAt(
-        0,
-        three.camera.position.y > 0 ? 0 : three.camera.position.y,
-        0
-      );
-    } else {
-    }
-  });
+  //     three.camera.lookAt(
+  //       0,
+  //       three.camera.position.y > 0 ? 0 : three.camera.position.y,
+  //       0
+  //     );
+  //   } else {
+  //   }
+  // });
 
   const [visibleCards, setVisibleCards] = useState(cards.map((_) => false));
-  useFrame(() => {
-    // calculate which cards are visible
-    const newVisibleCards = visibleCards.map((_, i) =>
-      scroll.visible(
-        (NUM_PAGES_FOR_SCROLL - (cards.length - i)) / NUM_PAGES_FOR_SCROLL,
-        1 / NUM_PAGES_FOR_SCROLL
-      )
-    );
-    if (newVisibleCards.some((val, i) => visibleCards[i] !== val)) {
-      setVisibleCards(newVisibleCards);
-    }
-  });
+  // useFrame(() => {
+  //   // calculate which cards are visible
+  //   const newVisibleCards = visibleCards.map((_, i) =>
+  //     scroll.visible(
+  //       (NUM_PAGES_FOR_SCROLL - (cards.length - i)) / NUM_PAGES_FOR_SCROLL,
+  //       1 / NUM_PAGES_FOR_SCROLL
+  //     )
+  //   );
+  //   if (newVisibleCards.some((val, i) => visibleCards[i] !== val)) {
+  //     setVisibleCards(newVisibleCards);
+  //   }
+  // });
   const anyCardsVisible = visibleCards.some((visible) => visible);
   const billboardVisible = _billboardVisible && !anyCardsVisible;
 
@@ -307,11 +308,11 @@ const Inner = () => {
     <>
       {on && (
         <EffectComposer>
-          {/* <Bloom
+          <Bloom
             luminanceThreshold={threshold}
             luminanceSmoothing={smoothing}
             height={height}
-          /> */}
+          />
           <ChromaticAberration
             offset={smouse} // color offset
           />
@@ -321,6 +322,7 @@ const Inner = () => {
           <SSAO />
         </EffectComposer>
       )}
+      <OrbitControls />
       <Suspense fallback={null}>
         <Cloth />
         {billboardVisible && (
@@ -347,6 +349,7 @@ const Inner = () => {
             </div>
           </div>
         </Html>
+        <Birbs6 position={[0, -18, -160]} scale={1.5} />
         <Reflector
           position={[0, -5, 0]}
           args={[500, 500, 4]} // PlaneBufferGeometry arguments
@@ -358,7 +361,7 @@ const Inner = () => {
         >
           {(Material, props) => <Material {...props} />}
         </Reflector>
-        <mesh position={[0, -20, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <mesh position={[0, -50, 0]} rotation={[-Math.PI / 2, 0, 0]}>
           <planeBufferGeometry args={[2000, 2000, 4]} />
           <meshBasicMaterial color="black" />
         </mesh>
