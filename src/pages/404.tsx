@@ -5,41 +5,21 @@ import Layout from "../View/Layout/Layout";
 const NotFoundPage = () => (
   <Layout>
     <SEO title="404" />
-    <div className="container">
-      <div>
-        <h1>
-          404 <span style={{ fontWeight: "lighter" }}>| NOT FOUND</span>
+    <div className="fixed w-full h-full flex items-center justify-center">
+      <div className="flex flex-col items-center justify-center">
+        <h1 className=" font-sansDisplay text-2xl">
+          404 <span className="font-light">| NOT FOUND</span>
         </h1>
-        <p>One of us made a mistake.</p>
-        <p
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Link href={"/"}>
-            <a>Homepage</a>
-          </Link>
-        </p>
+        <div className="mt-3 font-sansDisplay">
+          <p className="font-light text-sm">One of us made a mistake.</p>
+          <p className="flex items-center justify-center mt-8">
+            <Link href={"/"}>
+              <a className="hover:underline font-bold">Home</a>
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
-    <style jsx>
-      {`
-        .container {
-          height: 100vh;
-          width: 100%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        p {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-      `}
-    </style>
   </Layout>
 );
 
