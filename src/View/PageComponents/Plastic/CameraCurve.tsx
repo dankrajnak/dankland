@@ -8,10 +8,10 @@ export const useCameraCurve = (): CatmullRomCurve3 => {
   const { first, second, third, fourth, tension, type } = useControls(
     "camera curve",
     {
-      first: { x: 30, y: 4, z: -120 },
+      first: { x: 30, y: 4, z: -140 },
       second: { x: 15, y: 4, z: -180 },
       third: { x: -2, y: 10, z: -190 },
-      fourth: { x: 5, y: 20, z: -320 },
+      fourth: { x: 5, y: 40, z: -320 },
       tension: { value: 0.5, min: 0, max: 1 },
       type: { value: 0, min: 0, max: 2, step: 1 },
     }

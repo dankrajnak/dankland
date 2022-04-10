@@ -20,6 +20,7 @@ import React, {
   useState,
   FC,
   useContext,
+  useEffect,
 } from "react";
 import {
   Bloom,
@@ -125,7 +126,7 @@ const phasesWidth = [3, 2, cards.length];
 
 const NUM_PAGES_FOR_SCROLL = 2; //phasesWidth.reduce((sum, phase) => sum + phase, 0);
 
-const ORIGIN = new Vector3();
+const BIRBS_DISTANCE = 180;
 
 const testRouter = createContext<NextRouter | null>(null);
 const RouterProvier: FC<{ router: NextRouter }> = ({ children, router }) => (
@@ -143,9 +144,7 @@ const Home: NextPage = () => {
         <SEO title="plastic" />
         <Leva hidden />
         <Canvas shadows>
-          <Stats />
           <RouterProvier router={router}>
-            {/* <Stats showPanel={0} /> */}
             <Suspense fallback={null}>
               <ScrollControls pages={NUM_PAGES_FOR_SCROLL}>
                 <Inner />
@@ -206,16 +205,10 @@ const Menu = withRouter(
 
 const Inner = () => {
   const { on } = useControls("bloom effect", {
-    on: false,
+    on: true,
   });
+
   const scroll = useScroll();
-
-  const rotation = useRef(0);
-  const rotationSpeed = useRef(0);
-  const lastTime = useRef(0);
-
-  const chromeRef = useRef();
-  const [smouse] = useState(new Vector2(0.002, 0.002));
 
   const [_billboardVisible, setBillboardVisible] = useState(false);
 
@@ -302,68 +295,61 @@ const Inner = () => {
   // });
   const anyCardsVisible = visibleCards.some((visible) => visible);
   const billboardVisible = _billboardVisible && !anyCardsVisible;
+  const [shouldShowScrollMessage, setShouldScrollMessage] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (scroll.offset === 0) {
+        console.log("RUN");
+        setShouldScrollMessage(true);
+      }
+    }, 4000);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [scroll.offset]);
 
   const router = useTestRouter();
-  const { maxDistance, minDistance, minAzimuthAngle } = useControls("camera", {
-    maxDistance: { value: 100, min: 0, max: 100, step: 0.1 },
-    minDistance: { value: 100, min: 0, max: 100, step: 0.1 },
-    minAzimuthAngle: { value: 0, min: 0, max: Math.PI * 2, step: 0.01 },
-  });
 
-  const { u } = useControls("cameraPosition", {
-    u: { value: 0, min: 0, max: 1 },
-  });
+  const scrollTextRef = useRef<any>();
 
   const cameraPath = useCameraCurve();
+  const [showCloth, setShowCloth] = useState(false);
   useFrame(({ camera }) => {
     const cameraPosition = cameraPath.getPoint(scroll.range(0, 1));
     camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
-    camera.lookAt(new Vector3(0, 0, -160));
+    camera.lookAt(new Vector3(0, 0, -BIRBS_DISTANCE));
+    if (!showCloth && scroll.offset > 0.2) {
+      setShowCloth(true);
+    }
+
+    if (scrollTextRef.current) {
+      if (shouldShowScrollMessage) {
+        const maxOpacity = 0.4;
+        const progress = scroll.range(1 / 16, 1 / 8);
+        scrollTextRef.current.fillOpacity = maxOpacity * (1 - progress);
+        scrollTextRef.current.fontSize = 12 * (1 - progress / 2);
+        if (progress >= 1 && shouldShowScrollMessage) {
+          setShouldScrollMessage(false);
+        }
+      } else {
+        scrollTextRef.current.fillOpacity = 0;
+      }
+    }
   });
 
   return (
     <>
       {on && (
         <EffectComposer>
-          {/* <Bloom
-            luminanceThreshold={threshold}
-            luminanceSmoothing={smoothing}
-            height={height}
-          /> */}
-          <ChromaticAberration
-            offset={smouse} // color offset
-          />
           <Vignette eskil offset={0.1} darkness={1.1} />
 
-          {/* <SMAA /> */}
+          <SMAA />
           <SSAO />
         </EffectComposer>
       )}
-      {/* <OrbitControls
-        target={new Vector3(0, 0, -160)}
-        position={cameraPosition}
-        // maxDistance={maxDistance}
-        // minDistance={minDistance}
-        // minAzimuthAngle={Math.max(minAzimuthAngle - Math.PI / 8, 0)}
-        // // maxAzimuthAngle={minAzimuthAngle}
-        // maxPolarAngle={Math.PI / 2}
-        // minPolarAngle={Math.PI / 5}
-      /> */}
       <Suspense fallback={null}>
         <Cloth />
-        {billboardVisible && (
-          <Billboard follow={true}>
-            <Text
-              fontSize={12}
-              position={[0, -180, 0]}
-              maxWidth={200}
-              lineHeight={2}
-              font="/fonts/PPEiko-Medium.otf"
-            >
-              Test test test test test test
-            </Text>
-          </Billboard>
-        )}
         <Html center position={[0, -400, 0]}>
           <div
             className={`text-white font-serifDisplay font-thin transition-opacity duration-700 ${
@@ -371,11 +357,23 @@ const Inner = () => {
             }`}
           >
             <div style={{ width: 300, height: 300 }}>
-              {<Menu card={cards[0]} />}
+              <Menu card={cards[0]} />
             </div>
           </div>
         </Html>
-        <Birbs6 position={[0, -18, -160]} scale={1.5} />
+        <group position={[0, -18, -BIRBS_DISTANCE]}>
+          <Birbs6 scale={1.5} />
+          <group>
+            <Text
+              ref={scrollTextRef}
+              position={[0, 30, 0]}
+              fontSize={12}
+              font="/fonts/PPEiko-Medium.otf"
+            >
+              Scroll
+            </Text>
+          </group>
+        </group>
         <Reflector
           position={[0, -5, 0]}
           args={[500, 500, 4]} // PlaneBufferGeometry arguments
