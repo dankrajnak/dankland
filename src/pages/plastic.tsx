@@ -3,11 +3,12 @@ import {
   Html,
   OrbitControls,
   Reflector,
+  ScrollControls,
   Stats,
   Text,
   useScroll,
 } from "@react-three/drei";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import type { NextPage } from "next";
 import React, {
   ReactNode,
@@ -41,6 +42,9 @@ import { NextRouter, Router, useRouter, withRouter } from "next/router";
 import { debounce } from "debounce";
 import { useThrottle, useThrottleFn } from "react-use";
 import Birbs6 from "../View/PageComponents/Plastic/Birbs6";
+import CameraCurve, {
+  useCameraCurve,
+} from "../View/PageComponents/Plastic/CameraCurve";
 
 const LinkLoading = () => (
   <>
@@ -119,7 +123,7 @@ const cards: Card[] = [
 
 const phasesWidth = [3, 2, cards.length];
 
-const NUM_PAGES_FOR_SCROLL = phasesWidth.reduce((sum, phase) => sum + phase, 0);
+const NUM_PAGES_FOR_SCROLL = 2; //phasesWidth.reduce((sum, phase) => sum + phase, 0);
 
 const ORIGIN = new Vector3();
 
@@ -143,9 +147,9 @@ const Home: NextPage = () => {
           <RouterProvier router={router}>
             {/* <Stats showPanel={0} /> */}
             <Suspense fallback={null}>
-              {/* <ScrollControls pages={NUM_PAGES_FOR_SCROLL}> */}
-              <Inner />
-              {/* </ScrollControls> */}
+              <ScrollControls pages={NUM_PAGES_FOR_SCROLL}>
+                <Inner />
+              </ScrollControls>
             </Suspense>
           </RouterProvier>
         </Canvas>
@@ -201,11 +205,8 @@ const Menu = withRouter(
 );
 
 const Inner = () => {
-  const { threshold, smoothing, height, on } = useControls("bloom effect", {
+  const { on } = useControls("bloom effect", {
     on: false,
-    threshold: { value: 0, min: 0, max: 1 },
-    smoothing: { value: 0.9, min: 0, max: 1, step: 0.1 },
-    height: { value: 500, min: 50, max: 800 },
   });
   const scroll = useScroll();
 
@@ -214,7 +215,7 @@ const Inner = () => {
   const lastTime = useRef(0);
 
   const chromeRef = useRef();
-  const [smouse, setSMouse] = useState(new Vector2(0.002, 0.002));
+  const [smouse] = useState(new Vector2(0.002, 0.002));
 
   const [_billboardVisible, setBillboardVisible] = useState(false);
 
@@ -303,16 +304,32 @@ const Inner = () => {
   const billboardVisible = _billboardVisible && !anyCardsVisible;
 
   const router = useTestRouter();
+  const { maxDistance, minDistance, minAzimuthAngle } = useControls("camera", {
+    maxDistance: { value: 100, min: 0, max: 100, step: 0.1 },
+    minDistance: { value: 100, min: 0, max: 100, step: 0.1 },
+    minAzimuthAngle: { value: 0, min: 0, max: Math.PI * 2, step: 0.01 },
+  });
+
+  const { u } = useControls("cameraPosition", {
+    u: { value: 0, min: 0, max: 1 },
+  });
+
+  const cameraPath = useCameraCurve();
+  useFrame(({ camera }) => {
+    const cameraPosition = cameraPath.getPoint(scroll.range(0, 1));
+    camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
+    camera.lookAt(new Vector3(0, 0, -160));
+  });
 
   return (
     <>
       {on && (
         <EffectComposer>
-          <Bloom
+          {/* <Bloom
             luminanceThreshold={threshold}
             luminanceSmoothing={smoothing}
             height={height}
-          />
+          /> */}
           <ChromaticAberration
             offset={smouse} // color offset
           />
@@ -322,10 +339,16 @@ const Inner = () => {
           <SSAO />
         </EffectComposer>
       )}
-      <OrbitControls
+      {/* <OrbitControls
         target={new Vector3(0, 0, -160)}
-        maxPolarAngle={Math.PI / 2}
-      />
+        position={cameraPosition}
+        // maxDistance={maxDistance}
+        // minDistance={minDistance}
+        // minAzimuthAngle={Math.max(minAzimuthAngle - Math.PI / 8, 0)}
+        // // maxAzimuthAngle={minAzimuthAngle}
+        // maxPolarAngle={Math.PI / 2}
+        // minPolarAngle={Math.PI / 5}
+      /> */}
       <Suspense fallback={null}>
         <Cloth />
         {billboardVisible && (

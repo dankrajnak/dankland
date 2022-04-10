@@ -6,7 +6,7 @@ import * as THREE from "three";
 import React, { useRef } from "react";
 import { useGLTF, useHelper } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
-import { PointLightHelper } from "three";
+import { useControls } from "leva";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -21,25 +21,20 @@ type GLTFResult = GLTF & {
 export default function Model({ ...props }: JSX.IntrinsicElements["group"]) {
   const group = useRef<THREE.Group>();
   const { nodes } = useGLTF("/models/birbs6.glb") as unknown as GLTFResult;
+  const { roughness, metalness } = useControls("birbs", {
+    roughness: { value: 0.37, max: 1, min: 0 },
+    metalness: { value: 1, max: 1, min: 0 },
+  });
   const material = (
-    <meshStandardMaterial color="#fff" roughness={0.5} metalness={1} />
+    <meshStandardMaterial
+      color="#fff"
+      roughness={roughness}
+      metalness={metalness}
+    />
   );
-  const lightRef = useRef();
-
   return (
     <group ref={group} {...props} dispose={null}>
-      <pointLight
-        position={[0, 20, 5]}
-        color="#fff"
-        ref={lightRef}
-        distance={20}
-      />
-      <pointLight
-        position={[0, 15, -10]}
-        color="gold"
-        intensity={0.05}
-        distance={20}
-      />
+      <pointLight position={[0, 20, 5]} color="#fff" distance={10} />
       <group rotation={[0, 0.01, 3.14]}>
         <mesh geometry={nodes.Object_2.geometry}>{material}</mesh>
         <mesh geometry={nodes.Object_3.geometry}>{material}</mesh>
