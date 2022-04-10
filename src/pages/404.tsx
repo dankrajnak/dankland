@@ -10,11 +10,13 @@ const NotFoundPage = () => (
         <h1 className=" font-sansDisplay text-2xl">
           404 <span className="font-light">| NOT FOUND</span>
         </h1>
-        <div className="mt-3 font-sansDisplay">
-          <p className="font-light text-sm">One of us made a mistake.</p>
+        <div className="mt-3">
+          <p className="font-light text-sm font-sansDisplay">
+            One of us made a mistake.
+          </p>
           <p className="flex items-center justify-center mt-8">
             <Link href={"/"}>
-              <a className="hover:underline font-bold">Home</a>
+              <a className="hover:underline font-bold">Homepage</a>
             </Link>
           </p>
         </div>
