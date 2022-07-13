@@ -86,7 +86,8 @@ const SEO = ({
         href="/android-chrome-512x512.png"
       />
       <title>
-        {title} | {siteTitle}
+        {/* Title doesn't expect an array of nodes, so just pass in a single, evaluated string  */}
+        {`${title} | ${siteTitle}`}
       </title>
       <meta name="description" content="Something" />
       {[...meta, ...defaultMeta].map((info, key) => (

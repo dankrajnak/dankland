@@ -1,10 +1,4 @@
-import {
-  RefObject,
-  useCallback,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import { RefObject, useCallback, useEffect, useRef, useState } from "react";
 import { BarLoader } from "react-spinners";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -131,7 +125,7 @@ const Title = ({ showLoader }: { showLoader: boolean }) => {
   const [validationError, setValidationError] = useState<string | null>(null);
   const inputRef = useRef() as RefObject<HTMLTextAreaElement>;
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (isEditing) {
       inputRef.current?.select();
       inputRef.current?.focus();
@@ -321,7 +315,7 @@ const Menu = () => {
         <div className="title-holder">
           <Title showLoader={showLoader} />
         </div>
-        <div className="scroll-message">Scroll</div>
+        <div className="scroll-message">Scrolls</div>
       </div>
 
       <SimpleMenu cards={cards} />

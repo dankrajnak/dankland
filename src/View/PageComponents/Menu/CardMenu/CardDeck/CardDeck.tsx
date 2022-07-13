@@ -1,4 +1,4 @@
-import { useLayoutEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import Link from "next/link";
 
 import useScrollAmount from "../../../../Hooks/useScrollAmount";
@@ -75,7 +75,7 @@ const CardDeck = (props: Props) => {
   );
 
   // Move to the saved scroll position when this component renders
-  useLayoutEffect(() => {
+  useEffect(() => {
     let timeout: number;
     if (window) {
       if (props.scrollToCard) {
