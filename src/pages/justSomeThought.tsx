@@ -94,6 +94,38 @@ const reducer = (
   }
 };
 
+// We want the page to turn white and then slowly fade to black.  To get the best effect, we need to change the body color
+// To do this safely, we have to carefully control the background color and when we add the transition.
+// first we want to go to white, and then add the transition, and then go to black.  Otherwise,
+// if the background-color was blue, it might not turn white before we add the transition and will therefore slowly go
+// from blue -> black instead of white -> black.
+const BACKGROUND_PHASES = [
+  // Make them all the same key so that React will think this is the same element and just update the contents.
+  <style jsx global key={1}>
+    {`
+      body {
+        background-color: white;
+      }
+    `}
+  </style>,
+  <style jsx global key={1}>
+    {`
+      body {
+        background-color: white;
+        transition: background-color 85s ease-in;
+      }
+    `}
+  </style>,
+  <style jsx global key={1}>
+    {`
+      body {
+        background-color: black;
+        transition: background-color 85s ease-in;
+      }
+    `}
+  </style>,
+];
+
 const JustSomeThoughts = () => {
   const [state, dispatch] = useReducer(reducer, {
     maxElements: 1,
@@ -104,7 +136,7 @@ const JustSomeThoughts = () => {
   });
   const { width, height } = useWindowSize();
   const maxElementsTimeout = useRef(20);
-  const [backgroundColor, setBackgroundColor] = useState("white");
+  const [backgroundPhase, setBackgroundPhase] = useState(0);
   const [menuColor, setMenuColor] = useState("black");
   useEffect(() => {
     const timeout = setTimeout(() => setMenuColor("white"), 70000);
@@ -112,10 +144,21 @@ const JustSomeThoughts = () => {
       clearTimeout(timeout);
     };
   }, []);
+
   useEffect(() => {
-    const timeout = setTimeout(() => setBackgroundColor("black"), 100);
+    // Could do this more generically, but it doesn't make sense to.
+    // Go from phase 0 -> 1 -> 2 with 20 milliseconds inbetween.
+    let secondTimeout: NodeJS.Timeout;
+    const timeout = setTimeout(() => {
+      setBackgroundPhase(1);
+      secondTimeout = setTimeout(() => setBackgroundPhase(2), 20);
+    }, 20);
+
     return () => {
       clearTimeout(timeout);
+      if (secondTimeout) {
+        clearTimeout(secondTimeout);
+      }
     };
   }, []);
 
@@ -193,20 +236,7 @@ const JustSomeThoughts = () => {
         keywords={["poetry", "new media", "thought"]}
       />
       <Div100vh>{state.elements.map((elm) => elm.component)}</Div100vh>
-      <style jsx global>
-        {`
-          body {
-            transition: background-color 85s ease-in;
-          }
-        `}
-      </style>
-      <style jsx global>
-        {`
-          body {
-            background-color: ${backgroundColor};
-          }
-        `}
-      </style>
+      {BACKGROUND_PHASES[backgroundPhase]}
     </MenuLayout>
   );
 };
