@@ -123,7 +123,7 @@ const Title = ({ showLoader }: { showLoader: boolean }) => {
   const siteTitle = data || "We shall have spring again";
 
   const [validationError, setValidationError] = useState<string | null>(null);
-  const inputRef = useRef() as RefObject<HTMLTextAreaElement>;
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     if (isEditing) {
@@ -206,9 +206,6 @@ const Title = ({ showLoader }: { showLoader: boolean }) => {
       </h1>
 
       <style jsx>{`
-        body {
-          background-color: ${colors.gray};
-        }
         h1,
         textarea {
           font-weight: 100;
