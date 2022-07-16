@@ -21,6 +21,7 @@ import React, {
   FC,
   useContext,
   useEffect,
+  PropsWithChildren,
 } from "react";
 import {
   Bloom,
@@ -129,7 +130,10 @@ const NUM_PAGES_FOR_SCROLL = 2; //phasesWidth.reduce((sum, phase) => sum + phase
 const BIRBS_DISTANCE = 180;
 
 const testRouter = createContext<NextRouter | null>(null);
-const RouterProvier: FC<{ router: NextRouter }> = ({ children, router }) => (
+const RouterProvier = ({
+  children,
+  router,
+}: PropsWithChildren<{ router: NextRouter }>) => (
   <testRouter.Provider value={router}>{children}</testRouter.Provider>
 );
 const useTestRouter = () => {

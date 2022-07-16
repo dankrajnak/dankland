@@ -23,7 +23,7 @@ const Particle = (props: {
   xArray: React.MutableRefObject<Float32Array>;
   yArray: React.MutableRefObject<Float32Array>;
 }) => {
-  const ref = useRef<THREE.Mesh>();
+  const ref = useRef<THREE.Mesh>(null);
   const { size } = useThree();
   useFrame(() => {
     try {

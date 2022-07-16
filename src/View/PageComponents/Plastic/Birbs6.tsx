@@ -7,7 +7,6 @@ import React, { useEffect, useRef } from "react";
 import { useGLTF, useHelper } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 import { useControls } from "leva";
-import { SpotLightHelper, Vector3 } from "three";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -20,7 +19,7 @@ type GLTFResult = GLTF & {
 };
 
 export default function Model({ ...props }: JSX.IntrinsicElements["group"]) {
-  const group = useRef<THREE.Group>();
+  const group = useRef<THREE.Group>(null);
   const { nodes } = useGLTF("/models/birbs6.glb") as unknown as GLTFResult;
   const { roughness, metalness } = useControls("birbs", {
     roughness: { value: 0.37, max: 1, min: 0 },
@@ -33,8 +32,8 @@ export default function Model({ ...props }: JSX.IntrinsicElements["group"]) {
       metalness={metalness}
     />
   );
-  const spotlightRef = useRef<THREE.SpotLight>();
-  const birbRef = useRef<THREE.Group>();
+  const spotlightRef = useRef<THREE.SpotLight>(null);
+  const birbRef = useRef<THREE.Group>(null);
   useEffect(() => {
     if (spotlightRef.current && birbRef.current) {
       console.log(spotlightRef.current, birbRef.current);
@@ -47,11 +46,12 @@ export default function Model({ ...props }: JSX.IntrinsicElements["group"]) {
     <group ref={group} {...props} dispose={null}>
       <spotLight
         ref={spotlightRef}
-        target={birbRef.current}
+        target={birbRef.current!}
         position={[0, 20, 10]}
         color="#fff"
         distance={20}
       />
+
       <group rotation={[0, 0.01, 3.14]} ref={birbRef}>
         <mesh geometry={nodes.Object_2.geometry}>{material}</mesh>
         <mesh geometry={nodes.Object_3.geometry}>{material}</mesh>

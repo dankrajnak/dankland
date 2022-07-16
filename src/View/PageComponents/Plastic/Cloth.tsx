@@ -116,7 +116,7 @@ const morphers: Morpher[] = [
 ];
 
 const Cloth = () => {
-  const geometryRef = useRef<PlaneBufferGeometry>();
+  const geometryRef = useRef<PlaneBufferGeometry>(null);
 
   const whiteTexture = useLoader(TextureLoader, "textures/white.jpg");
   whiteTexture.wrapS = RepeatWrapping;
@@ -127,9 +127,9 @@ const Cloth = () => {
   uniforms.map.value = whiteTexture;
   uniforms.thicknessMap.value = whiteTexture;
 
-  const pointLightRef = useRef<PointLight>();
-  const pointLightMaterialRef = useRef<MeshBasicMaterial>();
-  const exteriorLightRef = useRef<PointLight>();
+  const pointLightRef = useRef<PointLight>(null);
+  const pointLightMaterialRef = useRef<MeshBasicMaterial>(null);
+  const exteriorLightRef = useRef<PointLight>(null);
 
   const amplitude = 20;
   const noiseFactor = 42;
@@ -161,7 +161,7 @@ const Cloth = () => {
     }
   });
 
-  const meshRef = useRef<Mesh>();
+  const meshRef = useRef<Mesh>(null);
 
   const { interiorLightColor, externalLightColor, interiorLightPosition } =
     useControls("lights", {
@@ -233,7 +233,7 @@ const Cloth = () => {
     }
   }, [amplitude, planeScale, noiseFactor]);
 
-  const materialRef = useRef<ShaderMaterial>();
+  const materialRef = useRef<ShaderMaterial>(null);
   useEffect(() => {
     if (materialRef.current) {
       materialRef.current.extensions.derivatives = true;
