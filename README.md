@@ -16,11 +16,11 @@ cd dankLand
 Install dependencies
 
 ```bash
-yarn
+pnpm i
 ```
 
 Start a development server
 
 ```bash
-yarn dev
+pnpm dev
 ```
