@@ -14,7 +14,7 @@ import {
   UniformsUtils,
   Vector3,
 } from "three";
-import { SubsurfaceScatteringShader } from "three/examples/jsm/shaders/SubsurfaceScatteringShader";
+import { SubsurfaceScatteringShader } from "three-stdlib";
 import { useControls } from "leva";
 import SimplexNoise from "simplex-noise";
 import { useScroll } from "@react-three/drei";
