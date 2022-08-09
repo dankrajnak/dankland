@@ -187,12 +187,12 @@ const Title = ({ showLoader }: { showLoader: boolean }) => {
         </span>
       </div>
 
-      <h1 className="no-edit font-sansDisplay">
-        {siteTitle}
+      <div className="no-edit font-sansDisplay truncate flex justify-center items-center">
+        <h1 className="truncate">{siteTitle}</h1>
         <sup>
           <button
             title="Edit title"
-            className="simple-button"
+            className="p-1"
             onClick={() => {
               if (inputRef.current) {
                 inputRef.current.value = siteTitle;
@@ -200,10 +200,10 @@ const Title = ({ showLoader }: { showLoader: boolean }) => {
               setIsEditing(true);
             }}
           >
-            <Pen size=".8rem" />
+            <Pen size="0.8rem" />
           </button>
         </sup>
-      </h1>
+      </div>
 
       <style jsx>{`
         h1,
