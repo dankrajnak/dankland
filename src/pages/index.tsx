@@ -188,7 +188,7 @@ const Title = ({ showLoader }: { showLoader: boolean }) => {
       </div>
 
       <div className="no-edit font-sansDisplay">
-        <h1 className="overflow-hidden break-words">
+        <h1 className="break-words">
           {siteTitle}
           <sup>
             <button
