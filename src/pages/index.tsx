@@ -312,7 +312,7 @@ const Menu = () => {
         <div className="title-holder">
           <Title showLoader={showLoader} />
         </div>
-        <div className="scroll-message">Scrolls</div>
+        <div className="scroll-message">Scroll</div>
       </div>
 
       <SimpleMenu cards={cards} />
