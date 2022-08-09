@@ -187,22 +187,24 @@ const Title = ({ showLoader }: { showLoader: boolean }) => {
         </span>
       </div>
 
-      <div className="no-edit font-sansDisplay truncate flex justify-center items-center">
-        <h1 className="truncate">{siteTitle}</h1>
-        <sup>
-          <button
-            title="Edit title"
-            className="p-1"
-            onClick={() => {
-              if (inputRef.current) {
-                inputRef.current.value = siteTitle;
-              }
-              setIsEditing(true);
-            }}
-          >
-            <Pen size="0.8rem" />
-          </button>
-        </sup>
+      <div className="no-edit font-sansDisplay">
+        <h1 className="overflow-hidden break-words">
+          {siteTitle}
+          <sup>
+            <button
+              title="Edit title"
+              className="py-1 px-2"
+              onClick={() => {
+                if (inputRef.current) {
+                  inputRef.current.value = siteTitle;
+                }
+                setIsEditing(true);
+              }}
+            >
+              <Pen size="0.8rem" />
+            </button>
+          </sup>
+        </h1>
       </div>
 
       <style jsx>{`
