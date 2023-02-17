@@ -265,7 +265,7 @@ impl FluidSimulation {
     let dx = self.vx[i] * 0.015;
     let dy = self.vy[i] * 0.015;
     if self.x[i] < 0.0 {
-      self.x[i] = 0.2;
+      self.x[i] = 0.1;
       self.old_x[i] = -dx;
     }
     if self.x[i] > self.width {
@@ -273,7 +273,7 @@ impl FluidSimulation {
       self.old_x[i] = self.width + dx;
     }
     if self.y[i] < 0.0 {
-      self.y[i] = 0.2;
+      self.y[i] = 0.1;
       self.old_y[i] = -dy;
     }
     if self.y[i] > self.height {

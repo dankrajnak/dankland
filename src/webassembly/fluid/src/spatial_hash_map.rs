@@ -171,8 +171,8 @@ impl<T: Copy> SpatialHashMap<T> {
   /// ```
   ///
   pub fn get_bucket_index(&self, x: f32, y: f32) -> usize {
-    let clamp_x = clamp(x.max(0.0) as usize, 0, self.width) / self.cell_size;
-    let clamp_y = clamp(y.max(0.0) as usize, 0, self.height) / self.cell_size;
+    let clamp_x = clamp(x.max(0.0) as usize, 0, self.width - 1) / self.cell_size;
+    let clamp_y = clamp(y.max(0.0) as usize, 0, self.height - 1) / self.cell_size;
     return clamp_x + clamp_y * self.width / self.cell_size;
   }
 }
