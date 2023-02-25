@@ -15,8 +15,8 @@ const NotFoundPage = () => (
             One of us made a mistake.
           </p>
           <p className="flex items-center justify-center mt-8">
-            <Link href={"/"}>
-              <a className="hover:underline font-bold">Homepage</a>
+            <Link href={"/"} className="hover:underline font-bold">
+              Homepage
             </Link>
           </p>
         </div>

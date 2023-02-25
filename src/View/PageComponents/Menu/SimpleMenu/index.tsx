@@ -7,7 +7,7 @@ const SimpleMenu: Menu = ({ cards }) => (
     <div className="cards-holder">
       {cards.map((card, index) => (
         <div className="card-holder" key={index}>
-          <Link href={card.link}>
+          <Link href={card.link} legacyBehavior>
             <a className="card-graphic">
               <card.background width={300} height={300} />
             </a>

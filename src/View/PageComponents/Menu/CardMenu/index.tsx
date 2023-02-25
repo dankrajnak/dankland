@@ -31,7 +31,7 @@ const CardMenu: Menu = ({ cards }) => {
   return (
     <>
       <div className="aboutContainer">
-        <Link href="/about">
+        <Link href="/about" legacyBehavior>
           <a>About</a>
         </Link>
       </div>

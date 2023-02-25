@@ -15,6 +15,7 @@ import { Either, failure, success } from "../Utils/Either";
 import useFullScreen from "../View/Hooks/useFullScreen";
 import useAsync from "@danielkrajnak/use-async";
 import colors from "../View/Styles/colors";
+import { useWindowSize } from "react-use";
 
 const LinkLoading = () => (
   <>
@@ -297,7 +298,7 @@ const Title = ({ showLoader }: { showLoader: boolean }) => {
 };
 
 const Menu = () => {
-  const { width, height } = useFullScreen({ ignoreHeightUpdates: isMobile });
+  const { width, height } = useWindowSize();
   const scroll = useScrollAmount();
   const [showLoader, setShowLoader] = useState(false);
   const hideLoader = useCallback(() => setShowLoader(false), []);
@@ -319,7 +320,7 @@ const Menu = () => {
 
       <SimpleMenu cards={cards} />
       <div className="about-holder">
-        <Link href="/about">
+        <Link href="/about" legacyBehavior>
           <a>About</a>
         </Link>
         <span>Created by Daniel Krajnak</span>

@@ -23,7 +23,7 @@ const Button = ({
 
   return (
     <div className="menu-container">
-      <Link href="/">
+      <Link href="/" legacyBehavior>
         <a className="menu-button">MENU</a>
       </Link>
       <style jsx>

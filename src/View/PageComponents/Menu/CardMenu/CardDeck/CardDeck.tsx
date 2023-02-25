@@ -118,7 +118,7 @@ const CardDeck = (props: Props) => {
             prevCardPosition === cardPositionStart;
 
           return (
-            <Link href={card.link} key={i} passHref>
+            <Link href={card.link} key={i} passHref legacyBehavior>
               <a className="card-deck-card-link">
                 <CardHolder
                   dx={
