@@ -373,6 +373,9 @@ const Inner = () => {
               position={[0, 30, 0]}
               fontSize={12}
               font="/fonts/PPEiko-Medium.otf"
+              matrixWorldAutoUpdate={undefined}
+              getObjectsByProperty={undefined}
+              getVertexPosition={undefined}
             >
               Scroll
             </Text>
@@ -386,6 +389,9 @@ const Inner = () => {
           mixStrength={0.3} // Strength of the reflections
           rotation={[-Math.PI / 2, 0, 0]}
           mixBlur={0.3}
+          matrixWorldAutoUpdate={undefined}
+          getObjectsByProperty={undefined}
+          getVertexPosition={undefined}
         >
           {(Material, props) => <Material {...props} />}
         </Reflector>

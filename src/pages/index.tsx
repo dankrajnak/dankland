@@ -12,9 +12,7 @@ import Card from "../Domain/Card/Card";
 import useScrollAmount from "../View/Hooks/useScrollAmount";
 import TitleService from "../Services/Title/Title.service";
 import { Either, failure, success } from "../Utils/Either";
-import useFullScreen from "../View/Hooks/useFullScreen";
 import useAsync from "@danielkrajnak/use-async";
-import colors from "../View/Styles/colors";
 import { useWindowSize } from "react-use";
 
 const LinkLoading = () => (

@@ -33,7 +33,18 @@ export const useCameraCurve = (): CatmullRomCurve3 => {
 
 const CameraCurve = () => {
   const curve = useCameraCurve();
-  return <Line points={curve.getPoints(100)} color="red" lineWidth={1} />;
+
+  return (
+    <Line
+      points={curve.getPoints(100)}
+      color="red"
+      lineWidth={1}
+      matrixWorldAutoUpdate={undefined}
+      getObjectsByProperty={undefined}
+      getVertexPosition={undefined}
+      forceSinglePass={undefined}
+    />
+  );
 };
 
 export default CameraCurve;
