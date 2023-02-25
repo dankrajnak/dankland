@@ -298,7 +298,9 @@ const Title = ({ showLoader }: { showLoader: boolean }) => {
 };
 
 const Menu = () => {
-  const { width, height } = useWindowSize();
+  const windowSize = useWindowSize();
+  const [frozenWindowSize] = useState(windowSize);
+  const { width, height } = isMobile ? frozenWindowSize : windowSize;
   const scroll = useScrollAmount();
   const [showLoader, setShowLoader] = useState(false);
   const hideLoader = useCallback(() => setShowLoader(false), []);
