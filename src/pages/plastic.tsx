@@ -336,7 +336,7 @@ const Inner = () => {
     if (scrollTextRef.current) {
       if (shouldShowScrollMessage) {
         const maxOpacity = 0.4;
-        const progress = scroll.range(1 / 16, 1 / 8);
+        const progress = scroll.range(0, 1 / 16);
         scrollTextRef.current.fillOpacity = maxOpacity * (1 - progress);
         scrollTextRef.current.fontSize = 12 * (1 - progress / 2);
         if (progress >= 1 && shouldShowScrollMessage) {
