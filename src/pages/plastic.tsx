@@ -322,7 +322,13 @@ const Inner = () => {
   useFrame(({ camera }) => {
     const cameraPosition = cameraPath.getPoint(scroll.range(0, 1));
     camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
-    camera.lookAt(new Vector3(0, 0, -BIRBS_DISTANCE));
+    camera.lookAt(
+      new Vector3(
+        0,
+        0,
+        -BIRBS_DISTANCE / (BIRBS_DISTANCE * scroll.range(0, 50) + 1)
+      )
+    );
     if (!showCloth && scroll.offset > 0.2) {
       setShowCloth(true);
     }
@@ -361,7 +367,7 @@ const Inner = () => {
             }`}
           >
             <div style={{ width: 300, height: 300 }}>
-              <Menu card={cards[0]} />
+              {/* <Menu card={cards[0]} /> */}
             </div>
           </div>
         </Html>
