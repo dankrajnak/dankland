@@ -36,4 +36,20 @@ export class FluidSimulation {
    * @returns {number}
    */
   y(): number;
+  /**
+   * @returns {number}
+   */
+  old_x(): number;
+  /**
+   * @returns {number}
+   */
+  old_y(): number;
+  /**
+   * @returns {number}
+   */
+  vx(): number;
+  /**
+   * @returns {number}
+   */
+  vy(): number;
 }

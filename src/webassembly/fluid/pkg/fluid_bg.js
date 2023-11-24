@@ -92,6 +92,34 @@ export class FluidSimulation {
     var ret = wasm.fluidsimulation_y(this.ptr);
     return ret;
   }
+  /**
+   * @returns {number}
+   */
+  old_x() {
+    var ret = wasm.fluidsimulation_old_x(this.ptr);
+    return ret;
+  }
+  /**
+   * @returns {number}
+   */
+  old_y() {
+    var ret = wasm.fluidsimulation_old_y(this.ptr);
+    return ret;
+  }
+  /**
+   * @returns {number}
+   */
+  vx() {
+    var ret = wasm.fluidsimulation_vx(this.ptr);
+    return ret;
+  }
+  /**
+   * @returns {number}
+   */
+  vy() {
+    var ret = wasm.fluidsimulation_vy(this.ptr);
+    return ret;
+  }
 }
 
 export function __wbg_alert_193beaed88f01901(arg0, arg1) {
