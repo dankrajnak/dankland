@@ -88,6 +88,17 @@ const cards: Card[] = [
     description: "I just, well, here you go",
     link: "/justSomeThought",
   },
+  {
+    background: () => (
+      <>
+        <div className="bg-black w-full h-1/2" />
+        <div className="bg-blue-500 w-full h-1/2" />
+      </>
+    ),
+    title: "The lake",
+    description: "New homepage?",
+    link: "/plastic",
+  },
 ];
 
 const Fluid = dynamic(() => import("../View/UI/Fluid"));
