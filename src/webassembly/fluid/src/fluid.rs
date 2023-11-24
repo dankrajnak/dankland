@@ -286,8 +286,8 @@ impl FluidSimulation {
     }
 
     fn contain(&mut self, i: usize, _dt: f32) {
-        let dx = self.vx[i] * 0.015;
-        let dy = self.vy[i] * 0.015;
+        let dx = (self.vx[i] * 0.015).max(-32.0).min(32.0);
+        let dy = (self.vy[i] * 0.015).max(-32.0).min(32.0);
 
         if self.x[i] < 0.0 {
             self.x[i] = 0.0;
@@ -315,7 +315,7 @@ impl FluidSimulation {
 
         let v = mult_scalar_vector(sub_vector(pos, old), 1.0 / dt);
 
-        self.vx[i] = v.0;
-        self.vy[i] = v.1;
+        self.vx[i] = v.0.max(-32.0).min(32.0);
+        self.vy[i] = v.1.max(-32.0).min(32.0);
     }
 }
