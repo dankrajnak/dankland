@@ -3,14 +3,7 @@ import { graphQLClient } from "../../Utils/gqlClient";
 
 export default class TitleService {
   static async getTitle(): Promise<string> {
-    const { getTitle } = await graphQLClient.request(
-      gql`
-        query {
-          getTitle
-        }
-      `
-    );
-    return getTitle;
+    return "We shall have spring again";
   }
   static async setTitle(title: string): Promise<string> {
     const { addTitle } = await graphQLClient.request(

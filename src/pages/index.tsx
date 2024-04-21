@@ -3,16 +3,15 @@ import { BarLoader } from "react-spinners";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { isMobile } from "react-device-detect";
-import { Check, Pen, X } from "react-bootstrap-icons";
-import useSwr from "swr";
+
 import SimpleMenu from "../View/PageComponents/Menu/SimpleMenu";
 import Layout from "../View/Layout/Layout";
 import SEO from "../View/Utility/seo";
 import Card from "../Domain/Card/Card";
 import useScrollAmount from "../View/Hooks/useScrollAmount";
-import TitleService from "../Services/Title/Title.service";
+
 import { Either, failure, success } from "../Utils/Either";
-import useAsync from "@danielkrajnak/use-async";
+
 import { useWindowSize } from "react-use";
 
 const LinkLoading = () => (
@@ -124,25 +123,25 @@ const validateTitle = (
 
 const Title = ({ showLoader }: { showLoader: boolean }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [updateTitleState, updateTitle] = useAsync(TitleService.setTitle);
+  // const [updateTitleState, updateTitle] = useAsync(TitleService.setTitle);
 
-  const { data, mutate, error } = useSwr("fetch-title", TitleService.getTitle, {
-    refreshInterval: 10 * 1000,
-  });
-  const titleIsLoading = !data && !error;
-  const siteTitle = data || "We shall have spring again";
+  // const { data, mutate, error } = useSwr("fetch-title", TitleService.getTitle, {
+  //   refreshInterval: 10 * 1000,
+  // });
+  const titleIsLoading = false;
+  const siteTitle = "Hey. Welcome.";
 
   const [validationError, setValidationError] = useState<string | null>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  useEffect(() => {
-    if (isEditing) {
-      inputRef.current?.select();
-      inputRef.current?.focus();
-    }
-  }, [isEditing]);
+  // useEffect(() => {
+  //   if (isEditing) {
+  //     inputRef.current?.select();
+  //     inputRef.current?.focus();
+  //   }
+  // }, [isEditing]);
 
-  if (showLoader || updateTitleState.isLoading || titleIsLoading) {
+  if (showLoader || titleIsLoading) {
     return <BarLoader color="white" height={2} />;
   }
 
@@ -160,7 +159,7 @@ const Title = ({ showLoader }: { showLoader: boolean }) => {
             <div className="error-message">{validationError}</div>
           )}
         </div>
-        <span className="edit-button-holder">
+        {/* <span className="edit-button-holder">
           <button
             title="Save"
             style={{ marginRight: 5 }}
@@ -194,13 +193,13 @@ const Title = ({ showLoader }: { showLoader: boolean }) => {
           >
             <X size="1.75rem" />
           </button>
-        </span>
+        </span> */}
       </div>
 
       <div className="no-edit font-sansDisplay">
         <h1 className="break-words">
           {siteTitle}
-          <sup>
+          {/* <sup>
             <button
               title="Edit title"
               className="py-1 px-2"
@@ -213,7 +212,7 @@ const Title = ({ showLoader }: { showLoader: boolean }) => {
             >
               <Pen size="0.8rem" />
             </button>
-          </sup>
+          </sup> */}
         </h1>
       </div>
 
