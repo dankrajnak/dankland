@@ -103,7 +103,7 @@ const cards: Card[] = [
 const Fluid = dynamic(() => import("../View/UI/Fluid"));
 
 const INVALID_RED = "#FF6466";
-const BACKGROUND_COLOR = "#272731";
+const BACKGROUND_COLOR = "black";
 
 const validateTitle = (
   title: string | null | undefined
