@@ -129,7 +129,7 @@ const Title = ({ showLoader }: { showLoader: boolean }) => {
   //   refreshInterval: 10 * 1000,
   // });
   const titleIsLoading = false;
-  const siteTitle = "Hey. Welcome.";
+  const siteTitle = "Welcome to the gallery.";
 
   const [validationError, setValidationError] = useState<string | null>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -196,7 +196,7 @@ const Title = ({ showLoader }: { showLoader: boolean }) => {
         </span> */}
       </div>
 
-      <div className="no-edit font-sansDisplay">
+      <div className="no-edit font-serifDisplay">
         <h1 className="break-words">
           {siteTitle}
           {/* <sup>
