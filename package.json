@@ -21,6 +21,7 @@
     "@react-three/fiber": "^8.11.5",
     "@react-three/postprocessing": "~2.3.3",
     "@types/color": "3.0.3",
+    "@vercel/speed-insights": "^1.0.10",
     "color": "4.2.3",
     "color-interpolate": "1.0.5",
     "debounce": "^1.2.1",
